@@ -2,19 +2,7 @@ import { randomUUID } from 'crypto';
 
 import { Replace } from '../../helpers';
 import { Email, Phone } from './';
-
-export interface UserProps {
-  id: string;
-  name: string;
-  job: string;
-  email: string;
-  phone: string;
-  whatsapp: string;
-  state: string;
-  city?: string;
-  picture?: string;
-  created_at: Date;
-}
+import { UserProps } from '../dto';
 
 export class User {
   private props: UserProps;

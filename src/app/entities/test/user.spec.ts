@@ -40,9 +40,9 @@ describe('User Validation', () => {
       job: 'Engenheiro Civil',
       email: 'and.orisistem@gmail.com',
       phone: '88 99999 9999',
-      whatsapp: '+5588999999999',
+      // whatsapp: '+5588999999999',
       state: 'CE',
-      // city: 'Crato',
+      city: 'Crato',
     };
 
     expect(() => new User(user)).toThrowError();
