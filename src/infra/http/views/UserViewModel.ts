@@ -1,4 +1,4 @@
-import { UserProps } from '@app/types';
+import { UserProps } from '@app/interfaces';
 
 export class UserViewModel {
   static toHttpResponse(user: UserProps) {

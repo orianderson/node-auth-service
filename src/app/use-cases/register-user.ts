@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserProps } from '../types';
+import { UserProps } from '../interfaces';
 import { User } from '../entities';
 import { UsersRepository } from '../repositories';
 
