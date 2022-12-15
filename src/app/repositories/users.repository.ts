@@ -1,5 +1,5 @@
-import { User } from '@app/entities';
+import { UserProps } from '@app/interfaces';
 
 export abstract class UsersRepository {
-  abstract create(data: User): Promise<void>;
+  abstract create(data: UserProps): Promise<void>;
 }

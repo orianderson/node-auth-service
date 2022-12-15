@@ -12,7 +12,7 @@ export class RegisterUser {
 
     const { user } = newUser;
 
-    await this.userRepository.create(newUser);
+    await this.userRepository.create(user);
 
     return user;
   }

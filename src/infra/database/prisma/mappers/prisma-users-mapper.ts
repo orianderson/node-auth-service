@@ -1,8 +1,7 @@
-import { User } from '@app/entities';
+import { UserProps } from '@app/interfaces';
 
 export class PrismaUsersMappers {
-  static registerMapper(data: User) {
-    const user = data.user;
+  static registerMapper(user: UserProps) {
     return {
       id: user.id,
       city: user.city,
