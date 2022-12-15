@@ -1,5 +1,5 @@
 import { UsersRepository } from '../src/app/repositories';
-import { UserProps } from '../src/app/interfaces';
+import { UserProps } from '../src/app/model';
 
 export class InMemoryUsersRepository implements UsersRepository {
   public database: UserProps[] = [];

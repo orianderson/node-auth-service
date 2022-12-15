@@ -1,15 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EnvironmentConfigService } from './database-config.service';
+import { DatabaseConfigService } from './database-config.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('EnvironmentConfigService', () => {
-  let service: EnvironmentConfigService;
+  let service: DatabaseConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [EnvironmentConfigService],
+      providers: [ConfigService, DatabaseConfigService],
     }).compile();
 
-    service = module.get<EnvironmentConfigService>(EnvironmentConfigService);
+    service = module.get<DatabaseConfigService>(DatabaseConfigService);
   });
 
   it('should be defined', () => {

@@ -7,11 +7,12 @@ import { UsersRepository } from '../../app/repositories';
 @Module({
   providers: [
     PrismaService,
+    PrismaUsersRepository,
     {
       provide: UsersRepository,
       useClass: PrismaUsersRepository,
     },
   ],
-  exports: [UsersRepository],
+  exports: [UsersRepository, PrismaUsersRepository],
 })
 export class DatabaseModule {}

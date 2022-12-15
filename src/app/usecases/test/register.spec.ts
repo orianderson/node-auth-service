@@ -1,4 +1,4 @@
-import { RegisterUser } from '../register-user';
+import { RegisterUser } from '../register-user.usecases';
 import { InMemoryUsersRepository } from '../../../../test/in-memory-repository';
 
 describe('Register validation', () => {
