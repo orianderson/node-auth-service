@@ -1,25 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './../prisma/prisma.service';
-import { UserProps } from '../../../app/types';
-import { UsersRepository } from '../../../app/repositories';
+import { User } from '@app/entities';
+import { UsersRepository } from '@app/repositories';
+import { PrismaUsersMappers } from '@infra/database/prisma';
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: UserProps): Promise<void> {
+  async create(data: User): Promise<void> {
+    const newUser = PrismaUsersMappers.registerMapper(data);
     await this.prismaService.users.create({
-      data: {
-        id: data.id,
-        city: data.city,
-        email: data.email,
-        job: data.job,
-        name: data.name,
-        phone: data.phone,
-        state: data.state,
-        whatsapp: data.whatsapp,
-        created_at: data.created_at,
-      },
+      data: newUser,
     });
   }
 }
