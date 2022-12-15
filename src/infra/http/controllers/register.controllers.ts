@@ -1,4 +1,4 @@
-import { UseCaseProxy } from './../../usecases-proxy/usecases-proxy';
+import { UseCaseProxy } from '@infra/usecases-proxy';
 import { Body, Controller, Post, Inject } from '@nestjs/common';
 import { RegisterUser } from '@app/usecases';
 import { RegisterUserBody } from '../../dto';

@@ -1,7 +1,7 @@
-import { UserProps } from '@app/model';
+import { UserModel } from '@app/model';
 
 export class UserViewModel {
-  static toHttpResponse(user: UserProps) {
+  static toHttpResponse(user: UserModel) {
     return {
       id: user.id,
       name: user.name,

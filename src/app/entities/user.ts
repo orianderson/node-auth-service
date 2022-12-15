@@ -2,12 +2,12 @@ import { randomUUID } from 'crypto';
 
 import { Replace } from '../../helpers';
 import { Email, Phone } from './';
-import { UserProps } from '@app/model';
+import { UserModel } from '@app/model';
 
 export class User {
-  private props: UserProps;
+  private props: UserModel;
 
-  constructor(user: Replace<UserProps, { created_at?: Date; id?: string }>) {
+  constructor(user: Replace<UserModel, { created_at?: Date; id?: string }>) {
     this.props = this.validate({
       ...user,
       created_at: user.created_at ?? new Date(),
@@ -15,7 +15,7 @@ export class User {
     });
   }
 
-  private validate(user: UserProps): UserProps {
+  private validate(user: UserModel): UserModel {
     const phone = new Phone(user.phone);
     new Email(user.email);
 
@@ -26,7 +26,7 @@ export class User {
     return user;
   }
 
-  private verifyFields(user: UserProps) {
+  private verifyFields(user: UserModel) {
     const fields = [
       'id',
       'name',
@@ -46,11 +46,11 @@ export class User {
     });
   }
 
-  public set user(user: UserProps) {
+  public set user(user: UserModel) {
     this.props = user;
   }
 
-  public get user(): UserProps {
+  public get user(): UserModel {
     return this.props;
   }
 }

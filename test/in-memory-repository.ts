@@ -1,10 +1,10 @@
 import { UsersRepository } from '../src/app/repositories';
-import { UserProps } from '../src/app/model';
+import { UserModel } from '../src/app/model';
 
 export class InMemoryUsersRepository implements UsersRepository {
-  public database: UserProps[] = [];
+  public database: UserModel[] = [];
 
-  async create(data: UserProps): Promise<void> {
+  async create(data: UserModel): Promise<void> {
     this.database.push(data);
   }
 }

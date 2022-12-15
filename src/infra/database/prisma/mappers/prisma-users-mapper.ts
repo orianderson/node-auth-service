@@ -1,7 +1,7 @@
-import { UserProps } from '@app/model';
+import { UserModel } from '@app/model';
 
 export class PrismaUsersMappers {
-  static registerMapper(user: UserProps) {
+  static registerMapper(user: UserModel) {
     return {
       id: user.id,
       city: user.city,

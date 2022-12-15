@@ -3,7 +3,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { UseCaseProxy } from './usecases-proxy';
 import { RegisterUser } from '@app/usecases';
 import { DatabaseModule } from '@infra/database';
-import { PrismaUsersRepository } from '@infra/database/repositories';
+import { DatabaseUsersRepository } from '@infra/database/repositories';
 
 @Module({
   imports: [DatabaseModule],
@@ -16,9 +16,9 @@ export class UsecasesProxyModule {
       module: UsecasesProxyModule,
       providers: [
         {
-          inject: [PrismaUsersRepository],
+          inject: [DatabaseUsersRepository],
           provide: UsecasesProxyModule.REGISTER_USER_USECASES_PROXY,
-          useFactory: (usersRepository: PrismaUsersRepository) =>
+          useFactory: (usersRepository: DatabaseUsersRepository) =>
             new UseCaseProxy(new RegisterUser(usersRepository)),
         },
       ],

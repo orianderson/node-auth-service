@@ -1,4 +1,4 @@
-export class UserProps {
+export class UserModel {
   id?: string;
   name: string;
   job: string;
