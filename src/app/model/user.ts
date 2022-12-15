@@ -9,5 +9,5 @@ export class UserModel {
   city: string;
   picture?: string;
   created_at?: Date;
-  // TODO - password
+  password?: string;
 }

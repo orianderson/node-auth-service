@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseConfigService } from './database-config.service';
+import { DatabaseConfigService } from './environment-config.service';
 import { ConfigService } from '@nestjs/config';
 
 describe('EnvironmentConfigService', () => {

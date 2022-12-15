@@ -1,10 +1,18 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { DatabaseConfigService } from './database-config.service';
+import { EnvironmentConfigService } from './environment-config.service';
+import { validate } from './environment-config.validation';
 
 @Module({
-  providers: [ConfigService, DatabaseConfigService],
-  exports: [DatabaseConfigService],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: './env/local.env',
+      isGlobal: true,
+      validate,
+    }),
+  ],
+  providers: [ConfigService, EnvironmentConfigService],
+  exports: [EnvironmentConfigService],
 })
 export class EnvironmentConfigModule {}
