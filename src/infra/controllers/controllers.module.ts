@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RegisterUser } from '@app/usecases';
 import { DatabaseModule } from '../database';
-
-import { UsersController } from './controllers';
+import { UsersController } from './register-user.controller';
 import { UsecasesProxyModule } from '@infra/usecases-proxy';
 
 @Module({
@@ -10,4 +9,4 @@ import { UsecasesProxyModule } from '@infra/usecases-proxy';
   controllers: [UsersController],
   providers: [RegisterUser],
 })
-export class HttpModule {}
+export class ControllersModule {}

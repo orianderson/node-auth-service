@@ -1,10 +1,12 @@
-import { UseCaseProxy } from '@infra/usecases-proxy';
 import { Body, Controller, Post, Inject } from '@nestjs/common';
+
+import { UseCaseProxy } from '@infra/usecases-proxy';
 import { RegisterUser } from '@app/usecases';
-import { RegisterUserBody } from '../../dto';
-import { UserViewModel } from '@infra/http';
+import { RegisterUserBody } from './dto';
+import { UserViewModel } from './presenters';
 
 import { UsecasesProxyModule } from '@infra/usecases-proxy';
+
 @Controller('users')
 export class UsersController {
   constructor(
@@ -14,7 +16,8 @@ export class UsersController {
 
   @Post()
   async create(@Body() body: RegisterUserBody) {
-    const user = await this.usersRepository.getInstance().execute(body);
+    const repository = this.usersRepository.getInstance();
+    const user = await repository.execute(body);
 
     return UserViewModel.toHttpResponse(user);
   }
