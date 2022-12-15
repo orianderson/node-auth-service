@@ -1,4 +1,4 @@
-export interface EnvironmentConfig {
+export interface DatabaseConfig {
   getDatabaseUrl(): string;
   // getDatabaseHost(): string;
   // getDatabasePort(): number;

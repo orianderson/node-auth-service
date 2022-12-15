@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EnvironmentConfigService } from './environment-config.service';
+import { EnvironmentConfigService } from './database-config.service';
 
 describe('EnvironmentConfigService', () => {
   let service: EnvironmentConfigService;

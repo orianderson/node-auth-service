@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 
 import { Replace } from '../../helpers';
 import { Email, Phone } from './';
-import { UserProps } from '../interfaces';
+import { UserProps } from '@app/model';
 
 export class User {
   private props: UserProps;

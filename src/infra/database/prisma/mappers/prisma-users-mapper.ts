@@ -1,4 +1,4 @@
-import { UserProps } from '@app/interfaces';
+import { UserProps } from '@app/model';
 
 export class PrismaUsersMappers {
   static registerMapper(user: UserProps) {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { EnvironmentConfig } from '@app/interfaces';
+import { DatabaseConfig } from '@app/config';
 
 @Injectable()
-export class EnvironmentConfigService implements EnvironmentConfig {
+export class DatabaseConfigService implements DatabaseConfig {
   constructor(private configService: ConfigService) {}
   getDatabaseUrl(): string {
     return this.configService.get<string>('DATABASE_URL');

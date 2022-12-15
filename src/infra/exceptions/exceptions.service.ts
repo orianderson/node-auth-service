@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { IException, IFormatExceptionMessage } from '@app/interfaces';
+import { IException, IFormatExceptionMessage } from '@app/exceptions';
 
 @Injectable()
 export class ExceptionsService implements IException {
