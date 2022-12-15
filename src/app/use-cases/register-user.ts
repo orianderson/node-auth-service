@@ -1,7 +1,9 @@
-import { UserProps } from '../dto';
+import { Injectable } from '@nestjs/common';
+import { UserProps } from '../types';
 import { User } from '../entities';
 import { UsersRepository } from '../repositories';
 
+@Injectable()
 export class RegisterUser {
   constructor(private readonly userRepository: UsersRepository) {}
 
