@@ -14,7 +14,7 @@ model Users {
   id         String   @id
   name       String
   job        String
-  email      String
+  email      String   @unique
   phone      String
   whatsapp   String
   state      String
