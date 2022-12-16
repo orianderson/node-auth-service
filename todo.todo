@@ -1,5 +1,9 @@
 read about filters
 read about interceptors
 
-verify if user exist
-handle exceptions - errors
+usecases - logout
+usecases - reset password
+
+strategies - auth system
+local strategy
+jwt strategy

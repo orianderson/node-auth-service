@@ -5,7 +5,7 @@ import { Email, Phone } from './';
 import { UserModel } from '@app/model';
 import { fieldsToVerify } from './constants';
 
-import { BadRequestInterface } from '@app/exceptions/handle';
+import { BadRequestInterface } from '../exceptions';
 
 export class User {
   private props: UserModel;

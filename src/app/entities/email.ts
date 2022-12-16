@@ -1,4 +1,4 @@
-import { BadRequestInterface } from '@app/exceptions';
+import { BadRequestInterface } from '../exceptions';
 export class Email {
   private readonly email: string;
 

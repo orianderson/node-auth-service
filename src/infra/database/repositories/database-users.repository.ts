@@ -8,10 +8,10 @@ import { ConflictExceptionInterface } from '@app/exceptions';
 
 @Injectable()
 export class DatabaseUsersRepository implements UsersRepository {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly databaseService: PrismaService) {}
 
   async verifyIfUserExist(email: string): Promise<void> {
-    const user = await this.prismaService.users.findUnique({
+    const user = await this.databaseService.users.findUnique({
       where: {
         email: email,
       },
@@ -30,8 +30,18 @@ export class DatabaseUsersRepository implements UsersRepository {
 
     await this.verifyIfUserExist(data.email);
 
-    await this.prismaService.users.create({
+    await this.databaseService.users.create({
       data: newUser,
     });
+  }
+
+  async signUser(email: string): Promise<UserModel> {
+    const user = await this.databaseService.users.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    return user;
   }
 }
