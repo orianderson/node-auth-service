@@ -5,6 +5,8 @@ import { Email, Phone } from './';
 import { UserModel } from '@app/model';
 import { fieldsToVerify } from './constants';
 
+import { BadRequestInterface } from '@app/exceptions/handle';
+
 export class User {
   private props: UserModel;
 
@@ -30,7 +32,10 @@ export class User {
   private verifyIfFieldsIsEmpty(user: UserModel) {
     fieldsToVerify.forEach((item) => {
       if (!user[item]) {
-        throw new Error('Todos os campos devem ser preenchidos');
+        throw new BadRequestInterface({
+          message: `O campo ${item} deve ser preenchido`,
+          code_error: null,
+        });
       }
     });
   }

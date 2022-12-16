@@ -25,5 +25,7 @@ export class RegisterUserBody {
   picture?: string;
 
   created_at?: Date;
-  // TODO - password
+
+  @IsNotEmpty()
+  password?: string;
 }

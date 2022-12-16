@@ -7,6 +7,8 @@ import {
 } from '@nestjs/common';
 import { LoggerService } from '../logger';
 
+import { HandleException } from '@app/exceptions/handle/HandleException';
+
 interface IError {
   message: string;
   code_error: string;
@@ -21,11 +23,11 @@ export class AllExceptionFilter implements ExceptionFilter {
     const request: any = ctx.getRequest();
 
     const status =
-      exception instanceof HttpException
+      exception instanceof HttpException || exception instanceof HandleException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
     const message =
-      exception instanceof HttpException
+      exception instanceof HttpException || exception instanceof HandleException
         ? (exception.getResponse() as IError)
         : { message: (exception as Error).message, code_error: null };
 
