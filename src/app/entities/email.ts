@@ -1,3 +1,4 @@
+import { BadRequestInterface } from '@app/exceptions';
 export class Email {
   private readonly email: string;
 
@@ -17,7 +18,10 @@ export class Email {
     const isValid = regex.test(email);
 
     if (!isValid) {
-      throw new Error('Email não é válido');
+      throw new BadRequestInterface({
+        message: 'Email não é válido',
+        code_error: null,
+      });
     }
   }
 }
