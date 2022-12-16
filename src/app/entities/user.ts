@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { Replace } from '../../helpers';
 import { Email, Phone } from './';
 import { UserModel } from '@app/model';
+import { fieldsToVerify } from './constants';
 
 export class User {
   private props: UserModel;
@@ -21,26 +22,13 @@ export class User {
 
     user.phone = phone.value;
 
-    this.verifyFields(user);
+    this.verifyIfFieldsIsEmpty(user);
 
     return user;
   }
 
-  private verifyFields(user: UserModel) {
-    const fields = [
-      'id',
-      'name',
-      'job',
-      'email',
-      'phone',
-      'whatsapp',
-      'state',
-      'city',
-      'created_at',
-      'password',
-    ];
-
-    fields.forEach((item) => {
+  private verifyIfFieldsIsEmpty(user: UserModel) {
+    fieldsToVerify.forEach((item) => {
       if (!user[item]) {
         throw new Error('Todos os campos devem ser preenchidos');
       }
