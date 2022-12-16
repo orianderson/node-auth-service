@@ -1,6 +1,5 @@
 read about filters
 read about interceptors
 
-hash password
 verify if user exist
 handle exceptions - errors

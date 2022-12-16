@@ -4,7 +4,10 @@ import { PrismaService } from './prisma/prisma.service';
 import { DatabaseUsersRepository } from './repositories';
 import { UsersRepository } from '../../app/repositories';
 
+import { SecurityModule } from '@infra/services';
+
 @Module({
+  imports: [SecurityModule],
   providers: [
     PrismaService,
     DatabaseUsersRepository,

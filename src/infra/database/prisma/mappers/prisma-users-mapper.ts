@@ -12,6 +12,7 @@ export class PrismaUsersMappers {
       state: user.state,
       whatsapp: user.whatsapp,
       created_at: user.created_at,
+      password: user.password,
     };
   }
 }

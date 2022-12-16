@@ -37,6 +37,7 @@ export class User {
       'state',
       'city',
       'created_at',
+      'password',
     ];
 
     fields.forEach((item) => {

@@ -4,9 +4,10 @@ import { UseCaseProxy } from './usecases-proxy';
 import { RegisterUser } from '@app/usecases';
 import { DatabaseModule } from '@infra/database';
 import { DatabaseUsersRepository } from '@infra/database/repositories';
+import { BcryptService, SecurityModule } from '@infra/services';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, SecurityModule],
 })
 export class UsecasesProxyModule {
   static REGISTER_USER_USECASES_PROXY = 'RegisterUser';
@@ -16,10 +17,13 @@ export class UsecasesProxyModule {
       module: UsecasesProxyModule,
       providers: [
         {
-          inject: [DatabaseUsersRepository],
+          inject: [DatabaseUsersRepository, BcryptService],
           provide: UsecasesProxyModule.REGISTER_USER_USECASES_PROXY,
-          useFactory: (usersRepository: DatabaseUsersRepository) =>
-            new UseCaseProxy(new RegisterUser(usersRepository)),
+          useFactory: (
+            usersRepository: DatabaseUsersRepository,
+            bcryptService: BcryptService,
+          ) =>
+            new UseCaseProxy(new RegisterUser(usersRepository, bcryptService)),
         },
       ],
       exports: [UsecasesProxyModule.REGISTER_USER_USECASES_PROXY],

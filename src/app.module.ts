@@ -5,6 +5,7 @@ import { EnvironmentConfigModule } from '@infra/config';
 import { LoggerModule } from './infra/logger/logger.module';
 import { ExceptionsModule } from './infra/exceptions/exceptions.module';
 import { UsecasesProxyModule } from '@infra/usecases-proxy';
+import { SecurityModule } from './infra/services';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UsecasesProxyModule } from '@infra/usecases-proxy';
     LoggerModule,
     ExceptionsModule,
     UsecasesProxyModule,
+    SecurityModule,
   ],
 })
 export class AppModule {}
