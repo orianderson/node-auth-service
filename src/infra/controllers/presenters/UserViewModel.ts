@@ -1,7 +1,7 @@
-import { UserModel } from '@app/model';
+import { UserModelResponse } from '../dto';
 
 export class UserViewModel {
-  static toHttpResponse(user: UserModel) {
+  static toHttpResponse(user: UserModelResponse): UserModelResponse {
     return {
       id: user.id,
       name: user.name,
@@ -11,6 +11,8 @@ export class UserViewModel {
       whatsapp: user.whatsapp,
       state: user.state,
       city: user.city,
+      accessToken: user.accessToken,
+      refreshToken: user.refreshToken,
     };
   }
 }

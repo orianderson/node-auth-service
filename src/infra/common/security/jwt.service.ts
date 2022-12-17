@@ -16,11 +16,14 @@ export class JwtTokenService implements IJwtService {
     return decode;
   }
 
-  createToken(payload: IJwtServicePayload, expiresIn: string): string {
+  createToken(payload: IJwtServicePayload): string {
     const secret = this.environmentConfig.getJwtSecret();
+
+    const expiresIn = this.environmentConfig.getJwtExpirationTime();
+
     return this.jwtService.sign(payload, {
       secret: secret,
-      expiresIn: expiresIn ? expiresIn : '15m',
+      expiresIn: expiresIn,
     });
   }
 }

@@ -5,23 +5,20 @@ import { LoginGuard } from '@infra/common/guard';
 
 import { UserViewModel } from './presenters';
 import { JwtTokenService } from '@infra/common/security';
-import { setAccessHeaders } from '@helpers/set-access-headers';
+// import { setAccessHeaders } from '@helpers/set-access-headers';
+import { RefreshTokenService } from '@infra/common/security/refresh-token.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly jwtTokenService: JwtTokenService) {}
+  constructor(
+    private readonly jwtTokenService: JwtTokenService,
+    private readonly refreshTokenService: RefreshTokenService,
+  ) {}
 
   @UseGuards(LoginGuard)
   @Post('login')
   async login(@Request() req, @Res() res: Response) {
     const user = req.user;
-
-    const accessToken = this.jwtTokenService.createToken(
-      { _id: user.id },
-      '15m',
-    );
-
-    setAccessHeaders(res, accessToken, null);
 
     res.status(200).send(UserViewModel.toHttpResponse(user));
   }
