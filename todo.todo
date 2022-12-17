@@ -5,7 +5,7 @@ usecases - logout
 usecases - reset password
 
 strategies - auth system
-local strategy
 jwt strategy
+refresh token strategy
 
 define username
