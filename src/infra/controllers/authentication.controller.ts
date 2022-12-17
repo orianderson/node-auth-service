@@ -1,25 +1,14 @@
-import { Body, Controller, Post, Inject } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { LoginGuard } from '@infra/common/guard';
 
-import { UseCaseProxy } from '@infra/usecases-proxy';
-import { LoginUseCases } from '@app/usecases';
-
-import { UsecasesProxyModule } from '@infra/usecases-proxy';
-
-import { AuthCredentialsBody } from './dto';
 import { UserViewModel } from './presenters';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    @Inject(UsecasesProxyModule.LOGIN_USER_CASES_PROXY)
-    private readonly usersRepository: UseCaseProxy<LoginUseCases>,
-  ) {}
-
-  @Post()
-  async login(@Body() body: AuthCredentialsBody) {
-    const repository = this.usersRepository.getInstance();
-
-    const user = await repository.signUser(body);
+  @UseGuards(LoginGuard)
+  @Post('login')
+  async login(@Request() req) {
+    const user = req.user;
 
     return UserViewModel.toHttpResponse(user);
   }

@@ -3,7 +3,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionFilter } from '@infra/exceptions/exceptions.filter';
 import { LoggerService } from '@infra/logger';
-import { LoggingInterceptor, ResponseInterceptor } from '@infra/common';
+import {
+  LoggingInterceptor,
+  ResponseInterceptor,
+} from '@infra/common/interceptors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

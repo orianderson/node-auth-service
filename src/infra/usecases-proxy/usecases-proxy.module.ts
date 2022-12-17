@@ -4,7 +4,7 @@ import { UseCaseProxy } from './usecases-proxy';
 import { LoginUseCases, RegisterUser } from '@app/usecases';
 import { DatabaseModule } from '@infra/database';
 import { DatabaseUsersRepository } from '@infra/database/repositories';
-import { BcryptService, SecurityModule } from '@infra/services';
+import { BcryptService, SecurityModule } from '@infra/common/security';
 
 @Module({
   imports: [DatabaseModule, SecurityModule],
@@ -27,13 +27,10 @@ export class UsecasesProxyModule {
             new UseCaseProxy(new RegisterUser(usersRepository, bcryptService)),
         },
         {
-          inject: [DatabaseUsersRepository, BcryptService],
+          inject: [DatabaseUsersRepository],
           provide: UsecasesProxyModule.LOGIN_USER_CASES_PROXY,
-          useFactory: (
-            usersRepository: DatabaseUsersRepository,
-            bcryptService: BcryptService,
-          ) =>
-            new UseCaseProxy(new LoginUseCases(usersRepository, bcryptService)),
+          useFactory: (usersRepository: DatabaseUsersRepository) =>
+            new UseCaseProxy(new LoginUseCases(usersRepository)),
         },
       ],
       exports: [
