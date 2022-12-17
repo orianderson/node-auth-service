@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
+
 import { DatabaseModule } from '@infra/database';
 import { ControllersModule } from '@infra/controllers';
 import { EnvironmentConfigModule } from '@infra/config';
@@ -7,6 +8,8 @@ import { ExceptionsModule } from './infra/exceptions/exceptions.module';
 import { UsecasesProxyModule } from '@infra/usecases-proxy';
 import { SecurityModule } from './infra/common/security';
 import { StrategiesModule } from './infra/common/strategies/strategies.module';
+
+import { SetHeadersMiddleware } from './infra/common/middleware';
 
 @Module({
   imports: [
@@ -20,4 +23,8 @@ import { StrategiesModule } from './infra/common/strategies/strategies.module';
     StrategiesModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(SetHeadersMiddleware).forRoutes('');
+  }
+}

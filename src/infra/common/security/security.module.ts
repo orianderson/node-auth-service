@@ -1,15 +1,22 @@
 import { Module } from '@nestjs/common';
-import { JwtModule as Jwt } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 import { BcryptService } from './bcrypt.service';
 import { JwtTokenService } from './jwt.service';
 
+import { EnvironmentConfigModule } from '@infra/config';
+
 @Module({
   imports: [
-    Jwt.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '24h' },
+    PassportModule.register({
+      defaultStrategy: 'jwt',
     }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      // signOptions: { expiresIn: '24h' },
+    }),
+    EnvironmentConfigModule,
   ],
   providers: [BcryptService, JwtTokenService],
   exports: [BcryptService, JwtTokenService],

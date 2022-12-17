@@ -1,6 +1,6 @@
 import { UsersRepository } from '@app/repositories';
 import { UserAuth } from '@app/model';
-import { AuthCredentials } from '@app/entities';
+import { AuthCredentials } from '../entities';
 
 export class LoginUseCases {
   constructor(private readonly userRepository: UsersRepository) {}

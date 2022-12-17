@@ -11,6 +11,8 @@ import {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api/v1');
+
   app.useGlobalFilters(new AllExceptionFilter(new LoggerService()));
 
   app.useGlobalPipes(new ValidationPipe());
