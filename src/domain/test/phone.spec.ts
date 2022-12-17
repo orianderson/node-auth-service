@@ -1,4 +1,4 @@
-import { Phone } from '../phone';
+import { Phone } from '../entities/values';
 
 describe('Phone Validation', () => {
   it('should not be able to throw Error', () => {
@@ -11,8 +11,8 @@ describe('Phone Validation', () => {
   });
 
   it('should be able to create a user phone', () => {
-    const phone = new Phone('(88) 9 9288-8203');
+    const { phoneNumber } = new Phone('(88) 9 9288-8203');
 
-    expect(phone.value).toEqual('88 99288-8203');
+    expect(phoneNumber).toEqual('88 99288-8203');
   });
 });
