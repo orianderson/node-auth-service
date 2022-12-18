@@ -1,4 +1,5 @@
-import { HandleException, IError, StatusCodeResponse } from '../../helpers';
+import { HandleException, IError } from '../HandleException';
+import { StatusCodeResponse } from '../constants';
 
 export class BadRequestException extends HandleException {
   constructor(message: IError) {

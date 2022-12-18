@@ -1,4 +1,4 @@
-import { BadRequest } from '../../exceptions';
+import { BadRequestException } from '@helpers/exceptions';
 
 export class Phone {
   private phone: string;
@@ -21,16 +21,17 @@ export class Phone {
       if (match) {
         this.phone = match[1] + ' ' + match[2] + match[3] + '-' + match[4];
       } else {
-        throw new BadRequest({
-          message: 'Número de telefone inválido',
-          code_error: null,
-        });
+        this.handleException();
       }
     } else {
-      throw new BadRequest({
-        message: 'Número de telefone inválido',
-        code_error: null,
-      });
+      this.handleException();
     }
+  }
+
+  private handleException() {
+    throw new BadRequestException({
+      message: 'Número de telefone inválido',
+      code_error: null,
+    });
   }
 }

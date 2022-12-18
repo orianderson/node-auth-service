@@ -25,8 +25,6 @@ export class EngineerRepository implements IEngineerRepository {
   async create(body: EngineerInterface): Promise<void> {
     const newUser = new EngineerMapper().create(body);
 
-    await this.verifyIfUserExist(newUser.email);
-
     await this.databaseService.users.create({
       data: newUser,
     });

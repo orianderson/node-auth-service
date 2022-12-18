@@ -1,4 +1,4 @@
-import { BadRequest } from '../../exceptions';
+import { BadRequestException } from '@helpers/exceptions';
 
 export class Email {
   private readonly emailUser: string;
@@ -19,7 +19,7 @@ export class Email {
     const isValid = regex.test(email);
 
     if (!isValid) {
-      throw new BadRequest({
+      throw new BadRequestException({
         message: 'Email não é válido',
         code_error: null,
       });

@@ -14,7 +14,7 @@ export class RegisterEngineerUsecases {
   async execute(body: EngineerInterface): Promise<EngineerInterface> {
     const isUser = await this.engineerRepository.verifyIfUserExist(body.email);
 
-    if (!isUser) {
+    if (isUser) {
       throw new ConflictException({
         message: 'User already exist.',
         code_error: null,
