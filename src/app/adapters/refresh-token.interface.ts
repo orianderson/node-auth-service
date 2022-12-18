@@ -1,6 +1,6 @@
-import { IJwtServicePayload } from '@app/adapters';
+import { IJwtPayload } from './IJwtPayload';
 
 export abstract class IRefreshTokenService {
   abstract checkRefreshToken(refreshToken: string): Promise<boolean>;
-  abstract createRefreshToken(payload: IJwtServicePayload): string;
+  abstract createRefreshToken(payload: IJwtPayload): string;
 }

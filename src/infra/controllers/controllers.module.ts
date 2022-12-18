@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
-import { RegisterUser } from '@app/usecases';
+
 import { DatabaseModule } from '../database';
-import { UsersController } from './register-user.controller';
 import { UsecasesProxyModule } from '@infra/usecases-proxy';
 import { SecurityModule } from '@infra/common/security';
+
 import { AuthController } from './authentication.controller';
+import { EngineerControllers } from './register-engineer.controller';
 
 @Module({
   imports: [DatabaseModule, UsecasesProxyModule.register(), SecurityModule],
-  controllers: [UsersController, AuthController],
-  providers: [RegisterUser],
+  controllers: [AuthController, EngineerControllers],
+  providers: [],
 })
 export class ControllersModule {}

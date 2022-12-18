@@ -1,5 +1,4 @@
 export const fieldsToVerifyEngineer = [
-  'id',
   'name',
   'email',
   'phone',

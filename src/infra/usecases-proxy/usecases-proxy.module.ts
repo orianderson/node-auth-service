@@ -1,9 +1,9 @@
 import { DynamicModule, Module } from '@nestjs/common';
 
 import { UseCaseProxy } from './usecases-proxy';
-import { LoginUseCases, RegisterUser } from '@app/usecases';
+import { LoginUseCases, RegisterEngineerUsecases } from '@app/usecases';
 import { DatabaseModule } from '@infra/database';
-import { DatabaseUsersRepository } from '@infra/database/repositories';
+import { EngineerRepository } from '@infra/database/repositories';
 import {
   BcryptService,
   SecurityModule,
@@ -15,7 +15,7 @@ import {
   imports: [DatabaseModule, SecurityModule],
 })
 export class UsecasesProxyModule {
-  static REGISTER_USER_USECASES_PROXY = 'RegisterUser';
+  static REGISTER_ENGINEER_USECASES_PROXY = 'RegisterEngineerUsecases';
   static LOGIN_USER_CASES_PROXY = 'LoginUsecases';
 
   static register(): DynamicModule {
@@ -23,23 +23,21 @@ export class UsecasesProxyModule {
       module: UsecasesProxyModule,
       providers: [
         {
-          inject: [DatabaseUsersRepository, BcryptService],
-          provide: UsecasesProxyModule.REGISTER_USER_USECASES_PROXY,
+          inject: [EngineerRepository, BcryptService],
+          provide: UsecasesProxyModule.REGISTER_ENGINEER_USECASES_PROXY,
           useFactory: (
-            usersRepository: DatabaseUsersRepository,
+            usersRepository: EngineerRepository,
             bcryptService: BcryptService,
           ) =>
-            new UseCaseProxy(new RegisterUser(usersRepository, bcryptService)),
+            new UseCaseProxy(
+              new RegisterEngineerUsecases(usersRepository, bcryptService),
+            ),
         },
         {
-          inject: [
-            DatabaseUsersRepository,
-            JwtTokenService,
-            RefreshTokenService,
-          ],
+          inject: [EngineerRepository, JwtTokenService, RefreshTokenService],
           provide: UsecasesProxyModule.LOGIN_USER_CASES_PROXY,
           useFactory: (
-            usersRepository: DatabaseUsersRepository,
+            usersRepository: EngineerRepository,
             jwtTokenService: JwtTokenService,
             refreshTokenService: RefreshTokenService,
           ) =>
@@ -53,7 +51,7 @@ export class UsecasesProxyModule {
         },
       ],
       exports: [
-        UsecasesProxyModule.REGISTER_USER_USECASES_PROXY,
+        UsecasesProxyModule.REGISTER_ENGINEER_USECASES_PROXY,
         UsecasesProxyModule.LOGIN_USER_CASES_PROXY,
       ],
     };

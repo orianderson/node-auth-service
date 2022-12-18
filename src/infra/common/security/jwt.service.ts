@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { IJwtService, IJwtServicePayload } from '@app/adapters';
+import { IJwtService, IJwtPayload } from '@app/adapters';
 
 import { EnvironmentConfigService } from '@infra/config';
 
@@ -16,7 +16,7 @@ export class JwtTokenService implements IJwtService {
     return decode;
   }
 
-  createToken(payload: IJwtServicePayload): string {
+  createToken(payload: IJwtPayload): string {
     const secret = this.environmentConfig.getJwtSecret();
 
     const expiresIn = this.environmentConfig.getJwtExpirationTime();

@@ -1,4 +1,4 @@
-import { IJwtServicePayload } from './../../../app/adapters/jwt.interface';
+import { IJwtPayload } from './../../../app/adapters';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -17,7 +17,7 @@ export class RefreshTokenService implements IRefreshTokenService {
 
     return decode;
   }
-  createRefreshToken(payload: IJwtServicePayload): string {
+  createRefreshToken(payload: IJwtPayload): string {
     const secret = this.environmentConfig.getJwtRefreshSecret();
 
     const expiresIn = this.environmentConfig.getJwtRefreshExpirationTime();

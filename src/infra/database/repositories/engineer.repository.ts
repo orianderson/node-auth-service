@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { UserModel } from '@app/model';
-import { UsersRepository } from '@app/repositories';
-import { PrismaUsersMappers } from '@infra/database/prisma';
 
-import { ConflictExceptionInterface } from '@app/exceptions';
+import { EngineerInterface } from '../../../domain/types';
+import { IEngineerRepository } from '../../../app/repositories';
+import { EngineerMapper } from './mappers';
+import { PrismaService } from './../prisma/prisma.service';
+
+import { ConflictException } from '../../exceptions/handle';
 
 @Injectable()
-export class DatabaseUsersRepository implements UsersRepository {
+export class EngineerRepository implements IEngineerRepository {
   constructor(private readonly databaseService: PrismaService) {}
 
   async verifyIfUserExist(email: string): Promise<void> {
@@ -18,24 +19,24 @@ export class DatabaseUsersRepository implements UsersRepository {
     });
 
     if (user) {
-      throw new ConflictExceptionInterface({
+      throw new ConflictException({
         message: 'User already exist.',
         code_error: null,
       });
     }
   }
 
-  async create(data: UserModel): Promise<void> {
-    const newUser = PrismaUsersMappers.registerMapper(data);
+  async create(body: EngineerInterface): Promise<void> {
+    const newUser = new EngineerMapper().create(body);
 
-    await this.verifyIfUserExist(data.email);
+    await this.verifyIfUserExist(newUser.email);
 
     await this.databaseService.users.create({
       data: newUser,
     });
   }
 
-  async signUser(email: string): Promise<UserModel> {
+  async signUser(email: string): Promise<EngineerInterface> {
     const user = await this.databaseService.users.findUnique({
       where: {
         email: email,

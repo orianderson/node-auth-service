@@ -1,9 +1,9 @@
-import { Entity } from './UserEntity';
+import { UserEntity } from './UserEntity';
 import { Email, Phone } from './values';
 import { EngineerInterface } from './../types/EngineerInterface';
 import { fieldsToVerifyEngineer } from './constants';
 
-export class Engineer extends Entity<EngineerInterface> {
+export class Engineer extends UserEntity<EngineerInterface> {
   private baseUser: EngineerInterface;
 
   constructor(user: EngineerInterface) {

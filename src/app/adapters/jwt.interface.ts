@@ -1,8 +1,6 @@
-export interface IJwtServicePayload {
-  _id: string;
-}
+import { IJwtPayload } from './IJwtPayload';
 
 export interface IJwtService {
   checkToken(token: string): Promise<boolean>;
-  createToken(payload: IJwtServicePayload): string;
+  createToken(payload: IJwtPayload): string;
 }

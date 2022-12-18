@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 
+import { IEngineerRepository } from '../../app/repositories';
+
 import { PrismaService } from './prisma/prisma.service';
-import { DatabaseUsersRepository } from './repositories';
-import { UsersRepository } from '../../app/repositories';
+import { EngineerRepository } from './repositories';
 
 import { SecurityModule } from '@infra/common/security';
 
@@ -10,12 +11,12 @@ import { SecurityModule } from '@infra/common/security';
   imports: [SecurityModule],
   providers: [
     PrismaService,
-    DatabaseUsersRepository,
+    EngineerRepository,
     {
-      provide: UsersRepository,
-      useClass: DatabaseUsersRepository,
+      provide: IEngineerRepository,
+      useClass: EngineerRepository,
     },
   ],
-  exports: [UsersRepository, DatabaseUsersRepository],
+  exports: [IEngineerRepository, EngineerRepository],
 })
 export class DatabaseModule {}

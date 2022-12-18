@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { StatusCodeResponse } from '@helpers/index';
 import { LoginGuard } from '@infra/common/guard';
-import { UserViewModel } from './presenters';
+import { ResponseEngineer } from './presenters';
 
 @Controller('auth')
 export class AuthController {
@@ -12,6 +12,8 @@ export class AuthController {
   async login(@Request() req, @Res() res: Response) {
     const user = req.user;
 
-    res.status(StatusCodeResponse.OK).send(UserViewModel.toHttpResponse(user));
+    res
+      .status(StatusCodeResponse.OK)
+      .send(ResponseEngineer.toHttpResponse(user));
   }
 }

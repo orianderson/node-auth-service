@@ -3,9 +3,9 @@ import { Replace } from '../../helpers';
 import { fieldsToVerifyUser } from './constants';
 import { Email } from './values/Email';
 
-import { Entity } from './UserEntity';
+import { UserEntity } from './UserEntity';
 
-export class User extends Entity<UserInterface> {
+export class User extends UserEntity<UserInterface> {
   private baseUser: UserInterface;
 
   constructor(user: Replace<UserInterface, { created_at?: Date }>) {

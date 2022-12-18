@@ -1,4 +1,4 @@
-import { BadRequestInterface } from '../exceptions';
+import { BadRequestInterface } from '../../domain/exceptions/BadRequest';
 
 import { UserAuth } from '../model';
 

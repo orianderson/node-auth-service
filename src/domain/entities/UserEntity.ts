@@ -1,6 +1,6 @@
 import { BadRequestInterface } from '../exceptions';
 
-export abstract class Entity<T> {
+export abstract class UserEntity<T> {
   private fields: string[];
   constructor(user: T, fields: string[]) {
     this.fields = fields;

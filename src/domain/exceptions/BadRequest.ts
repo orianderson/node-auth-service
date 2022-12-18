@@ -1,7 +1,8 @@
 import { HandleException, IError } from '../../helpers';
+import { StatusCodeResponse } from '../../helpers';
 
 export class BadRequestInterface extends HandleException {
   constructor(message: IError) {
-    super(400, message);
+    super(StatusCodeResponse.BAD_REQUEST, message);
   }
 }
