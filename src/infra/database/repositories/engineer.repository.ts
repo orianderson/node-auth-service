@@ -5,25 +5,21 @@ import { IEngineerRepository } from '../../../app/repositories';
 import { EngineerMapper } from './mappers';
 import { PrismaService } from './../prisma.service';
 
-import { ConflictException } from '../../exceptions/handle';
-
 @Injectable()
 export class EngineerRepository implements IEngineerRepository {
   constructor(private readonly databaseService: PrismaService) {}
 
-  async verifyIfUserExist(email: string): Promise<void> {
+  async verifyIfUserExist(email: string): Promise<{ email: string } | null> {
     const user = await this.databaseService.users.findUnique({
       where: {
         email: email,
       },
+      select: {
+        email: true,
+      },
     });
 
-    if (user) {
-      throw new ConflictException({
-        message: 'User already exist.',
-        code_error: null,
-      });
-    }
+    return user;
   }
 
   async create(body: EngineerInterface): Promise<void> {
@@ -40,6 +36,19 @@ export class EngineerRepository implements IEngineerRepository {
     const user = await this.databaseService.users.findUnique({
       where: {
         email: email,
+      },
+    });
+
+    return user;
+  }
+
+  async verifyUserById(id: string): Promise<{ id: string } | null> {
+    const user = await this.databaseService.users.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
       },
     });
 

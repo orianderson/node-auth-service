@@ -17,7 +17,7 @@ import {
 })
 export class UsecasesProxyModule {
   static REGISTER_ENGINEER_USECASES_PROXY = 'RegisterEngineerUsecases';
-  static LOGIN_USER_CASES_PROXY = 'LoginUsecases';
+  static LOGIN_USECASES_PROXY = 'LoginUsecases';
 
   static register(): DynamicModule {
     return {
@@ -36,7 +36,7 @@ export class UsecasesProxyModule {
         },
         {
           inject: [EngineerRepository, JwtTokenService, RefreshTokenService],
-          provide: UsecasesProxyModule.LOGIN_USER_CASES_PROXY,
+          provide: UsecasesProxyModule.LOGIN_USECASES_PROXY,
           useFactory: (
             usersRepository: EngineerRepository,
             jwtTokenService: JwtTokenService,
@@ -53,7 +53,7 @@ export class UsecasesProxyModule {
       ],
       exports: [
         UsecasesProxyModule.REGISTER_ENGINEER_USECASES_PROXY,
-        UsecasesProxyModule.LOGIN_USER_CASES_PROXY,
+        UsecasesProxyModule.LOGIN_USECASES_PROXY,
       ],
     };
   }

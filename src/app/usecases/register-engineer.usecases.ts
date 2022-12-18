@@ -3,6 +3,8 @@ import { Engineer, Email, Phone } from '../../domain/entities';
 import { IEngineerRepository } from '../repositories';
 import { IBcryptService } from '../adapters';
 
+import { ConflictException } from '@helpers/exceptions';
+
 export class RegisterEngineerUsecases {
   constructor(
     private readonly engineerRepository: IEngineerRepository,
@@ -10,6 +12,15 @@ export class RegisterEngineerUsecases {
   ) {}
 
   async execute(body: EngineerInterface): Promise<EngineerInterface> {
+    const isUser = await this.engineerRepository.verifyIfUserExist(body.email);
+
+    if (!isUser) {
+      throw new ConflictException({
+        message: 'User already exist.',
+        code_error: null,
+      });
+    }
+
     new Email(body.email);
 
     const { phoneNumber } = new Phone(body.phone);
@@ -18,11 +29,10 @@ export class RegisterEngineerUsecases {
 
     const hashPassword = await this.bcryptService.hash(engineer.password);
 
-    engineer.password = hashPassword;
-
     await this.engineerRepository.create({
       ...engineer,
       phone: phoneNumber,
+      password: hashPassword,
     });
 
     return engineer;

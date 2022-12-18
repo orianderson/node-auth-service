@@ -12,7 +12,7 @@ import { BcryptService } from '@infra/adapters';
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject(UsecasesProxyModule.LOGIN_USER_CASES_PROXY)
+    @Inject(UsecasesProxyModule.LOGIN_USECASES_PROXY)
     private readonly loginUsecases: UseCaseProxy<LoginUseCases>,
     private readonly logger: LoggerService,
     private readonly exceptionService: ExceptionsService,

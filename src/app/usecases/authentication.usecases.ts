@@ -2,7 +2,7 @@ import { IEngineerRepository } from '@app/repositories';
 import { ICredentials } from '../../domain/types';
 import { Credentials } from '../../domain/entities';
 import { IRefreshTokenService, IJwtService } from '../adapters';
-import { Unauthorized } from '../../domain/exceptions';
+import { UnauthorizedException } from '@helpers/exceptions';
 
 export class LoginUseCases {
   constructor(
@@ -11,16 +11,20 @@ export class LoginUseCases {
     private readonly refreshTokenService: IRefreshTokenService,
   ) {}
 
+  private handleException() {
+    throw new UnauthorizedException({
+      code_error: null,
+      message: 'Invalid credentials',
+    });
+  }
+
   async signUser(body: ICredentials) {
     const { email } = new Credentials(body).credentials;
 
     const user = await this.userRepository.signUser(email);
 
     if (!user) {
-      throw new Unauthorized({
-        code_error: null,
-        message: 'Invalid credentials',
-      });
+      this.handleException();
     }
 
     const payload = { _id: user.id };
@@ -34,5 +38,15 @@ export class LoginUseCases {
       accessToken,
       refreshToken,
     };
+  }
+
+  async isUser(id: string) {
+    const user = await this.userRepository.verifyUserById(id);
+
+    if (!user) {
+      this.handleException();
+    }
+
+    return user;
   }
 }
