@@ -4,15 +4,16 @@ import { UseCaseProxy } from './usecases-proxy';
 import { LoginUseCases, RegisterEngineerUsecases } from '@app/usecases';
 import { DatabaseModule } from '@infra/database';
 import { EngineerRepository } from '@infra/database/repositories';
+
 import {
   BcryptService,
-  SecurityModule,
+  AdaptersModule,
   JwtTokenService,
   RefreshTokenService,
-} from '@infra/common/security';
+} from '@infra/adapters';
 
 @Module({
-  imports: [DatabaseModule, SecurityModule],
+  imports: [DatabaseModule, AdaptersModule],
 })
 export class UsecasesProxyModule {
   static REGISTER_ENGINEER_USECASES_PROXY = 'RegisterEngineerUsecases';

@@ -4,6 +4,8 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { EnvironmentConfigModule } from '../config';
 import { BcryptService } from './bcrypt.service';
+import { JwtTokenService } from './jwt.service';
+import { RefreshTokenService } from './refresh-token.service';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { BcryptService } from './bcrypt.service';
     }),
     EnvironmentConfigModule,
   ],
-  providers: [BcryptService],
-  exports: [BcryptService],
+  providers: [BcryptService, JwtTokenService, RefreshTokenService],
+  exports: [BcryptService, JwtTokenService, RefreshTokenService],
 })
 export class AdaptersModule {}

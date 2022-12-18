@@ -7,6 +7,7 @@ import { LoggerModule } from './infra/logger/logger.module';
 import { ExceptionsModule } from './infra/exceptions/exceptions.module';
 import { UsecasesProxyModule } from '@infra/usecases-proxy';
 import { StrategiesModule } from './infra/common/strategies/strategies.module';
+import { AdaptersModule } from './infra/adapters';
 
 import { SetHeadersMiddleware } from './infra/common/middleware';
 
@@ -18,7 +19,7 @@ import { SetHeadersMiddleware } from './infra/common/middleware';
     LoggerModule,
     ExceptionsModule,
     UsecasesProxyModule,
-    // SecurityModule,
+    AdaptersModule,
     StrategiesModule,
   ],
 })

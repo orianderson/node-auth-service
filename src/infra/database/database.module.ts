@@ -5,10 +5,8 @@ import { IEngineerRepository } from '../../app/repositories';
 import { PrismaService } from './prisma/prisma.service';
 import { EngineerRepository } from './repositories';
 
-import { SecurityModule } from '@infra/common/security';
-
 @Module({
-  imports: [SecurityModule],
+  imports: [],
   providers: [
     PrismaService,
     EngineerRepository,

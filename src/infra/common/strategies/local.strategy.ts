@@ -7,7 +7,7 @@ import { UseCaseProxy } from '../../usecases-proxy/usecases-proxy';
 import { LoginUseCases } from '@app/usecases';
 import { LoggerService } from '../../logger/logger.service';
 import { ExceptionsService } from '../../exceptions/exceptions.service';
-import { BcryptService } from '@infra/common/security';
+import { BcryptService } from '@infra/adapters';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
