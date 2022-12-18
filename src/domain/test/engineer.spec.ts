@@ -13,12 +13,19 @@ describe('Engineer Entity', () => {
     whatsapp: '+5588999999999',
     password: '123456',
   };
-
   it('should be able to be truthy', () => {
     const { engineer } = new Engineer(body);
 
-    console.log(engineer);
-
     expect(engineer).toBeTruthy();
+  });
+
+  it('should throw error', () => {
+    expect(
+      () =>
+        new Engineer({
+          ...body,
+          city: '',
+        }),
+    ).toThrowError();
   });
 });

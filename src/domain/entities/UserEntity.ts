@@ -5,12 +5,7 @@ export abstract class UserEntity<T> {
   constructor(user: T, fields: string[]) {
     this.fields = fields;
 
-    this.validade(user);
-  }
-  private validade(user: T): T {
     this.verifyIfFieldsIsEmpty(user);
-
-    return user;
   }
 
   private verifyIfFieldsIsEmpty(user: T) {

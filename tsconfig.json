@@ -13,6 +13,7 @@
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
+    "resolveJsonModule": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
@@ -21,7 +22,8 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@helpers/*": ["./src/helpers/*"],
-      "@infra/*": ["./src/infra/*"]
+      "@infra/*": ["./src/infra/*"],
+      "@domain/*": ["./src/domain/*"]
     }
   }
 }

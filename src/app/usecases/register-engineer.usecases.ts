@@ -1,5 +1,5 @@
 import { EngineerInterface } from '../../domain/types';
-import { Engineer } from '../../domain/entities';
+import { Engineer, Email, Phone } from '../../domain/entities';
 import { IEngineerRepository } from '../repositories';
 import { IBcryptService } from '../adapters';
 
@@ -10,13 +10,20 @@ export class RegisterEngineerUsecases {
   ) {}
 
   async execute(body: EngineerInterface): Promise<EngineerInterface> {
+    new Email(body.email);
+
+    const { phoneNumber } = new Phone(body.phone);
+
     const { engineer } = new Engineer(body);
 
     const hashPassword = await this.bcryptService.hash(engineer.password);
 
     engineer.password = hashPassword;
 
-    await this.engineerRepository.create(engineer);
+    await this.engineerRepository.create({
+      ...engineer,
+      phone: phoneNumber,
+    });
 
     return engineer;
   }
