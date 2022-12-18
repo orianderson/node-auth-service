@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { EngineerInterface } from '../../../domain/types';
 import { IEngineerRepository } from '../../../app/repositories';
 import { EngineerMapper } from './mappers';
-import { PrismaService } from './../prisma/prisma.service';
+import { PrismaService } from './../prisma.service';
 
 import { ConflictException } from '../../exceptions/handle';
 

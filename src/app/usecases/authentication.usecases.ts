@@ -1,6 +1,6 @@
 import { IEngineerRepository } from '@app/repositories';
-import { UserAuth } from '@app/model';
-import { AuthCredentials } from '../entities';
+import { ICredentials } from '../../domain/types';
+import { Credentials } from '../../domain/entities';
 import { IRefreshTokenService, IJwtService } from '../adapters';
 import { Unauthorized } from '../../domain/exceptions';
 
@@ -11,8 +11,8 @@ export class LoginUseCases {
     private readonly refreshTokenService: IRefreshTokenService,
   ) {}
 
-  async signUser(body: UserAuth) {
-    const { email } = new AuthCredentials(body).value;
+  async signUser(body: ICredentials) {
+    const { email } = new Credentials(body).credentials;
 
     const user = await this.userRepository.signUser(email);
 

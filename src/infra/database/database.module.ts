@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { IEngineerRepository } from '../../app/repositories';
 
-import { PrismaService } from './prisma/prisma.service';
+import { PrismaService } from './prisma.service';
 import { EngineerRepository } from './repositories';
 
 @Module({

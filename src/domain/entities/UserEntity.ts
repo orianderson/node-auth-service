@@ -1,4 +1,4 @@
-import { BadRequestInterface } from '../exceptions';
+import { BadRequest } from '../exceptions';
 
 export abstract class UserEntity<T> {
   private fields: string[];
@@ -16,7 +16,7 @@ export abstract class UserEntity<T> {
   private verifyIfFieldsIsEmpty(user: T) {
     this.fields.forEach((item) => {
       if (!user[item]) {
-        throw new BadRequestInterface({
+        throw new BadRequest({
           message: `O campo ${item} deve ser preenchido`,
           code_error: null,
         });

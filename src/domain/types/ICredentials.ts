@@ -1,4 +1,4 @@
-export class UserAuth {
+export class ICredentials {
   email: string;
   password: string;
 }
