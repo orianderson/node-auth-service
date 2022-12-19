@@ -1,9 +1,12 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Inject, Injectable } from '@nestjs/common';
-import { Request } from 'express';
 
-import { UsecasesProxyModule, UseCaseProxy } from '@infra/usecases-proxy';
+import {
+  ControllersProxy,
+  ControllersProxyModule,
+} from '@infra/controllers-proxy';
+
 import { LoginUseCases } from '@app/usecases';
 import { ExceptionsService } from '@infra/exceptions/exceptions.service';
 import { LoggerService } from '@infra/logger/logger.service';
@@ -13,17 +16,14 @@ import { IJwtPayload } from '@app/adapters';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject(UsecasesProxyModule.LOGIN_USECASES_PROXY)
-    private readonly loginUsecasesProxy: UseCaseProxy<LoginUseCases>,
+    @Inject(ControllersProxyModule.LOGIN_USECASES)
+    private readonly loginUsecasesProxy: ControllersProxy<LoginUseCases>,
     private readonly logger: LoggerService,
     private readonly exceptionService: ExceptionsService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        (request: Request) => {
-          return request?.cookies?.Authentication;
-        },
-      ]),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });
   }

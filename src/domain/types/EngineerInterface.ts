@@ -8,5 +8,4 @@ export class EngineerInterface extends UserInterface {
   state: string;
   city: string;
   picture?: string;
-  password?: string;
 }

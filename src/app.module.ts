@@ -5,9 +5,9 @@ import { ControllersModule } from '@infra/controllers';
 import { EnvironmentConfigModule } from '@infra/config';
 import { LoggerModule } from './infra/logger/logger.module';
 import { ExceptionsModule } from './infra/exceptions/exceptions.module';
-import { UsecasesProxyModule } from '@infra/usecases-proxy';
 import { StrategiesModule } from './infra/common/strategies/strategies.module';
 import { AdaptersModule } from './infra/adapters';
+import { ControllersProxyModule } from '@infra/controllers-proxy';
 
 import { SetHeadersMiddleware } from './infra/common/middleware';
 
@@ -18,9 +18,9 @@ import { SetHeadersMiddleware } from './infra/common/middleware';
     EnvironmentConfigModule,
     LoggerModule,
     ExceptionsModule,
-    UsecasesProxyModule,
     AdaptersModule,
     StrategiesModule,
+    ControllersProxyModule,
   ],
 })
 export class AppModule {

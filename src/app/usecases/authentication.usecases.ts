@@ -1,12 +1,13 @@
-import { IEngineerRepository } from '@app/repositories';
+import { IUsersRepository } from '@app/repositories';
 import { ICredentials } from '../../domain/types';
 import { Credentials } from '../../domain/entities';
-import { IRefreshTokenService, IJwtService } from '../adapters';
+import { IRefreshTokenService, IJwtService, IBcryptService } from '../adapters';
 import { UnauthorizedException } from '@helpers/exceptions';
 
 export class LoginUseCases {
   constructor(
-    private readonly userRepository: IEngineerRepository,
+    private readonly userRepository: IUsersRepository,
+    private readonly bcryptService: IBcryptService,
     private readonly jwtTokenService: IJwtService,
     private readonly refreshTokenService: IRefreshTokenService,
   ) {}
@@ -18,12 +19,22 @@ export class LoginUseCases {
     });
   }
 
-  async signUser(body: ICredentials) {
-    const { email } = new Credentials(body).credentials;
+  async signInUser(body: ICredentials) {
+    const { email, password } = new Credentials(body).credentials;
 
-    const user = await this.userRepository.signUser(email);
+    if (!email || !password) {
+      this.handleException();
+    }
+
+    const user = await this.userRepository.signInUser(email);
 
     if (!user) {
+      this.handleException();
+    }
+
+    const isValid = await this.bcryptService.compare(password, user.password);
+
+    if (!isValid) {
       this.handleException();
     }
 

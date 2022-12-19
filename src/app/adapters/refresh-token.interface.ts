@@ -1,6 +1,6 @@
 import { IJwtPayload } from './IJwtPayload';
 
-export abstract class IRefreshTokenService {
-  abstract checkRefreshToken(refreshToken: string): Promise<boolean>;
-  abstract createRefreshToken(payload: IJwtPayload): string;
+export interface IRefreshTokenService {
+  checkRefreshToken(refreshToken: string): Promise<boolean>;
+  createRefreshToken(payload: IJwtPayload): string;
 }
