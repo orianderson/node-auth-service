@@ -2,13 +2,16 @@ import { Module } from '@nestjs/common';
 
 import { IUsersRepository, IEngineerRepository } from '../../app/repositories';
 
-import { PrismaService } from './prisma.service';
+import { DatabaseClient } from './client/database.client';
+import { EngineerDatabaseService, UserDatabaseService } from './services';
 import { UsersRepository, EngineerRepository } from './repositories';
 
 @Module({
   imports: [],
   providers: [
-    PrismaService,
+    DatabaseClient,
+    EngineerDatabaseService,
+    UserDatabaseService,
     UsersRepository,
     {
       provide: IUsersRepository,
@@ -21,6 +24,8 @@ import { UsersRepository, EngineerRepository } from './repositories';
     },
   ],
   exports: [
+    EngineerDatabaseService,
+    UserDatabaseService,
     IEngineerRepository,
     EngineerRepository,
     IUsersRepository,
