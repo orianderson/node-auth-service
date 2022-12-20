@@ -52,12 +52,15 @@ export class LoginUseCases {
   }
 
   async isUser(id: string) {
-    const user = await this.userRepository.verifyUserById(id);
+    const userId = await this.userRepository.verifyUserByIdentity({
+      type: 'id',
+      id: id,
+    });
 
-    if (!user) {
+    if (!userId) {
       this.handleException();
     }
 
-    return user;
+    return userId;
   }
 }

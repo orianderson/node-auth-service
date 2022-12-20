@@ -1,3 +1,4 @@
+import { EngineerInterface } from '@domain/types';
 import { Injectable } from '@nestjs/common';
 
 import { DatabaseClient } from '../client/database.client';
@@ -25,5 +26,18 @@ export class EngineerDatabaseService implements Partial<IDataBaseService> {
     });
 
     return engineer;
+  }
+
+  async update(query: {
+    field: 'email' | 'id';
+    id: string | number;
+    data: { data: Partial<EngineerInterface> };
+  }): Promise<void> {
+    await this.databaseClient.users.update({
+      where: {
+        [query.field]: query.id,
+      },
+      data: query.data,
+    });
   }
 }

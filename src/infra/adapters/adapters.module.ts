@@ -6,6 +6,7 @@ import { EnvironmentConfigModule } from '../config';
 import { BcryptService } from './bcrypt.service';
 import { JwtTokenService } from './jwt.service';
 import { RefreshTokenService } from './refresh-token.service';
+import { MailService } from './mail.service';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { RefreshTokenService } from './refresh-token.service';
     }),
     EnvironmentConfigModule,
   ],
-  providers: [BcryptService, JwtTokenService, RefreshTokenService],
-  exports: [BcryptService, JwtTokenService, RefreshTokenService],
+  providers: [BcryptService, JwtTokenService, RefreshTokenService, MailService],
+  exports: [BcryptService, JwtTokenService, RefreshTokenService, MailService],
 })
 export class AdaptersModule {}

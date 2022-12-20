@@ -43,10 +43,10 @@ describe('User Authentication', () => {
       bcryptService,
     );
 
-    // const user = await newUser.execute(data);
-
     expect.assertions(1);
 
+    // to create user
+    // const user = await newUser.execute(data);
     // expect(user.email).toEqual('and.orisistem@gmail.com');
 
     return expect(() => newUser.execute(data)).rejects.toThrowError();

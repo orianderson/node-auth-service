@@ -14,11 +14,18 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async verifyUserById(id: string): Promise<{ id: string }> {
-    const user = await this.databaseService.getOne('id', id, {
-      id: true,
-    });
+  async verifyUserByIdentity(identity: {
+    type: string;
+    id: string;
+  }): Promise<{ userId: string }> {
+    const userId = await this.databaseService.getOne(
+      identity.type,
+      identity.id,
+      {
+        id: true,
+      },
+    );
 
-    return user;
+    return userId;
   }
 }

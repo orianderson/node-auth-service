@@ -6,7 +6,7 @@ import { EngineerMapper } from './mappers';
 import { EngineerDatabaseService } from '@infra/database/services';
 
 @Injectable()
-export class EngineerRepository implements IEngineerRepository {
+export class EngineerRepository implements Partial<IEngineerRepository> {
   constructor(private readonly databaseService: EngineerDatabaseService) {}
 
   async verifyIfUserExist(email: string): Promise<{ email: string } | null> {
@@ -31,11 +31,11 @@ export class EngineerRepository implements IEngineerRepository {
     return user;
   }
 
-  async verifyUserById(id: string): Promise<{ id: string } | null> {
-    const user = await this.databaseService.getOne('id', id, {
-      id: true,
-    });
-
-    return user;
+  async update(query: {
+    field: 'email' | 'id';
+    id: string | number;
+    data: { data: Partial<EngineerInterface> };
+  }): Promise<void> {
+    await this.databaseService.update(query);
   }
 }
