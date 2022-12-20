@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { LoggerService } from '../logger';
 
-import { HandleException } from '../../helpers';
+import { HandleException } from '../../helpers/exceptions';
 
 interface IError {
   message: string;

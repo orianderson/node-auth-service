@@ -1,4 +1,4 @@
-import { HandleException, IError } from '../HandleException';
+import { HandleException, IError } from './HandleException';
 import { StatusCodeResponse } from '../constants';
 
 export class UnauthorizedException extends HandleException {
