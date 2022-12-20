@@ -1,7 +1,7 @@
 import { UserInterface } from './../types';
 import { Replace } from '../../helpers';
 import { fieldsToVerifyUser } from './constants';
-import { Email } from './values/Email';
+import { Email } from './valuesObject/Email';
 
 import { UserEntity } from './UserEntity';
 

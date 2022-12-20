@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { DatabaseConfig, JWTConfig, EmailConfig } from '@app/config';
+import { IEnvironmentConfig } from '@app/config';
 
 @Injectable()
-export class EnvironmentConfigService
-  implements DatabaseConfig, JWTConfig, EmailConfig
-{
+export class EnvironmentConfigService implements IEnvironmentConfig {
   constructor(private configService: ConfigService) {}
   getEmailUser(): string {
     return this.configService.get<string>('EMAIL_USER');

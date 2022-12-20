@@ -1,4 +1,4 @@
-import { Phone } from '../entities/values';
+import { Phone } from '../entities/valuesObject';
 
 describe('Phone Validation', () => {
   it('should not be able to throw Error', () => {
