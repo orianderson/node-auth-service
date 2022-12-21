@@ -1,11 +1,11 @@
-import { UnauthorizedException } from './../../helpers/exceptions/Unauthorized';
+import { UnauthorizedException } from '../../helpers/exceptions/Unauthorized';
 import { IUsersRepository } from '@app/repositories';
 import { IMailService } from '@app/adapters';
 import { generateCode } from '@helpers/generate-code';
 import { IEnvironmentConfig } from '@app/config/IEnvironmentConfig';
 import { EmailToSend } from '@domain/entities';
 
-export class VerifyUser {
+export class VerifyUserUseCases {
   constructor(
     private readonly usersRepository: IUsersRepository,
     private readonly mailService: IMailService,

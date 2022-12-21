@@ -1,9 +1,9 @@
+import { VerifyUserControllerAdapter } from './../controllers/auth/verify-user.controller';
 import {
   UsersRepository,
   UserDatabaseService,
   DatabaseClient,
 } from '@infra/database';
-import { VerifyUserUseCases } from '@app/usecases';
 import { MailService } from '@infra/adapters';
 import { EnvironmentConfigService } from '@infra/config';
 import { ConfigService } from '@nestjs/config';
@@ -15,16 +15,17 @@ describe('User Verification', () => {
   const configService = new ConfigService();
   const environmentService = new EnvironmentConfigService(configService);
   const mailService = new MailService(environmentService);
-  const verifyUserUsecases = new VerifyUserUseCases(
+
+  const email = 'and.orisistem@gmail.com';
+
+  const verifyControllerAdapter = new VerifyUserControllerAdapter(
     userRepository,
     mailService,
     environmentService,
   );
 
-  const email = 'and.orisistem@gmail.com';
-
   it('Verify user by email should return userId', async () => {
-    const userId = await verifyUserUsecases.verifyUserByEmail(email);
+    const userId = await verifyControllerAdapter.verifyUser(email);
 
     expect(userId).toEqual({
       id: '12345',
@@ -35,16 +36,7 @@ describe('User Verification', () => {
     expect.assertions(1);
 
     return expect(() =>
-      verifyUserUsecases.verifyUserByEmail('email'),
+      verifyControllerAdapter.verifyUser('email'),
     ).rejects.toThrowError();
-  });
-
-  it('should send email', async () => {
-    const userId = await verifyUserUsecases.verifyUserByEmail(email);
-    expect.assertions(1);
-
-    return expect(userId).toEqual({
-      id: '12345',
-    });
   });
 });

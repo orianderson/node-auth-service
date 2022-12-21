@@ -5,5 +5,5 @@ export abstract class IUsersRepository {
   abstract verifyUserByIdentity(identity: {
     type: string;
     id: string;
-  }): Promise<{ userId: string } | null>;
+  }): Promise<{ id: string } | null>;
 }

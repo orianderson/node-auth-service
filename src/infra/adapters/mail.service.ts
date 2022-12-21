@@ -16,6 +16,7 @@ export class MailService implements IMailService {
 
   private async createTransporter(mailOptions: IMailOptions): Promise<void> {
     const settingsEmailProduction = {
+      service: 'gmail',
       host: this.environmentConfig.getEmailServer(),
       port: 465,
       secure: true,
@@ -28,15 +29,11 @@ export class MailService implements IMailService {
     const transporter = nodemailer.createTransport(settingsEmailProduction);
 
     transporter.sendMail(mailOptions, (error, info) => {
-      try {
-        console.log('first');
-      } catch (e) {}
-      // if (error) {
-      console.log('URL: ' + nodemailer.getTestMessageUrl(info));
-      //   console.log('error');
-      // } else {
-      //   console.log('URL: ' + nodemailer.getTestMessageUrl(info));
-      // }
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('URL: ' + nodemailer.getTestMessageUrl(info));
+      }
     });
   }
 }

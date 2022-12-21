@@ -17,7 +17,7 @@ export class UsersRepository implements IUsersRepository {
   async verifyUserByIdentity(identity: {
     type: string;
     id: string;
-  }): Promise<{ userId: string }> {
+  }): Promise<{ id: string }> {
     const userId = await this.databaseService.getOne(
       identity.type,
       identity.id,

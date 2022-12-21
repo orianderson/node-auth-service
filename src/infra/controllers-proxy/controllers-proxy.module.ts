@@ -11,19 +11,26 @@ import {
   AdaptersModule,
   JwtTokenService,
   RefreshTokenService,
+  MailService,
 } from '@infra/adapters';
+import {
+  EnvironmentConfigService,
+  EnvironmentConfigModule,
+} from '@infra/config';
 
 import {
   EngineerControllerAdapter,
   AuthControllerAdapter,
+  VerifyUserControllerAdapter,
 } from '@adapters/controllers';
 
 @Module({
-  imports: [DatabaseModule, AdaptersModule],
+  imports: [DatabaseModule, AdaptersModule, EnvironmentConfigModule],
 })
 export class ControllersProxyModule {
   static REGISTER_ENGINEER_USECASES = 'RegisterEngineerUsecases';
   static LOGIN_USECASES = 'AuthControllerAdapter';
+  static VERIFY_USER_USECASES = 'VerifyUserControllerAdapter';
 
   static register(): DynamicModule {
     return {
@@ -63,10 +70,27 @@ export class ControllersProxyModule {
               ),
             ),
         },
+        {
+          inject: [UsersRepository, MailService, EnvironmentConfigService],
+          provide: ControllersProxyModule.VERIFY_USER_USECASES,
+          useFactory: (
+            usersRepository: UsersRepository,
+            mailService: MailService,
+            environmentConfig: EnvironmentConfigService,
+          ) =>
+            new ControllersProxy(
+              new VerifyUserControllerAdapter(
+                usersRepository,
+                mailService,
+                environmentConfig,
+              ),
+            ),
+        },
       ],
       exports: [
         ControllersProxyModule.REGISTER_ENGINEER_USECASES,
         ControllersProxyModule.LOGIN_USECASES,
+        ControllersProxyModule.VERIFY_USER_USECASES,
       ],
     };
   }
