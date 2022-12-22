@@ -27,6 +27,10 @@
       "@adapters/*": ["./src/adapters/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "backup/src/domain/test/phone.spec.ts",
+    "backup/Phone.ts"
+  ],
   "exclude": ["backup"]
 }
