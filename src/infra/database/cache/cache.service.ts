@@ -12,11 +12,11 @@ export class CacheService implements ICacheService {
   async create(query: { key: string; value: string }): Promise<any> {
     await this.cacheManager.set(query.key, query.value);
   }
-  async get(key: string): Promise<{ key: string | unknown }> {
+  async get(key: string): Promise<{ code: string | unknown }> {
     const value = await this.cacheManager.get(key);
 
     return {
-      key: value,
+      code: value,
     };
   }
   async delete(key: any): Promise<void> {

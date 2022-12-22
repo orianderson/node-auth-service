@@ -16,8 +16,9 @@ import { CacheService } from './cache';
   imports: [
     CacheModule.register<ClientOpts>({
       store: redis,
-      host: 'localhost',
-      port: 6369,
+      // host: 'localhost',
+      // port: 6369,
+      url: 'redis://localhost:6379',
       isGlobal: true,
     }),
   ],

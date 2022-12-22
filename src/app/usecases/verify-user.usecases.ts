@@ -1,3 +1,4 @@
+import { ICacheService } from '@app/cache';
 import { UnauthorizedException } from '../../helpers/exceptions/Unauthorized';
 import { IUsersRepository } from '@app/repositories';
 import { IMailService } from '@app/adapters';
@@ -10,6 +11,7 @@ export class VerifyUserUseCases {
     private readonly usersRepository: IUsersRepository,
     private readonly mailService: IMailService,
     private readonly environmentConfig: IEnvironmentConfig,
+    private readonly cacheService: ICacheService,
   ) {}
 
   async verifyUserByEmail(email: string) {
@@ -33,6 +35,15 @@ export class VerifyUserUseCases {
         message: 'Invalid credentials',
       });
     }
+
+    await this.cacheService.create({
+      key: userId.id,
+      value: code,
+    });
+
+    const res = await this.cacheService.get(userId.id);
+
+    console.log(res);
 
     await this.mailService.sendEmail(options);
 

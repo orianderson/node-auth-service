@@ -1,3 +1,4 @@
+import { CacheService } from './../database/cache/cache.service';
 import { DynamicModule, Module } from '@nestjs/common';
 
 import { ControllersProxy } from './controllers-proxy';
@@ -71,18 +72,25 @@ export class ControllersProxyModule {
             ),
         },
         {
-          inject: [UsersRepository, MailService, EnvironmentConfigService],
+          inject: [
+            UsersRepository,
+            MailService,
+            EnvironmentConfigService,
+            CacheService,
+          ],
           provide: ControllersProxyModule.VERIFY_USER_USECASES,
           useFactory: (
             usersRepository: UsersRepository,
             mailService: MailService,
             environmentConfig: EnvironmentConfigService,
+            cacheService: CacheService,
           ) =>
             new ControllersProxy(
               new VerifyUserControllerAdapter(
                 usersRepository,
                 mailService,
                 environmentConfig,
+                cacheService,
               ),
             ),
         },

@@ -1,3 +1,4 @@
+import { ICacheService } from '@app/cache';
 import { IEnvironmentConfig } from '@app/config';
 import { IMailService } from '@app/adapters';
 import { IUsersRepository } from '@app/repositories';
@@ -9,11 +10,13 @@ export class VerifyUserControllerAdapter {
     private readonly usersRepository: IUsersRepository,
     private readonly mailService: IMailService,
     private readonly environmentConfig: IEnvironmentConfig,
+    private readonly cacheService: ICacheService,
   ) {
     this.verifyUserUseCases = new VerifyUserUseCases(
       this.usersRepository,
       this.mailService,
       this.environmentConfig,
+      this.cacheService,
     );
   }
 
