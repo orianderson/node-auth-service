@@ -26,5 +26,7 @@
       "@domain/*": ["./src/domain/*"],
       "@adapters/*": ["./src/adapters/*"]
     }
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["backup"]
 }

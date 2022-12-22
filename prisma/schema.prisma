@@ -10,18 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id         String   @id
   name       String
-  job        String
   email      String   @unique
-  phone      String
-  whatsapp   String
-  state      String
-  city       String
-  picture    String?
   password   String?
   created_at DateTime @default(now())
 
-  @@map("users")
+  @@map("user")
 }
