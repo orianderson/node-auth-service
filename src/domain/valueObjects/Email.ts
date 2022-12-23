@@ -1,15 +1,15 @@
 import { BadRequestException } from '@helpers/exceptions';
 
 export class Email {
-  private readonly emailUser: string;
+  private readonly email: string;
 
   constructor(email: string) {
     this.validate(email);
-    this.emailUser = email;
+    this.email = email;
   }
 
   get value(): string {
-    return this.emailUser;
+    return this.email;
   }
 
   private validate(email: string) {

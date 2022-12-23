@@ -1,9 +1,7 @@
-import { Email } from '../valueObjects';
-
 export class UserInterface {
-  id: string;
+  id?: string;
   name: string;
-  email: Email;
+  email: string;
   created_at?: Date;
   password?: string;
 }

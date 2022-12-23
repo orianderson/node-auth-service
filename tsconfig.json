@@ -24,7 +24,8 @@
       "@helpers/*": ["./src/helpers/*"],
       "@infra/*": ["./src/infra/*"],
       "@domain/*": ["./src/domain/*"],
-      "@adapters/*": ["./src/adapters/*"]
+      "@adapters/*": ["./src/adapters/*"],
+      "@interfaces/*": ["./src/interfaces/*"]
     }
   },
   "include": [

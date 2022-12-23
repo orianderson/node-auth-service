@@ -16,6 +16,26 @@
 
 ## App
 
+### RegisterUserUsecases
+
+#### IUserRepository
+
+#### IBcryptService
+
 ## Interfaces
 
+### DatabaseService
+
+### IUserRepository
+
+### IBcryptService
+
 ## Infra
+
+### DatabaseClient
+
+### DatabaseService
+
+### UserRepository
+
+### BcryptService
