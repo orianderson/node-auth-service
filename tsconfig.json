@@ -28,10 +28,6 @@
       "@interfaces/*": ["./src/interfaces/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "backup/src/domain/test/phone.spec.ts",
-    "backup/Phone.ts"
-  ],
-  "exclude": ["backup"]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["**/backup/*"]
 }

@@ -12,15 +12,15 @@
 
 ##### Phone
 
-### Tests
+#### Tests
 
 ## App
 
-### RegisterUserUsecases
+### Usecases
 
-#### IUserRepository
+#### RegisterUserUsecases
 
-#### IBcryptService
+#### Tests
 
 ## Interfaces
 
@@ -30,11 +30,17 @@
 
 ### IBcryptService
 
+## Adapters
+
+### RegisterUserAdapter
+
+### SignInAdapter
+
 ## Infra
 
 ### DatabaseClient
 
-### DatabaseService
+### UserDatabaseService
 
 ### UserRepository
 
