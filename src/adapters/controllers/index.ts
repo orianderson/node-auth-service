@@ -1,1 +1,1 @@
-export * from './register-user-adapter.ts';
+export * from './register-user.adapter.ts';

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { IBcryptService } from '@interfaces/index';
 
-@Injectable()
 export class BcryptService implements IBcryptService {
   private readonly salt: number = 12;
 

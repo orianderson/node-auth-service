@@ -1,8 +1,11 @@
+import { Injectable } from '@nestjs/common';
+
 import { UserMappers } from './mappers/user.mappers';
 import { UserInterface } from '@domain/types';
 import { IUserRepository } from '@interfaces/index';
 import { UserDatabaseService } from '../user-database.service';
 
+@Injectable()
 export class UserRepository implements IUserRepository {
   constructor(private readonly userDatabaseService: UserDatabaseService) {}
 

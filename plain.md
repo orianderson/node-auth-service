@@ -22,6 +22,12 @@
 
 #### Tests
 
+## Adapters
+
+### RegisterUserAdapter
+
+### SignInAdapter
+
 ## Interfaces
 
 ### DatabaseService
@@ -29,12 +35,6 @@
 ### IUserRepository
 
 ### IBcryptService
-
-## Adapters
-
-### RegisterUserAdapter
-
-### SignInAdapter
 
 ## Infra
 
