@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ControllersModule } from './infra/controllers/controllers.module';
-import { AdaptersProxyModule } from './infra/adapters-proxy/adapters-proxy.module';
+
+import { ControllersModule, AdaptersProxyModule, LoggerModule } from './infra';
 
 @Module({
-  imports: [ControllersModule, AdaptersProxyModule],
+  imports: [ControllersModule, AdaptersProxyModule, LoggerModule],
 })
 export class AppModule {}

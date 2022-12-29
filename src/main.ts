@@ -2,14 +2,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-import { AllExceptionFilter } from '@infra/exceptions';
+import { AllExceptionFilter, LoggerService } from './infra';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api/v1');
 
-  app.useGlobalFilters(new AllExceptionFilter());
+  app.useGlobalFilters(new AllExceptionFilter(new LoggerService()));
 
   app.useGlobalPipes(new ValidationPipe());
 

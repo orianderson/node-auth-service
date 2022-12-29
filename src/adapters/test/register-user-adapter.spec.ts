@@ -24,6 +24,14 @@ describe('Controller adapter - register user', () => {
   };
 
   it('should return userId', async () => {
+    const user = await userDatabaseService.getOne('email', payload.email, {
+      id: true,
+    });
+
+    if (user) {
+      await userDatabaseService.delete('email', payload.email);
+    }
+
     const userId = await registerUserUsecases.execute(payload);
 
     expect.assertions(1);
