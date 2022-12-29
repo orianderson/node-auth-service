@@ -1,7 +1,7 @@
 import { UserInterface } from '@domain/types';
 import { RegisterUserUsecases } from '@app/index';
 import { IUserRepository, IBcryptService } from '@interfaces/index';
-import { makeRegisterUserUsecases } from '../factory';
+import { makeRegisterUserUsecases } from '../../factory';
 
 export class RegisterUserAdapter {
   registerUserUsecases: RegisterUserUsecases;

@@ -1,11 +1,7 @@
-import {
-  UserDatabaseService,
-  DatabaseClient,
-  UserRepository,
-  BcryptService,
-} from '@infra/index';
 import { UserInterface } from '@domain/types';
 import { RegisterUserUsecases } from '../usecases';
+
+import { servicesFactory } from '@helpers/index';
 
 describe('Register User usecases', () => {
   it('should create a new user', async () => {
@@ -15,12 +11,10 @@ describe('Register User usecases', () => {
       password: '123456',
     };
 
-    const userDatabaseService = new UserDatabaseService(new DatabaseClient());
-    const userRepository = new UserRepository(userDatabaseService);
-    const newUser = new RegisterUserUsecases(
-      new BcryptService(),
-      userRepository,
-    );
+    const { userDatabaseService, userRepository, bcryptService } =
+      servicesFactory();
+
+    const newUser = new RegisterUserUsecases(bcryptService, userRepository);
 
     const userId = await newUser.execute(payload);
 

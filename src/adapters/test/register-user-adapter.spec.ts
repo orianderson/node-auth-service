@@ -1,17 +1,12 @@
 import { UserInterface } from '@domain/types';
-import {
-  BcryptService,
-  DatabaseClient,
-  UserDatabaseService,
-  UserRepository,
-} from '@infra/index';
 import { makeRegisterUserUsecases } from '@adapters/index';
 
+import { servicesFactory } from '@helpers/index';
+
 describe('Controller adapter - register user', () => {
-  const databaseClient = new DatabaseClient();
-  const userDatabaseService = new UserDatabaseService(databaseClient);
-  const userRepository = new UserRepository(userDatabaseService);
-  const bcryptService = new BcryptService();
+  const { userDatabaseService, userRepository, bcryptService } =
+    servicesFactory();
+
   const registerUserUsecases = makeRegisterUserUsecases(
     bcryptService,
     userRepository,
