@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 
 import { AdaptersProxy } from './adapters-proxy';
-import { RegisterUserAdapter } from '@adapters/index';
+import { RegisterUserAdapter, AuthenticationAdapter } from '@adapters/index';
 import { BcryptService } from '@infra/security';
 import {
   DatabaseClient,
@@ -19,6 +19,7 @@ import {
 })
 export class AdaptersProxyModule {
   static REGISTER_USER_USECASES = 'RegisterUserAdapter';
+  static LOGIN_USECASES = 'AuthenticationAdapter';
 
   static register(): DynamicModule {
     return {
@@ -35,8 +36,22 @@ export class AdaptersProxyModule {
               new RegisterUserAdapter(userRepository, bcryptService),
             ),
         },
+        {
+          inject: [UserRepository, BcryptService],
+          provide: AdaptersProxyModule.LOGIN_USECASES,
+          useFactory: (
+            userRepository: UserRepository,
+            bcryptService: BcryptService,
+          ) =>
+            new AdaptersProxy(
+              new AuthenticationAdapter(userRepository, bcryptService),
+            ),
+        },
       ],
-      exports: [AdaptersProxyModule.REGISTER_USER_USECASES],
+      exports: [
+        AdaptersProxyModule.REGISTER_USER_USECASES,
+        AdaptersProxyModule.LOGIN_USECASES,
+      ],
     };
   }
 }

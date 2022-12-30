@@ -23,7 +23,10 @@ export class LoginUsecases {
       this.handleException();
     }
 
-    const user = await this.userRepository.signInUser(payload);
+    const user = await this.userRepository.signInUser({
+      ...payload,
+      field: 'email',
+    });
 
     if (!user) {
       this.handleException();
@@ -35,6 +38,6 @@ export class LoginUsecases {
       this.handleException();
     }
 
-    return true;
+    return user;
   }
 }

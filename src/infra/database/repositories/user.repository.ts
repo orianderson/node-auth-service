@@ -1,3 +1,4 @@
+import { Replace } from '@helpers/Replace';
 import { Injectable } from '@nestjs/common';
 
 import { UserMappers } from './mappers/user.mappers';
@@ -27,9 +28,11 @@ export class UserRepository implements IUserRepository {
     };
   }
 
-  async signInUser(payload: ICredentials): Promise<UserInterface> {
+  async signInUser(
+    payload: Replace<ICredentials, { field: string }>,
+  ): Promise<UserInterface> {
     const user = await this.userDatabaseService.getOne(
-      'email',
+      payload.field,
       payload.email,
       null,
     );
