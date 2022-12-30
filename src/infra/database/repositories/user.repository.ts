@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { UserMappers } from './mappers/user.mappers';
-import { UserInterface } from '@domain/types';
+import { ICredentials, UserInterface } from '@domain/types';
 import { IUserRepository } from '@interfaces/index';
 import { UserDatabaseService } from '../user-database.service';
 
@@ -25,5 +25,15 @@ export class UserRepository implements IUserRepository {
     return {
       userId: newUser.id,
     };
+  }
+
+  async signInUser(payload: ICredentials): Promise<UserInterface> {
+    const user = await this.userDatabaseService.getOne(
+      'email',
+      payload.email,
+      null,
+    );
+
+    return user;
   }
 }
