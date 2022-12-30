@@ -5,10 +5,16 @@ import {
   AdaptersProxyModule,
   LoggerModule,
   SetHeadersMiddleware,
+  SecurityModule,
 } from './infra';
 
 @Module({
-  imports: [ControllersModule, AdaptersProxyModule, LoggerModule],
+  imports: [
+    ControllersModule,
+    AdaptersProxyModule,
+    LoggerModule,
+    SecurityModule,
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
