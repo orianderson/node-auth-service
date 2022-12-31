@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
 import { AuthenticationAdapter } from '@adapters/index';
 import { AdaptersProxy, AdaptersProxyModule } from '@infra/adapters-proxy';
 
-@Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(AdaptersProxyModule.LOGIN_USECASES)

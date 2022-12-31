@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { AdaptersProxyModule } from '@infra/adapters-proxy';
 import { RegisterUserController } from './register-user';
 import { AuthenticationController } from './auth';
-import { SecurityModule } from '../security';
+
+import { SecurityModule, GuardModule } from '../security';
 
 @Module({
-  imports: [AdaptersProxyModule.register(), SecurityModule],
+  imports: [SecurityModule, AdaptersProxyModule.register()],
   controllers: [RegisterUserController, AuthenticationController],
   providers: [],
 })

@@ -1,12 +1,19 @@
 import { UnauthorizedException } from './../../helpers/exceptions/Unauthorized';
-import { IBcryptService, IUserRepository } from '@interfaces/index';
+import {
+  IBcryptService,
+  IJwtService,
+  IUserRepository,
+} from '@interfaces/index';
 import { ICredentials } from '@domain/types';
 import { Credentials } from '@domain/valueObjects';
+import { IRefreshTokenService } from './../../interfaces/security/IRefreshTokenService';
 
 export class LoginUsecases {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly bcryptService: IBcryptService,
+    private readonly jwtService: IJwtService,
+    private readonly refreshTokenService: IRefreshTokenService,
   ) {}
 
   private handleException() {
@@ -16,15 +23,15 @@ export class LoginUsecases {
     });
   }
 
-  async signInUser(payload: ICredentials) {
-    const { email, password } = new Credentials(payload).credentials;
+  async signInUser(body: ICredentials) {
+    const { email, password } = new Credentials(body).credentials;
 
     if (!email || !password) {
       this.handleException();
     }
 
     const user = await this.userRepository.signInUser({
-      ...payload,
+      ...body,
       field: 'email',
     });
 
@@ -38,6 +45,29 @@ export class LoginUsecases {
       this.handleException();
     }
 
-    return user;
+    const payload = { _id: user.id };
+
+    const accessToken = this.jwtService.createToken(payload);
+
+    const refreshToken = this.refreshTokenService.createRefreshToken(payload);
+
+    return {
+      ...user,
+      accessToken,
+      refreshToken,
+    };
   }
+
+  // async isUser(id: string) {
+  //   const userId = await this.userRepository.verifyUserByIdentity({
+  //     type: 'id',
+  //     id: id,
+  //   });
+
+  //   if (!userId) {
+  //     this.handleException();
+  //   }
+
+  //   return userId;
+  // }
 }

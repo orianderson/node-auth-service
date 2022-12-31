@@ -1,6 +1,11 @@
 import { makeLoginUsecases } from './../../factory';
 import { ICredentials } from './../../../domain/types';
-import { IUserRepository, IBcryptService } from '@interfaces/index';
+import {
+  IUserRepository,
+  IBcryptService,
+  IJwtService,
+  IRefreshTokenService,
+} from '@interfaces/index';
 import { LoginUsecases } from './../../../app/usecases/LoginUsecases';
 
 export class AuthenticationAdapter {
@@ -8,10 +13,14 @@ export class AuthenticationAdapter {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly bcryptService: IBcryptService,
+    private readonly jwtService: IJwtService,
+    private readonly refreshTokenService: IRefreshTokenService,
   ) {
     this.loginUsecases = makeLoginUsecases(
       this.userRepository,
       this.bcryptService,
+      this.jwtService,
+      this.refreshTokenService,
     );
   }
 

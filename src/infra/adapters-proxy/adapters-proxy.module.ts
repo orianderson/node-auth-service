@@ -1,20 +1,21 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { RefreshTokenService } from './../security/jwt/refresh-token.service';
+import { DynamicModule, forwardRef, Module } from '@nestjs/common';
 
 import { AdaptersProxy } from './adapters-proxy';
 import { RegisterUserAdapter, AuthenticationAdapter } from '@adapters/index';
-import { BcryptService } from '@infra/security';
 import {
-  DatabaseClient,
-  UserDatabaseService,
-  UserRepository,
-} from '@infra/database';
+  BcryptService,
+  JwtTokenService,
+  SecurityModule,
+} from '@infra/security';
+import { UserRepository, DatabaseModule } from '@infra/database';
+import { EnvironmentModule, EnvironmentService } from '../config';
 
 @Module({
-  providers: [
-    DatabaseClient,
-    UserDatabaseService,
-    BcryptService,
-    UserRepository,
+  imports: [
+    DatabaseModule,
+    forwardRef(() => SecurityModule),
+    EnvironmentModule,
   ],
 })
 export class AdaptersProxyModule {
@@ -37,14 +38,26 @@ export class AdaptersProxyModule {
             ),
         },
         {
-          inject: [UserRepository, BcryptService],
+          inject: [
+            UserRepository,
+            BcryptService,
+            JwtTokenService,
+            RefreshTokenService,
+          ],
           provide: AdaptersProxyModule.LOGIN_USECASES,
           useFactory: (
             userRepository: UserRepository,
             bcryptService: BcryptService,
+            jwtService: JwtTokenService,
+            refreshTokenService: RefreshTokenService,
           ) =>
             new AdaptersProxy(
-              new AuthenticationAdapter(userRepository, bcryptService),
+              new AuthenticationAdapter(
+                userRepository,
+                bcryptService,
+                jwtService,
+                refreshTokenService,
+              ),
             ),
         },
       ],

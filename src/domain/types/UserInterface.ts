@@ -4,4 +4,6 @@ export class UserInterface {
   email: string;
   created_at?: Date;
   password?: string;
+  accessToken?: string;
+  refreshToken?: string;
 }

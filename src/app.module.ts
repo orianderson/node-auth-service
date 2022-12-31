@@ -1,3 +1,4 @@
+import { GuardModule } from './infra/security/guard/guard.module';
 import { Module, MiddlewareConsumer } from '@nestjs/common';
 
 import {
@@ -6,14 +7,19 @@ import {
   LoggerModule,
   SetHeadersMiddleware,
   SecurityModule,
+  DatabaseModule,
 } from './infra';
+import { EnvironmentModule } from './infra/config';
 
 @Module({
   imports: [
     ControllersModule,
-    AdaptersProxyModule,
+    DatabaseModule,
     LoggerModule,
     SecurityModule,
+    EnvironmentModule,
+    AdaptersProxyModule,
+    GuardModule,
   ],
 })
 export class AppModule {

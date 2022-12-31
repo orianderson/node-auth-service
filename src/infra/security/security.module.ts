@@ -1,16 +1,23 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
-import { LocalStrategy } from './guard/local.strategy';
-import { AdaptersProxyModule } from '@infra/adapters-proxy';
+import { EnvironmentModule } from '@infra/config';
+import { BcryptService } from './bcrypt';
+import { JwtTokenService, RefreshTokenService } from './jwt';
 
 @Module({
   imports: [
     PassportModule.register({
       defaultStrategy: 'jwt',
     }),
-    AdaptersProxyModule.register(),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      // signOptions: { expiresIn: '24h' },
+    }),
+    EnvironmentModule,
   ],
-  providers: [LocalStrategy],
+  providers: [BcryptService, JwtTokenService, RefreshTokenService],
+  exports: [BcryptService, JwtTokenService, RefreshTokenService],
 })
 export class SecurityModule {}
