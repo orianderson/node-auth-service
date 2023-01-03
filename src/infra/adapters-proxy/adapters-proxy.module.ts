@@ -1,12 +1,11 @@
-import { RefreshTokenService } from './../security/jwt/refresh-token.service';
 import { DynamicModule, forwardRef, Module } from '@nestjs/common';
 
 import { AdaptersProxy } from './adapters-proxy';
 import { RegisterUserAdapter, AuthenticationAdapter } from '@adapters/index';
 import {
   BcryptService,
-  JwtTokenService,
   SecurityModule,
+  AuthTokenService,
 } from '@infra/security';
 import { UserRepository, DatabaseModule, CacheService } from '@infra/database';
 import { EnvironmentModule, EnvironmentService } from '../config';
@@ -41,25 +40,22 @@ export class AdaptersProxyModule {
           inject: [
             UserRepository,
             BcryptService,
-            JwtTokenService,
-            RefreshTokenService,
             CacheService,
+            AuthTokenService,
           ],
           provide: AdaptersProxyModule.LOGIN_USECASES,
           useFactory: (
             userRepository: UserRepository,
             bcryptService: BcryptService,
-            jwtService: JwtTokenService,
-            refreshTokenService: RefreshTokenService,
             authManager: CacheService,
+            authTokenService: AuthTokenService,
           ) =>
             new AdaptersProxy(
               new AuthenticationAdapter(
                 userRepository,
                 bcryptService,
-                jwtService,
-                refreshTokenService,
                 authManager,
+                authTokenService,
               ),
             ),
         },

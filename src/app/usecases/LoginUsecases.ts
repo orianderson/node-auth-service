@@ -1,21 +1,19 @@
 import { UnauthorizedException } from './../../helpers/exceptions/Unauthorized';
 import {
   IBcryptService,
-  IJwtService,
   IUserRepository,
   IAuthorizationManager,
+  IAuthTokenService,
 } from '@interfaces/index';
 import { ICredentials } from '@domain/types';
 import { Credentials } from '@domain/valueObjects';
-import { IRefreshTokenService } from './../../interfaces/security/IRefreshTokenService';
 
 export class LoginUsecases {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly bcryptService: IBcryptService,
-    private readonly jwtService: IJwtService,
-    private readonly refreshTokenService: IRefreshTokenService,
     private readonly authManager: IAuthorizationManager,
+    private readonly authTokenService: IAuthTokenService,
   ) {}
 
   private handleException() {
@@ -49,9 +47,15 @@ export class LoginUsecases {
 
     const payload = { _id: user.id };
 
-    const accessToken = this.jwtService.createToken(payload);
+    const accessToken = this.authTokenService.createToken({
+      ...payload,
+      type: 'accessToken',
+    });
 
-    const refreshToken = this.refreshTokenService.createRefreshToken(payload);
+    const refreshToken = this.authTokenService.createToken({
+      ...payload,
+      type: 'refreshToken',
+    });
 
     await this.authManager.setKey(user.id, {
       type: 'allowlist',

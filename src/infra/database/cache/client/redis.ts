@@ -22,7 +22,7 @@ export class ManagerCache {
     this.delAsync = promisify(this.client.del).bind(this.client);
   }
 
-  async setKey(key: string, value: any) {
+  async setKey(key: string, value: string) {
     await this.setAsync(key, value);
   }
 
