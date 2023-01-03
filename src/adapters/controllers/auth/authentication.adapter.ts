@@ -29,4 +29,10 @@ export class AuthenticationAdapter {
 
     return response;
   }
+
+  async isUser(id: string) {
+    const userId = await this.authManager.isKey(id);
+
+    return userId;
+  }
 }

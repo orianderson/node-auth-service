@@ -1,11 +1,18 @@
-import { Controller, Inject, Post, Res } from '@nestjs/common';
+import {
+  Controller,
+  Inject,
+  Post,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 import { LogoutAdapter } from './../../../adapters';
 import { AdaptersProxyModule, AdaptersProxy } from './../../adapters-proxy';
 import { StatusCodeResponse } from './../../../helpers';
 
-// import {} from ''
+import { AuthenticationGuard } from '../../security/guard';
 
 @Controller('auth')
 export class LogoutController {
@@ -14,10 +21,13 @@ export class LogoutController {
     private readonly logoutAdapter: AdaptersProxy<LogoutAdapter>,
   ) {}
 
+  @UseGuards(AuthenticationGuard)
   @Post('logout')
-  async logout(@Res() res: Response) {
-    await this.logoutAdapter.getInstance().logoutUser('123456');
+  async logout(@Request() req, @Res() res: Response) {
+    const user = req.user;
 
-    res.status(StatusCodeResponse.NO_CONTENT).end();
+    // await this.logoutAdapter.getInstance().logoutUser('123456');
+
+    res.status(StatusCodeResponse.OK).send(user);
   }
 }

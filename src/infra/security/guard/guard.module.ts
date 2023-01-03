@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 
 import { LocalStrategy } from './local.strategy';
-import { AdaptersProxyModule } from '@infra/adapters-proxy';
+import { JwtStrategy } from './jwt.strategy';
+import { DatabaseModule } from '../../database';
+import { SecurityModule } from '../../security';
 
 @Module({
-  imports: [AdaptersProxyModule.register()],
-  providers: [LocalStrategy],
-  exports: [LocalStrategy],
+  imports: [DatabaseModule, SecurityModule],
+  providers: [LocalStrategy, JwtStrategy],
+  exports: [LocalStrategy, JwtStrategy],
 })
 export class GuardModule {}

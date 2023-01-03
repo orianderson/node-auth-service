@@ -1,20 +1,33 @@
-import { Inject } from '@nestjs/common';
+import { AuthTokenService } from './../auth-token.service';
+import { CacheService } from '@infra/database';
+import { BcryptService } from './../bcrypt/bcrypt.service';
+import { UserRepository } from './../../database/repositories/user.repository';
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
-import { AuthenticationAdapter } from '@adapters/index';
-import { AdaptersProxy, AdaptersProxyModule } from '@infra/adapters-proxy';
+import { AuthenticationAdapter } from '../../../adapters';
 
+@Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
+  authenticationAdapter: AuthenticationAdapter;
   constructor(
-    @Inject(AdaptersProxyModule.LOGIN_USECASES)
-    private readonly loginUsecases: AdaptersProxy<AuthenticationAdapter>,
+    private readonly userRepository: UserRepository,
+    private readonly bcryptService: BcryptService,
+    private readonly authManager: CacheService,
+    private readonly authTokenService: AuthTokenService,
   ) {
     super({ usernameField: 'email' });
+    this.authenticationAdapter = new AuthenticationAdapter(
+      this.userRepository,
+      this.bcryptService,
+      this.authManager,
+      this.authTokenService,
+    );
   }
 
   async validate(email: string, password: string) {
-    const user = await this.loginUsecases.getInstance().signInUser({
+    const user = await this.authenticationAdapter.signInUser({
       email: email,
       password: password,
     });

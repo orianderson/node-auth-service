@@ -28,6 +28,6 @@
       "@interfaces/*": ["./src/interfaces/*"]
     }
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "backup/authentication.guard.ts"],
   "exclude": ["**/backup/*"]
 }

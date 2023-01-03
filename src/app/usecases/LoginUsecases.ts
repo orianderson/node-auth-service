@@ -71,6 +71,16 @@ export class LoginUsecases {
   }
 
   // async isUser(id: string) {
+  //   const userId = await this.authManager.isKey(id);
+
+  //   if (!userId) {
+  //     this.handleException();
+  //   }
+
+  //   return userId;
+  // }
+
+  // async isUser(id: string) {
   //   const userId = await this.userRepository.verifyUserByIdentity({
   //     type: 'id',
   //     id: id,
