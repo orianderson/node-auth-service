@@ -34,4 +34,10 @@ export class AuthTokenService implements IAuthTokenService {
 
     return decode;
   }
+
+  decodeToken(token: string): any {
+    const decode = this.jwtService.decode(token);
+
+    return decode;
+  }
 }

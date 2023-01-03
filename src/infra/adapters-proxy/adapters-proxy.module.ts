@@ -1,7 +1,11 @@
 import { DynamicModule, forwardRef, Module } from '@nestjs/common';
 
 import { AdaptersProxy } from './adapters-proxy';
-import { RegisterUserAdapter, AuthenticationAdapter } from '@adapters/index';
+import {
+  RegisterUserAdapter,
+  AuthenticationAdapter,
+  LogoutAdapter,
+} from '@adapters/index';
 import {
   BcryptService,
   SecurityModule,
@@ -20,6 +24,7 @@ import { EnvironmentModule, EnvironmentService } from '../config';
 export class AdaptersProxyModule {
   static REGISTER_USER_USECASES = 'RegisterUserAdapter';
   static LOGIN_USECASES = 'AuthenticationAdapter';
+  static LOGOUT_USECASES = 'LogoutAdapter';
 
   static register(): DynamicModule {
     return {
@@ -59,10 +64,20 @@ export class AdaptersProxyModule {
               ),
             ),
         },
+        {
+          inject: [CacheService, AuthTokenService],
+          provide: AdaptersProxyModule.LOGOUT_USECASES,
+          useFactory: (
+            authManager: CacheService,
+            authTokenService: AuthTokenService,
+          ) =>
+            new AdaptersProxy(new LogoutAdapter(authManager, authTokenService)),
+        },
       ],
       exports: [
         AdaptersProxyModule.REGISTER_USER_USECASES,
         AdaptersProxyModule.LOGIN_USECASES,
+        AdaptersProxyModule.LOGOUT_USECASES,
       ],
     };
   }

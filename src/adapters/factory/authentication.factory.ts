@@ -1,4 +1,4 @@
-import { LoginUsecases } from '@app/usecases';
+import { LoginUsecases, LogoutUsecases } from '@app/usecases';
 
 import {
   IUserRepository,
@@ -19,4 +19,11 @@ export const makeLoginUsecases = (
     cacheService,
     authTokenService,
   );
+};
+
+export const makeLogoutUsecases = (
+  authManager: IAuthorizationManager,
+  authTokenService: IAuthTokenService,
+) => {
+  return new LogoutUsecases(authManager, authTokenService);
 };

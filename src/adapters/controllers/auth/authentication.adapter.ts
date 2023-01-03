@@ -3,8 +3,6 @@ import { ICredentials } from './../../../domain/types';
 import {
   IUserRepository,
   IBcryptService,
-  IJwtService,
-  IRefreshTokenService,
   IAuthorizationManager,
   IAuthTokenService,
 } from '@interfaces/index';
