@@ -3,6 +3,7 @@ import {
   IBcryptService,
   IJwtService,
   IUserRepository,
+  IAuthorizationManager,
 } from '@interfaces/index';
 import { ICredentials } from '@domain/types';
 import { Credentials } from '@domain/valueObjects';
@@ -14,6 +15,7 @@ export class LoginUsecases {
     private readonly bcryptService: IBcryptService,
     private readonly jwtService: IJwtService,
     private readonly refreshTokenService: IRefreshTokenService,
+    private readonly authManager: IAuthorizationManager,
   ) {}
 
   private handleException() {
@@ -50,6 +52,12 @@ export class LoginUsecases {
     const accessToken = this.jwtService.createToken(payload);
 
     const refreshToken = this.refreshTokenService.createRefreshToken(payload);
+
+    await this.authManager.setKey(user.id, {
+      type: 'allowlist',
+      value: refreshToken,
+      expiration: Date.now() + 3 * 86400,
+    });
 
     return {
       ...user,

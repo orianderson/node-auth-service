@@ -5,6 +5,7 @@ import {
   IBcryptService,
   IJwtService,
   IRefreshTokenService,
+  IAuthorizationManager,
 } from '@interfaces/index';
 import { LoginUsecases } from './../../../app/usecases/LoginUsecases';
 
@@ -15,12 +16,14 @@ export class AuthenticationAdapter {
     private readonly bcryptService: IBcryptService,
     private readonly jwtService: IJwtService,
     private readonly refreshTokenService: IRefreshTokenService,
+    private readonly authManager: IAuthorizationManager,
   ) {
     this.loginUsecases = makeLoginUsecases(
       this.userRepository,
       this.bcryptService,
       this.jwtService,
       this.refreshTokenService,
+      this.authManager,
     );
   }
 

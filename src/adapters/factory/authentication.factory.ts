@@ -5,6 +5,7 @@ import {
   IBcryptService,
   IJwtService,
   IRefreshTokenService,
+  IAuthorizationManager,
 } from '@interfaces/index';
 
 export const makeLoginUsecases = (
@@ -12,11 +13,13 @@ export const makeLoginUsecases = (
   bcryptService: IBcryptService,
   jwtService: IJwtService,
   refreshTokenService: IRefreshTokenService,
+  cacheService: IAuthorizationManager,
 ) => {
   return new LoginUsecases(
     userRepository,
     bcryptService,
     jwtService,
     refreshTokenService,
+    cacheService,
   );
 };

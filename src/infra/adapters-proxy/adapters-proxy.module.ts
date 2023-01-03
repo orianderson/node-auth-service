@@ -8,7 +8,7 @@ import {
   JwtTokenService,
   SecurityModule,
 } from '@infra/security';
-import { UserRepository, DatabaseModule } from '@infra/database';
+import { UserRepository, DatabaseModule, CacheService } from '@infra/database';
 import { EnvironmentModule, EnvironmentService } from '../config';
 
 @Module({
@@ -43,6 +43,7 @@ export class AdaptersProxyModule {
             BcryptService,
             JwtTokenService,
             RefreshTokenService,
+            CacheService,
           ],
           provide: AdaptersProxyModule.LOGIN_USECASES,
           useFactory: (
@@ -50,6 +51,7 @@ export class AdaptersProxyModule {
             bcryptService: BcryptService,
             jwtService: JwtTokenService,
             refreshTokenService: RefreshTokenService,
+            authManager: CacheService,
           ) =>
             new AdaptersProxy(
               new AuthenticationAdapter(
@@ -57,6 +59,7 @@ export class AdaptersProxyModule {
                 bcryptService,
                 jwtService,
                 refreshTokenService,
+                authManager,
               ),
             ),
         },
