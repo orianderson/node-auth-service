@@ -57,8 +57,7 @@ export class LoginUsecases {
       type: 'refreshToken',
     });
 
-    await this.authManager.setKey(user.id, {
-      type: 'allowlist',
+    await this.authManager.setKey(`refresh-token: ${user.id}`, {
       value: refreshToken,
       expiration: Date.now() + 3 * 86400,
     });

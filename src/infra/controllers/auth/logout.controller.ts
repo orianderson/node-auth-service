@@ -26,8 +26,8 @@ export class LogoutController {
   async logout(@Request() req, @Res() res: Response) {
     const user = req.user;
 
-    // await this.logoutAdapter.getInstance().logoutUser('123456');
+    await this.logoutAdapter.getInstance().logoutUser(user._id);
 
-    res.status(StatusCodeResponse.OK).send(user);
+    res.status(StatusCodeResponse.NO_CONTENT).end();
   }
 }

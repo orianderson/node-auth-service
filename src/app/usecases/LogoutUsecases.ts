@@ -15,6 +15,6 @@ export class LogoutUsecases {
   // }
 
   async logoutUser(id: string) {
-    // this.handleException();
+    await this.authManager.delete(`refresh-token: ${id}`);
   }
 }

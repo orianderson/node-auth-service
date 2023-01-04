@@ -4,7 +4,7 @@ import { AdaptersProxyModule } from '@infra/adapters-proxy';
 import { RegisterUserController } from './register-user';
 import { AuthenticationController, LogoutController } from './auth';
 
-import { SecurityModule, GuardModule } from '../security';
+import { SecurityModule } from '../security';
 
 @Module({
   imports: [SecurityModule, AdaptersProxyModule.register()],

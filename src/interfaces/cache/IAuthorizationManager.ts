@@ -1,5 +1,4 @@
 export interface Value {
-  type: string;
   value: string | number;
   expiration: number;
 }

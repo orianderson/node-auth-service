@@ -18,6 +18,6 @@ export class CacheService implements IAuthorizationManager {
   }
 
   async delete(query: any): Promise<any> {
-    throw new Error('Method not implemented.');
+    await this.managerCache.delete(query);
   }
 }
