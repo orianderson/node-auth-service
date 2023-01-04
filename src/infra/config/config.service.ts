@@ -6,6 +6,22 @@ import { IEnvironment } from '@app/config';
 @Injectable()
 export class EnvironmentService implements IEnvironment {
   constructor(private readonly configService: ConfigService) {}
+  getEmailUser(): string {
+    return this.configService.get<string>('EMAIL_USER');
+  }
+
+  getEmailPassword(): string {
+    return this.configService.get<string>('EMAIL_PASSWORD');
+  }
+
+  getEmailServer(): string {
+    return this.configService.get<string>('EMAIL_SERVER');
+  }
+
+  getEmailService(): string {
+    return this.configService.get<string>('EMAIL_SERVICE');
+  }
+
   getJwtSecret(): string {
     return this.configService.get<string>('JWT_SECRET');
   }
