@@ -49,4 +49,8 @@ export class UserRepository implements IUserRepository {
 
     return user;
   }
+
+  async update(field: string, id: string, value: any): Promise<void> {
+    await this.userDatabaseService.update(field, id, value);
+  }
 }

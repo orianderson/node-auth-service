@@ -3,6 +3,7 @@ import {
   IUserRepository,
   ICacheService,
   IMailService,
+  IAuthTokenService,
 } from '@interfaces/index';
 import { VerifyUserUsecases } from '@app/usecases';
 import { VerifyUserInterface } from '../../types';
@@ -13,11 +14,13 @@ export class VerifyUserAdapter {
     private readonly userRepository: IUserRepository,
     private readonly mailService: IMailService,
     private readonly cacheService: ICacheService,
+    private readonly authTokenService: IAuthTokenService,
   ) {
     this.verifyUserUsecases = makeVerifyUserUsecases(
       this.userRepository,
       this.mailService,
       this.cacheService,
+      this.authTokenService,
     );
   }
 
@@ -27,7 +30,9 @@ export class VerifyUserAdapter {
     return user;
   }
 
-  async verifyCode(payload: VerifyUserInterface) {
-    await this.verifyUserUsecases.verifyCode(payload);
+  async verifyCode(payload: VerifyUserInterface): Promise<string> {
+    const token = await this.verifyUserUsecases.verifyCode(payload);
+
+    return token;
   }
 }

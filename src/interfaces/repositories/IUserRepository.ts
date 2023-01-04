@@ -1,4 +1,5 @@
 import { UserInterface } from '@domain/types';
+import { UserUpdateFields } from './UserUpdateFields';
 
 export abstract class IUserRepository {
   abstract verifyIfUserExist(identity: string): Promise<any>;
@@ -9,4 +10,9 @@ export abstract class IUserRepository {
     id: any,
     query: any,
   ): Promise<{ id: string } | null>;
+  abstract update(
+    field: string,
+    id: string,
+    value: UserUpdateFields,
+  ): Promise<void>;
 }

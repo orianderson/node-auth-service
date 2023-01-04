@@ -3,6 +3,7 @@ import {
   IUserRepository,
   IMailService,
   ICacheService,
+  IAuthTokenService,
 } from '@interfaces/index';
 import { EmailToSend } from '@domain/valueObjects';
 import { generateCode } from '@helpers/generate-code';
@@ -12,6 +13,7 @@ export class VerifyUserUsecases {
     private readonly userRepository: IUserRepository,
     private readonly mailService: IMailService,
     private readonly cacheService: ICacheService,
+    private readonly authTokenService: IAuthTokenService,
   ) {}
 
   private handleException() {
@@ -45,12 +47,19 @@ export class VerifyUserUsecases {
       value: code,
     });
 
+    const token = this.authTokenService.createToken({
+      _id: userId.id,
+      type: null,
+    });
+
     await this.mailService.sendMail(options);
 
-    return userId;
+    return {
+      id: token,
+    };
   }
 
-  async verifyCode(payload: { code: number; id: string }) {
+  async verifyCode(payload: { code: number; id: string }): Promise<string> {
     const key = `user-validation: ${payload.id}`;
     const isValid = await this.cacheService.getKey(key);
 
@@ -58,6 +67,13 @@ export class VerifyUserUsecases {
       this.handleException();
     }
 
+    const token = this.authTokenService.createToken({
+      _id: payload.id,
+      type: null,
+    });
+
     await this.cacheService.delete(key);
+
+    return token;
   }
 }

@@ -25,8 +25,17 @@ export class UserDatabaseService implements IDataBaseService {
     return user;
   }
 
-  async update(query: any): Promise<any> {
-    throw new Error('Method not implemented.');
+  async update(
+    field: string,
+    id: string,
+    value: Prisma.UserUpdateInput,
+  ): Promise<any> {
+    await this.databaseClient.user.update({
+      where: {
+        [field]: id,
+      },
+      data: value,
+    });
   }
 
   async delete(field: string, identity: string): Promise<any> {

@@ -7,3 +7,8 @@ export class CredentialsPayload {
   @IsNotEmpty()
   password: string;
 }
+
+export class PasswordPayload {
+  @IsNotEmpty()
+  password: string;
+}

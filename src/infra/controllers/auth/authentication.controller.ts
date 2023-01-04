@@ -1,3 +1,4 @@
+import { AuthenticationGuard } from './../../security/guard/authentication.guard';
 import {
   Controller,
   Post,
@@ -6,23 +7,27 @@ import {
   Request,
   Body,
   Inject,
-  Param,
 } from '@nestjs/common';
 import { Response } from 'express';
 
 import { AdaptersProxyModule, AdaptersProxy } from '@infra/index';
-import { VerifyUserAdapter } from './../../../adapters/controllers/auth/verify-user.adapter';
+import {
+  VerifyUserAdapter,
+  RecoveryPasswordAdapter,
+} from './../../../adapters/controllers';
 
 import { LoginGuard } from './../../security/guard/login.guard';
 import { StatusCodeResponse } from './../../../helpers/constants';
 import { UserResponse } from '../presenters';
-import { VerifyEmailPayload, VerifyCodePayload } from '../dto';
+import { VerifyEmailPayload, VerifyCodePayload, PasswordPayload } from '../dto';
 
 @Controller('auth')
 export class AuthenticationController {
   constructor(
     @Inject(AdaptersProxyModule.VERIFY_USER_USECASES)
     private readonly verifyUserAdapter: AdaptersProxy<VerifyUserAdapter>,
+    @Inject(AdaptersProxyModule.RECOVERY_PASS_USECASES)
+    private readonly recoveryPassUseCases: AdaptersProxy<RecoveryPasswordAdapter>,
   ) {}
 
   @UseGuards(LoginGuard)
@@ -44,16 +49,37 @@ export class AuthenticationController {
     });
   }
 
-  @Post(':userId')
+  @UseGuards(AuthenticationGuard)
+  @Post('verify-code')
   async verifyCode(
-    @Param('userId') userId: string,
     @Body() payload: VerifyCodePayload,
     @Res() res: Response,
+    @Request() req,
   ) {
-    await this.verifyUserAdapter.getInstance().verifyCode({
+    const userId = req.user._id;
+
+    const token = await this.verifyUserAdapter.getInstance().verifyCode({
       code: Number(payload.code),
       id: userId,
     });
+
+    res.status(StatusCodeResponse.OK).send({
+      userId: token,
+    });
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Post('recovery-password')
+  async updatePassword(
+    @Body() payload: PasswordPayload,
+    @Res() res: Response,
+    @Request() req,
+  ) {
+    const userId = req.user._id;
+
+    await this.recoveryPassUseCases
+      .getInstance()
+      .update(userId, payload.password);
 
     res.status(StatusCodeResponse.NO_CONTENT).end();
   }

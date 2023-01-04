@@ -6,6 +6,7 @@ import {
   RegisterUserAdapter,
   LogoutAdapter,
   VerifyUserAdapter,
+  RecoveryPasswordAdapter,
 } from '@adapters/index';
 import {
   BcryptService,
@@ -28,6 +29,7 @@ export class AdaptersProxyModule {
   static REGISTER_USER_USECASES = 'RegisterUserAdapter';
   static LOGOUT_USECASES = 'LogoutAdapter';
   static VERIFY_USER_USECASES = 'VerifyUserAdapter';
+  static RECOVERY_PASS_USECASES = 'RecoveryPasswordAdapter';
 
   static register(): DynamicModule {
     return {
@@ -54,20 +56,32 @@ export class AdaptersProxyModule {
             new AdaptersProxy(new LogoutAdapter(authManager, authTokenService)),
         },
         {
-          inject: [
-            UserRepository,
-            MailService,
-            CacheService,
-            EnvironmentService,
-          ],
+          inject: [UserRepository, MailService, CacheService, AuthTokenService],
           provide: AdaptersProxyModule.VERIFY_USER_USECASES,
           useFactory: (
             userRepository: UserRepository,
             mailService: MailService,
             cacheService: CacheService,
+            authTokenService: AuthTokenService,
           ) =>
             new AdaptersProxy(
-              new VerifyUserAdapter(userRepository, mailService, cacheService),
+              new VerifyUserAdapter(
+                userRepository,
+                mailService,
+                cacheService,
+                authTokenService,
+              ),
+            ),
+        },
+        {
+          inject: [UserRepository, BcryptService],
+          provide: AdaptersProxyModule.RECOVERY_PASS_USECASES,
+          useFactory: (
+            userRepository: UserRepository,
+            bcryptService: BcryptService,
+          ) =>
+            new AdaptersProxy(
+              new RecoveryPasswordAdapter(userRepository, bcryptService),
             ),
         },
       ],
@@ -75,6 +89,7 @@ export class AdaptersProxyModule {
         AdaptersProxyModule.REGISTER_USER_USECASES,
         AdaptersProxyModule.LOGOUT_USECASES,
         AdaptersProxyModule.VERIFY_USER_USECASES,
+        AdaptersProxyModule.RECOVERY_PASS_USECASES,
       ],
     };
   }

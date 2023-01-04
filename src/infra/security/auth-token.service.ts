@@ -25,7 +25,7 @@ export class AuthTokenService implements IAuthTokenService {
 
     return this.jwtService.sign(payload, {
       secret: secret,
-      expiresIn: expiration,
+      expiresIn: tokenType ? expiration : '3m',
     });
   }
 
