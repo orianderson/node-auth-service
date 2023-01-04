@@ -51,12 +51,13 @@ export class VerifyUserUsecases {
   }
 
   async verifyCode(payload: { code: number; id: string }) {
-    const isValid = await this.cacheService.getKey(
-      `user-validation: ${payload.id}`,
-    );
+    const key = `user-validation: ${payload.id}`;
+    const isValid = await this.cacheService.getKey(key);
 
-    if (isValid.value !== payload.code) {
+    if (!isValid || isValid.value !== payload.code) {
       this.handleException();
     }
+
+    await this.cacheService.delete(key);
   }
 }
