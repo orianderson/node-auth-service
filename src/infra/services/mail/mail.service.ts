@@ -1,9 +1,12 @@
 import * as nodemailer from 'nodemailer';
 
+import { Injectable } from '@nestjs/common';
+
 import { EnvironmentService } from '@infra/config';
 import { IMailOptions } from '@domain/types';
 import { IMailService } from '@interfaces/index';
 
+@Injectable()
 export class MailService implements IMailService {
   constructor(private readonly environmentConfig: EnvironmentService) {}
   async sendMail(options: IMailOptions): Promise<void> {

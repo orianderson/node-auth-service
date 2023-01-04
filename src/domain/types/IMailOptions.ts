@@ -1,5 +1,5 @@
 export interface IMailOptions {
-  from: string;
+  from?: string;
   to: string;
   subject: string;
   html?: string;

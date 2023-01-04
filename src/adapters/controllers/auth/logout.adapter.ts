@@ -1,16 +1,16 @@
 import { LogoutUsecases } from './../../../app/usecases/LogoutUsecases';
 import { makeLogoutUsecases } from '../../factory';
 
-import { IAuthTokenService, IAuthorizationManager } from '@interfaces/index';
+import { IAuthTokenService, ICacheService } from '@interfaces/index';
 
 export class LogoutAdapter {
   logoutUsecases: LogoutUsecases;
   constructor(
-    private readonly authManager: IAuthorizationManager,
+    private readonly cacheService: ICacheService,
     private readonly authTokenService: IAuthTokenService,
   ) {
     this.logoutUsecases = makeLogoutUsecases(
-      this.authManager,
+      this.cacheService,
       this.authTokenService,
     );
   }

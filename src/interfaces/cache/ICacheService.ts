@@ -1,10 +1,11 @@
-export interface Query {
-  key: string;
-  value: any;
+export interface Value {
+  value: string | number;
+  expiration: number;
 }
 
 export abstract class ICacheService {
-  abstract create(query: Query): Promise<any>;
-  abstract get(query: any): Promise<any>;
-  abstract delete(query: any): Promise<any>;
+  abstract setKey(key: string, value: Value): Promise<void>;
+  abstract getKey(key: string): Promise<string | unknown>;
+  abstract isKey(key: string): Promise<boolean>;
+  abstract delete(key: string): Promise<void>;
 }

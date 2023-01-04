@@ -8,6 +8,7 @@ import {
   SetHeadersMiddleware,
   SecurityModule,
   DatabaseModule,
+  ServicesModule,
 } from './infra';
 import { EnvironmentModule } from './infra/config';
 
@@ -20,6 +21,7 @@ import { EnvironmentModule } from './infra/config';
     EnvironmentModule,
     AdaptersProxyModule,
     GuardModule,
+    ServicesModule,
   ],
 })
 export class AppModule {

@@ -39,4 +39,14 @@ export class UserRepository implements IUserRepository {
 
     return user;
   }
+
+  async verifyUserByIdentity(
+    field: string,
+    id: any,
+    query: any,
+  ): Promise<{ id: string }> {
+    const user = await this.userDatabaseService.getOne(field, id, query);
+
+    return user;
+  }
 }

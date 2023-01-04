@@ -1,9 +1,9 @@
-import { IAuthTokenService, IAuthorizationManager } from '@interfaces/index';
+import { IAuthTokenService, ICacheService } from '@interfaces/index';
 // import { UnauthorizedException } from './../../helpers/exceptions/Unauthorized';
 
 export class LogoutUsecases {
   constructor(
-    private readonly authManager: IAuthorizationManager,
+    private readonly cacheService: ICacheService,
     private readonly authTokenService: IAuthTokenService,
   ) {}
 
@@ -15,6 +15,6 @@ export class LogoutUsecases {
   // }
 
   async logoutUser(id: string) {
-    await this.authManager.delete(`refresh-token: ${id}`);
+    await this.cacheService.delete(`refresh-token: ${id}`);
   }
 }

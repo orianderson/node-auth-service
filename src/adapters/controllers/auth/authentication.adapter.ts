@@ -3,7 +3,7 @@ import { ICredentials } from './../../../domain/types';
 import {
   IUserRepository,
   IBcryptService,
-  IAuthorizationManager,
+  ICacheService,
   IAuthTokenService,
 } from '@interfaces/index';
 import { LoginUsecases } from './../../../app/usecases/LoginUsecases';
@@ -13,13 +13,13 @@ export class AuthenticationAdapter {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly bcryptService: IBcryptService,
-    private readonly authManager: IAuthorizationManager,
+    private readonly cacheService: ICacheService,
     private readonly authTokenService: IAuthTokenService,
   ) {
     this.loginUsecases = makeLoginUsecases(
       this.userRepository,
       this.bcryptService,
-      this.authManager,
+      this.cacheService,
       this.authTokenService,
     );
   }
@@ -31,7 +31,7 @@ export class AuthenticationAdapter {
   }
 
   async isUser(id: string) {
-    const userId = await this.authManager.isKey(id);
+    const userId = await this.cacheService.isKey(id);
 
     return userId;
   }

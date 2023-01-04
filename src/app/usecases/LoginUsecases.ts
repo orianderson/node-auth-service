@@ -2,7 +2,7 @@ import { UnauthorizedException } from './../../helpers/exceptions/Unauthorized';
 import {
   IBcryptService,
   IUserRepository,
-  IAuthorizationManager,
+  ICacheService,
   IAuthTokenService,
 } from '@interfaces/index';
 import { ICredentials } from '@domain/types';
@@ -12,7 +12,7 @@ export class LoginUsecases {
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly bcryptService: IBcryptService,
-    private readonly authManager: IAuthorizationManager,
+    private readonly cacheService: ICacheService,
     private readonly authTokenService: IAuthTokenService,
   ) {}
 
@@ -57,7 +57,7 @@ export class LoginUsecases {
       type: 'refreshToken',
     });
 
-    await this.authManager.setKey(`refresh-token: ${user.id}`, {
+    await this.cacheService.setKey(`refresh-token: ${user.id}`, {
       value: refreshToken,
       expiration: Date.now() + 3 * 86400,
     });

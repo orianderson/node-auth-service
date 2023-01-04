@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { IAuthorizationManager, Value } from '@interfaces/cache';
+import { ICacheService, Value } from '@interfaces/cache';
 import { ManagerCache } from './client';
 
 @Injectable()
-export class CacheService implements IAuthorizationManager {
+export class CacheService implements ICacheService {
   constructor(private readonly managerCache: ManagerCache) {}
 
   async setKey(key: string, value: Value): Promise<void> {

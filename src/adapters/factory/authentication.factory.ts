@@ -1,16 +1,18 @@
+import { VerifyUserUsecases } from './../../app/usecases/VerifyUserUsecases';
 import { LoginUsecases, LogoutUsecases } from '@app/usecases';
 
 import {
   IUserRepository,
   IBcryptService,
-  IAuthorizationManager,
+  ICacheService,
   IAuthTokenService,
+  IMailService,
 } from '@interfaces/index';
 
 export const makeLoginUsecases = (
   userRepository: IUserRepository,
   bcryptService: IBcryptService,
-  cacheService: IAuthorizationManager,
+  cacheService: ICacheService,
   authTokenService: IAuthTokenService,
 ) => {
   return new LoginUsecases(
@@ -22,8 +24,16 @@ export const makeLoginUsecases = (
 };
 
 export const makeLogoutUsecases = (
-  authManager: IAuthorizationManager,
+  authManager: ICacheService,
   authTokenService: IAuthTokenService,
 ) => {
   return new LogoutUsecases(authManager, authTokenService);
+};
+
+export const makeVerifyUserUsecases = (
+  userRepository: IUserRepository,
+  mailService: IMailService,
+  cacheService: ICacheService,
+) => {
+  return new VerifyUserUsecases(userRepository, mailService, cacheService);
 };

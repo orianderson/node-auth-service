@@ -1,13 +1,19 @@
+import { MailService } from './../services/mail/mail.service';
 import { DynamicModule, forwardRef, Module } from '@nestjs/common';
 
 import { AdaptersProxy } from './adapters-proxy';
-import { RegisterUserAdapter, LogoutAdapter } from '@adapters/index';
+import {
+  RegisterUserAdapter,
+  LogoutAdapter,
+  VerifyUserAdapter,
+} from '@adapters/index';
 import {
   BcryptService,
   SecurityModule,
   AuthTokenService,
 } from '@infra/security';
 import { UserRepository, DatabaseModule, CacheService } from '@infra/database';
+import { ServicesModule } from '@infra/services';
 import { EnvironmentModule, EnvironmentService } from '../config';
 
 @Module({
@@ -15,11 +21,13 @@ import { EnvironmentModule, EnvironmentService } from '../config';
     DatabaseModule,
     forwardRef(() => SecurityModule),
     EnvironmentModule,
+    ServicesModule,
   ],
 })
 export class AdaptersProxyModule {
   static REGISTER_USER_USECASES = 'RegisterUserAdapter';
   static LOGOUT_USECASES = 'LogoutAdapter';
+  static VERIFY_USER_USECASES = 'VerifyUserAdapter';
 
   static register(): DynamicModule {
     return {
@@ -45,10 +53,28 @@ export class AdaptersProxyModule {
           ) =>
             new AdaptersProxy(new LogoutAdapter(authManager, authTokenService)),
         },
+        {
+          inject: [
+            UserRepository,
+            MailService,
+            CacheService,
+            EnvironmentService,
+          ],
+          provide: AdaptersProxyModule.VERIFY_USER_USECASES,
+          useFactory: (
+            userRepository: UserRepository,
+            mailService: MailService,
+            cacheService: CacheService,
+          ) =>
+            new AdaptersProxy(
+              new VerifyUserAdapter(userRepository, mailService, cacheService),
+            ),
+        },
       ],
       exports: [
         AdaptersProxyModule.REGISTER_USER_USECASES,
         AdaptersProxyModule.LOGOUT_USECASES,
+        AdaptersProxyModule.VERIFY_USER_USECASES,
       ],
     };
   }
