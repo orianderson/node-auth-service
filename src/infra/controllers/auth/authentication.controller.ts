@@ -6,6 +6,7 @@ import {
   Request,
   Body,
   Inject,
+  Param,
 } from '@nestjs/common';
 import { Response } from 'express';
 
@@ -15,7 +16,7 @@ import { VerifyUserAdapter } from './../../../adapters/controllers/auth/verify-u
 import { LoginGuard } from './../../security/guard/login.guard';
 import { StatusCodeResponse } from './../../../helpers/constants';
 import { UserResponse } from '../presenters';
-import { VerifyEmailPayload } from '../dto';
+import { VerifyEmailPayload, VerifyCodePayload } from '../dto';
 
 @Controller('auth')
 export class AuthenticationController {
@@ -34,7 +35,25 @@ export class AuthenticationController {
 
   @Post('verify-user')
   async verifyUser(@Body() payload: VerifyEmailPayload, @Res() res: Response) {
-    await this.verifyUserAdapter.getInstance().verifyUser(payload.email);
+    const user = await this.verifyUserAdapter
+      .getInstance()
+      .verifyUser(payload.email);
+
+    res.status(StatusCodeResponse.OK).send({
+      userId: user.id,
+    });
+  }
+
+  @Post(':userId')
+  async verifyCode(
+    @Param('userId') userId: string,
+    @Body() payload: VerifyCodePayload,
+    @Res() res: Response,
+  ) {
+    await this.verifyUserAdapter.getInstance().verifyCode({
+      code: Number(payload.code),
+      id: userId,
+    });
 
     res.status(StatusCodeResponse.NO_CONTENT).end();
   }

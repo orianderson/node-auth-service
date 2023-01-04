@@ -5,6 +5,7 @@ import {
   IMailService,
 } from '@interfaces/index';
 import { VerifyUserUsecases } from '@app/usecases';
+import { VerifyUserInterface } from '../../types';
 
 export class VerifyUserAdapter {
   verifyUserUsecases: VerifyUserUsecases;
@@ -21,6 +22,12 @@ export class VerifyUserAdapter {
   }
 
   async verifyUser(email: string) {
-    await this.verifyUserUsecases.verifyUserByEmail(email);
+    const user = await this.verifyUserUsecases.verifyUserByEmail(email);
+
+    return user;
+  }
+
+  async verifyCode(payload: VerifyUserInterface) {
+    await this.verifyUserUsecases.verifyCode(payload);
   }
 }

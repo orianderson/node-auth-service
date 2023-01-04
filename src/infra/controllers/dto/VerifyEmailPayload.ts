@@ -4,3 +4,8 @@ export class VerifyEmailPayload {
   @IsNotEmpty()
   email: string;
 }
+
+export class VerifyCodePayload {
+  @IsNotEmpty()
+  code: number;
+}

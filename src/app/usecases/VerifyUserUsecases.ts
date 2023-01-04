@@ -14,6 +14,13 @@ export class VerifyUserUsecases {
     private readonly cacheService: ICacheService,
   ) {}
 
+  private handleException() {
+    throw new UnauthorizedException({
+      code_error: null,
+      message: 'Invalid credentials',
+    });
+  }
+
   async verifyUserByEmail(email: string) {
     const code = generateCode(6);
 
@@ -30,10 +37,7 @@ export class VerifyUserUsecases {
     );
 
     if (!userId) {
-      throw new UnauthorizedException({
-        code_error: null,
-        message: 'Invalid credentials',
-      });
+      this.handleException();
     }
 
     await this.cacheService.setKey(`user-validation: ${userId.id}`, {
@@ -42,5 +46,17 @@ export class VerifyUserUsecases {
     });
 
     await this.mailService.sendMail(options);
+
+    return userId;
+  }
+
+  async verifyCode(payload: { code: number; id: string }) {
+    const isValid = await this.cacheService.getKey(
+      `user-validation: ${payload.id}`,
+    );
+
+    if (isValid.value !== payload.code) {
+      this.handleException();
+    }
   }
 }

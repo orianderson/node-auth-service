@@ -10,8 +10,9 @@ export class CacheService implements ICacheService {
   async setKey(key: string, value: Value): Promise<void> {
     await this.managerCache.setKey(key, JSON.stringify(value));
   }
-  async getKey(key: string): Promise<unknown> {
-    return await this.managerCache.getKey(key);
+  async getKey(key: string): Promise<Value> {
+    const value = await this.managerCache.getKey(key);
+    return JSON.parse(value);
   }
   async isKey(key: string): Promise<boolean> {
     throw new Error('Method not implemented.');
