@@ -1,4 +1,3 @@
-import { AuthenticationGuard } from './../../security/guard/authentication.guard';
 import {
   Controller,
   Post,
@@ -16,7 +15,11 @@ import {
   RecoveryPasswordAdapter,
 } from './../../../adapters/controllers';
 
-import { LoginGuard } from './../../security/guard/login.guard';
+import {
+  LoginGuard,
+  AuthenticationGuard,
+  AuthorizationGuard,
+} from './../../security/guard';
 import { StatusCodeResponse } from './../../../helpers/constants';
 import { UserResponse } from '../presenters';
 import { VerifyEmailPayload, VerifyCodePayload, PasswordPayload } from '../dto';
@@ -82,5 +85,13 @@ export class AuthenticationController {
       .update(userId, payload.password);
 
     res.status(StatusCodeResponse.NO_CONTENT).end();
+  }
+
+  @UseGuards(AuthorizationGuard)
+  @Post('test')
+  async test(@Res() res: Response, @Request() req) {
+    const user = req.user;
+
+    res.status(200).send(user);
   }
 }

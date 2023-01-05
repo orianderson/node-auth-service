@@ -1,11 +1,7 @@
 read about filters
 read about interceptors
 
-usecases - logout
-usecases - reset password
-
 strategies - auth system
-jwt strategy
-refresh token strategy
-
 define username
+
+verify refresh token

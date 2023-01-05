@@ -9,6 +9,8 @@ import { ICredentials } from '@domain/types';
 import { Credentials } from '@domain/valueObjects';
 
 export class LoginUsecases {
+  private days = 5;
+  private oneDayMilliseconds = 86400000;
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly bcryptService: IBcryptService,
@@ -59,13 +61,12 @@ export class LoginUsecases {
 
     await this.cacheService.setKey(`refresh-token: ${user.id}`, {
       value: refreshToken,
-      expiration: Date.now() + 3 * 86400,
+      expiration: Date.now() + this.days * this.oneDayMilliseconds,
     });
 
     return {
       ...user,
       accessToken,
-      refreshToken,
     };
   }
 
