@@ -49,7 +49,10 @@ export class UserDatabaseService implements IDataBaseService {
       where: {
         [field]: id,
       },
-      data: value,
+      data: {
+        ...value,
+        update_at: new Date(),
+      },
     });
   }
 
