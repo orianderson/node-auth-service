@@ -12,7 +12,10 @@ export class RegisterUserUsecases {
     const userObj = new User(body);
     const email = userObj.user.email.value;
 
-    const isUser = await this.userRepository.verifyIfUserExist(email);
+    const isUser = await this.userRepository.verifyIfUserExist({
+      email: email,
+      username: userObj.user.username,
+    });
 
     if (isUser) {
       throw new ConflictException({

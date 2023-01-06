@@ -4,9 +4,24 @@ import { Prisma } from 'prisma/prisma-client';
 import { DatabaseClient } from './client/database.client';
 import { IDataBaseService } from '@interfaces/repositories';
 
+import { UserIdentity } from '@domain/types';
+
 @Injectable()
 export class UserDatabaseService implements IDataBaseService {
   constructor(private readonly databaseClient: DatabaseClient) {}
+
+  async isUser(identity: UserIdentity): Promise<any> {
+    const user = await this.databaseClient.user.findFirst({
+      where: {
+        OR: [{ email: identity.email }, { username: identity.username }],
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return user;
+  }
 
   async create(query: Prisma.UserCreateInput): Promise<any> {
     await this.databaseClient.user.create({

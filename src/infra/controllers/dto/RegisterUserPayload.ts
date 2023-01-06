@@ -7,6 +7,9 @@ export class RegisterUserPayload {
   name: string;
 
   @IsNotEmpty()
+  username: string;
+
+  @IsNotEmpty()
   email: string;
 
   created_at?: Date;

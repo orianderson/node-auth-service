@@ -5,15 +5,14 @@ import { UserMappers } from './mappers/user.mappers';
 import { ICredentials, UserInterface } from '@domain/types';
 import { IUserRepository } from '@interfaces/index';
 import { UserDatabaseService } from '../user-database.service';
+import { UserIdentity } from '@domain/types';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
   constructor(private readonly userDatabaseService: UserDatabaseService) {}
 
-  async verifyIfUserExist(identity: string): Promise<{ id: string }> {
-    const user = await this.userDatabaseService.getOne('email', identity, {
-      id: true,
-    });
+  async verifyIfUserExist(query: UserIdentity): Promise<{ id: string }> {
+    const user = await this.userDatabaseService.isUser(query);
 
     return user;
   }

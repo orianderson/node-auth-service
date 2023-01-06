@@ -1,1 +1,1 @@
-export const fieldsToVerifyUser = ['name', 'email', 'password'];
+export const fieldsToVerifyUser = ['name', 'username', 'email', 'password'];

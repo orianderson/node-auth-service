@@ -9,6 +9,7 @@ export class UserMappers {
       id: user?.id ?? randomUUID(),
       email: user.email,
       name: user.name,
+      username: user.username,
       created_at: user.created_at,
       password: user.password,
     };
