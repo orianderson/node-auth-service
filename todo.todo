@@ -1,7 +1,9 @@
 read about filters
 read about interceptors
 
-strategies - auth system
 define username
 
-verify refresh token
+auth system
+    jwt guard
+    refreshToken guard
+    fix logout

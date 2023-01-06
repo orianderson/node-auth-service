@@ -12,7 +12,7 @@ import { LogoutAdapter } from './../../../adapters';
 import { AdaptersProxyModule, AdaptersProxy } from './../../adapters-proxy';
 import { StatusCodeResponse } from './../../../helpers';
 
-import { AuthenticationGuard } from '../../security/guard';
+import { AuthorizationGuard } from '../../security/guard';
 
 @Controller('auth')
 export class LogoutController {
@@ -21,7 +21,7 @@ export class LogoutController {
     private readonly logoutAdapter: AdaptersProxy<LogoutAdapter>,
   ) {}
 
-  @UseGuards(AuthenticationGuard)
+  @UseGuards(AuthorizationGuard)
   @Post('logout')
   async logout(@Request() req, @Res() res: Response) {
     const user = req.user;

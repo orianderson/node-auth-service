@@ -20,6 +20,14 @@
 
 #### RegisterUserUsecases
 
+#### LoginUsecases
+
+#### LogoutUsecases
+
+#### RecoveryPasswordUsecases
+
+#### VerifyUserUsecases
+
 #### Tests
 
 ## Adapters
@@ -28,6 +36,12 @@
 
 ### SignInAdapter
 
+### LogoutAdapter
+
+### VerifyUserAdapter
+
+### RecoveryPasswordAdapter
+
 ## Interfaces
 
 ### DatabaseService
@@ -35,6 +49,14 @@
 ### IUserRepository
 
 ### IBcryptService
+
+### ICacheService
+
+### ILogger
+
+### IMailService
+
+### IAuthTokenService
 
 ## Infra
 

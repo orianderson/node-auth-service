@@ -9,6 +9,9 @@ import { AuthGuard } from '@nestjs/passport';
 @Injectable()
 export class AuthorizationGuard extends AuthGuard('auth-jwt-refresh') {
   private request: Request;
+  private refreshPath = '/api/v1/auth/refresh-token';
+  private logoutPath = '/api/v1/auth/logout';
+  private userId: string;
   constructor(
     private readonly cacheService: CacheService,
     private readonly authTokenService: AuthTokenService,
@@ -27,42 +30,53 @@ export class AuthorizationGuard extends AuthGuard('auth-jwt-refresh') {
     });
   }
 
-  async handleRequest(err: any, user: any, info: any) {
+  private async getUserId() {
     const accessToken = this.request
       .get('authorization')
       .replace('Bearer', '')
       .trim();
 
+    const decode = await this.authTokenService.decodeToken(accessToken);
+
+    this.userId = decode._id;
+  }
+
+  private async handleRefreshToken() {
+    const now = Date.now();
+    const refreshToken = await this.cacheService.getKey(
+      `refresh-token: ${this.userId}`,
+    );
+
+    if (!refreshToken || now < refreshToken.expiration) {
+      this.handleException();
+    }
+  }
+
+  async handleRequest(err: any, user: any, info: any) {
     if (err) {
-      throw new UnauthorizedException({
-        code_error: null,
-        message: err.message,
-      });
+      this.handleException();
     }
 
+    const path = this.request.path;
+
     if (info?.message === 'jwt expired') {
-      const decode = await this.authTokenService.decodeToken(accessToken);
-      const userId = decode._id;
-      const refreshToken = await this.cacheService.getKey(
-        `refresh-token: ${userId}`,
-      );
+      await this.getUserId();
+      if (path === this.refreshPath) {
+        await this.handleRefreshToken();
 
-      if (!refreshToken) {
-        this.handleException();
-      }
-
-      const now = Date.now();
-
-      if (now > refreshToken.expiration) {
-        this.handleException();
-      } else {
         const accessToken = this.authTokenService.createToken({
-          _id: userId,
+          _id: this.userId,
           type: 'accessToken',
         });
 
         return {
           accessToken,
+        };
+      }
+
+      if (path === this.logoutPath) {
+        return {
+          _id: this.userId,
         };
       }
     }

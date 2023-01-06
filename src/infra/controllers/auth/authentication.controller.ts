@@ -15,11 +15,7 @@ import {
   RecoveryPasswordAdapter,
 } from './../../../adapters/controllers';
 
-import {
-  LoginGuard,
-  AuthenticationGuard,
-  AuthorizationGuard,
-} from './../../security/guard';
+import { LoginGuard, AuthorizationGuard } from './../../security/guard';
 import { StatusCodeResponse } from './../../../helpers/constants';
 import { UserResponse } from '../presenters';
 import { VerifyEmailPayload, VerifyCodePayload, PasswordPayload } from '../dto';
@@ -52,7 +48,7 @@ export class AuthenticationController {
     });
   }
 
-  @UseGuards(AuthenticationGuard)
+  @UseGuards(AuthorizationGuard)
   @Post('verify-code')
   async verifyCode(
     @Body() payload: VerifyCodePayload,
@@ -71,7 +67,7 @@ export class AuthenticationController {
     });
   }
 
-  @UseGuards(AuthenticationGuard)
+  @UseGuards(AuthorizationGuard)
   @Post('recovery-password')
   async updatePassword(
     @Body() payload: PasswordPayload,
