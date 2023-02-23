@@ -1,1 +1,1 @@
-export * from './IEncryptionService';
+export * from './IBcryptService';

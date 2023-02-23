@@ -1,4 +1,4 @@
-export abstract class IEncryptionService {
+export abstract class IBcryptService {
   abstract hash(password: string): Promise<string>;
   abstract compare(password: string, hashPassword: string): Promise<boolean>;
 }

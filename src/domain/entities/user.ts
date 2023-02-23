@@ -70,6 +70,17 @@ export class User {
     );
   }
 
+  static toJsonFormat(userObj: User): UserInput {
+    return {
+      email: userObj.user.email.email,
+      name: userObj.user.name.userName,
+      password: userObj.user.password.password,
+      profile: userObj.user.profile,
+      username: userObj.user.username,
+      id: userObj.user.id,
+    };
+  }
+
   private static generateId() {
     return randomUUID();
   }
