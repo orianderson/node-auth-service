@@ -15,6 +15,7 @@ export class User {
     username: string;
     email: Email;
     name: Name;
+    profile: string;
     password: Password;
   };
 
@@ -24,12 +25,14 @@ export class User {
     name: Name,
     password: Password,
     username: string,
+    profile: string,
   ) {
     this.user = {
       id: id ?? User.generateId(),
       email: email,
       name: name,
       username: username,
+      profile: profile,
       password: password,
     };
   }
@@ -62,6 +65,7 @@ export class User {
         name.value as Name,
         password.value as Password,
         newUser.username,
+        newUser.profile,
       ),
     );
   }

@@ -8,6 +8,7 @@ describe('Entity User Test', () => {
       email: 'fernando.pessoam@email.com',
       username: 'enganderson',
       password: 'anCD12**',
+      profile: 'enganderson',
     };
 
     const user = User.create(newUser);

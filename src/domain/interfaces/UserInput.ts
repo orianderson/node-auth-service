@@ -3,5 +3,6 @@ export class UserInput {
   name: string;
   username: string;
   email: string;
+  profile: string;
   password: string;
 }
