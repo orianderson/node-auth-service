@@ -1,9 +1,7 @@
-import { Email, Name, Password } from '../objects';
-
 export class UserInput {
-  id: string;
-  name: Name;
+  id?: string;
+  name: string;
   username: string;
-  email: Email;
-  password: Password;
+  email: string;
+  password: string;
 }
