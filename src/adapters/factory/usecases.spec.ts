@@ -1,10 +1,10 @@
-import { BcryptService } from 'bcrypt-jwt-module';
-import { UserInput } from '../../domain/interfaces';
-import { RegisterUserUsecases } from './register-user-usecases';
-import { UserRepositoryMemory } from '../../adapters/repositories';
+import { UsecasesFactory } from './UsecasesFactory';
+import { UserInput } from '@domain/interfaces';
 
-describe('RegisterUserUsecases Test', () => {
+describe('Usecases factories test', () => {
   it('should return user - jsonObject', async () => {
+    const register = UsecasesFactory.createRegisterUserUsecases();
+
     const newUser: UserInput = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
@@ -14,15 +14,11 @@ describe('RegisterUserUsecases Test', () => {
       id: 'abcd-abcd-abcd',
     };
 
-    const register = new RegisterUserUsecases(
-      new BcryptService(),
-      new UserRepositoryMemory(),
-    );
-    // expect.assertions(1);
     expect((await register.create(newUser)).id).toEqual(newUser.id);
   });
 
   it('should throw error', async () => {
+    const register = UsecasesFactory.createRegisterUserUsecases();
     const newUser: UserInput = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
@@ -32,16 +28,13 @@ describe('RegisterUserUsecases Test', () => {
       id: 'abcd-abcd-abcd',
     };
 
-    const register = new RegisterUserUsecases(
-      new BcryptService(),
-      new UserRepositoryMemory(),
-    );
     // expect.assertions(1);
 
     expect(async () => await register.create(newUser)).rejects.toThrowError();
   });
 
   it('should throw error', async () => {
+    const register = UsecasesFactory.createRegisterUserUsecases();
     const newUser: UserInput = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
@@ -50,10 +43,6 @@ describe('RegisterUserUsecases Test', () => {
       profile: 'engineer',
       id: 'abcd-abcd',
     };
-
-    const repository = new UserRepositoryMemory();
-
-    const register = new RegisterUserUsecases(new BcryptService(), repository);
 
     await register.create(newUser);
 
