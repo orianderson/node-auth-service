@@ -3,7 +3,7 @@ import { IUserRepository } from '../interfaces';
 import { UserDatabaseService } from '@infra/adapters/database';
 import { DatabaseClient } from '@infra/database';
 
-export class UserRepositorySQLite implements IUserRepository {
+export class UserRepository implements IUserRepository {
   userDatabase: UserDatabaseService;
 
   constructor() {
