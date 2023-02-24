@@ -1,5 +1,5 @@
 import { User } from '../../domain/entities/user';
-import { IBcryptService, IUserRepository } from '@ports/interfaces';
+import { IBcryptService, IUserRepository } from '@app/ports/interfaces';
 import { UserInput } from '../../domain/interfaces';
 
 import {

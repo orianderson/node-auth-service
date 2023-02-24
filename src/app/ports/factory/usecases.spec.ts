@@ -22,10 +22,12 @@ describe('Usecases factories test', () => {
 
   it('should throw error - password', async () => {
     const register = UsecasesFactory.createRegisterUserUsecases();
+
+    const str = (Math.random() + 1).toString(36).substring(7);
     const newUser: UserInput = {
       name: 'Fernando Pessoa',
-      email: 'fernando.pessoam@email.com',
-      username: 'enganderson',
+      email: `${str}@email.com`,
+      username: str,
       password: 'anCD12',
       profile: 'engineer',
       id: randomUUID(),
@@ -44,10 +46,10 @@ describe('Usecases factories test', () => {
       username: 'enganderson',
       password: 'anCD12**',
       profile: 'engineer',
-      id: 'abcd-abcd-abcd',
+      id: randomUUID(),
     };
 
-    // await register.create(newUser);
+    await register.create(newUser);
 
     expect(async () => await register.create(newUser)).rejects.toThrowError();
   });

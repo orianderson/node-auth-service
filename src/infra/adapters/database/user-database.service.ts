@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
-import { IDatabaseService } from '@ports/database';
+import { IDatabaseService } from '@app/ports/database';
 import { DatabaseClient } from '@infra/database';
 
 import { UserInput } from '@domain/interfaces';
