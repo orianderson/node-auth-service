@@ -1,5 +1,5 @@
-import { User } from './../../domain/entities/user';
-import { IBcryptService, IUserRepository } from '../ports';
+import { User } from '../../domain/entities/user';
+import { IBcryptService, IUserRepository } from '@ports/interfaces';
 import { UserInput } from '../../domain/interfaces';
 
 import {
@@ -20,7 +20,7 @@ export class RegisterUserUsecases {
     if (userObj.isRight()) {
       const user = User.toJsonFormat(userObj.value);
 
-      const isUser = await this.userRepository.verifyUser({
+      const isUser = await this.userRepository.isUser({
         email: user.email,
         username: user.username,
       });

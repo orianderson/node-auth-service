@@ -1,5 +1,5 @@
 import { UserInput } from '@domain/interfaces';
-import { IUserRepository } from '../../app/ports';
+import { IUserRepository } from '../interfaces';
 
 export class UserRepositoryMemory implements IUserRepository {
   data: UserInput[];
@@ -12,10 +12,7 @@ export class UserRepositoryMemory implements IUserRepository {
     this.data.push(user);
   }
 
-  async verifyUser(user: {
-    email: string;
-    username: string;
-  }): Promise<boolean> {
+  async isUser(user: { email: string; username: string }): Promise<boolean> {
     const data = this.data[0];
 
     if (user.email === data?.email || user.username === data?.username) {
@@ -23,5 +20,9 @@ export class UserRepositoryMemory implements IUserRepository {
     } else {
       return false;
     }
+  }
+
+  async delete(id: string): Promise<void> {
+    this.data.pop();
   }
 }
