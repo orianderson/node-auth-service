@@ -1,5 +1,5 @@
-import { UserInput } from '@domain/interfaces';
-import { IUserRepository } from '../interfaces';
+import { InputCreateUser } from '@domain/interfaces';
+import { IUserRepository } from '@app/ports/repositories';
 import { UserDatabaseService } from '@infra/adapters/database';
 import { DatabaseClient } from '@infra/database';
 
@@ -14,7 +14,7 @@ export class UserRepository implements IUserRepository {
     return await this.userDatabase.exist(user);
   }
 
-  async create(user: UserInput): Promise<void> {
+  async create(user: InputCreateUser): Promise<void> {
     await this.userDatabase.create(user);
   }
 

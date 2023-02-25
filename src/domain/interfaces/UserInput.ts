@@ -1,4 +1,4 @@
-export class UserInput {
+export class InputCreateUser {
   id?: string;
   name: string;
   username: string;

@@ -5,3 +5,7 @@ export class UserOutput {
   email: string;
   profile: string;
 }
+
+export class CreatedUserOutput {
+  id: string;
+}

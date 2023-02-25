@@ -1,7 +1,7 @@
 import { BcryptService } from 'bcrypt-jwt-module';
 
 import { RegisterUserUsecases } from '@app/usecases';
-import { UserRepository } from '@app/ports/repositories';
+import { UserRepository } from '@infra/adapters/repositories';
 
 export class UsecasesFactory {
   static createRegisterUserUsecases(): RegisterUserUsecases {

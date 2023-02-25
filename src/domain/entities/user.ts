@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { Email, Name, Password } from '../objects';
-import { UserInput } from '../interfaces';
+import { InputCreateUser } from '../interfaces';
 import {
   InvalidEmailError,
   InvalidNameError,
@@ -38,7 +38,7 @@ export class User {
   }
 
   static create(
-    newUser: UserInput,
+    newUser: InputCreateUser,
   ): Either<InvalidEmailError | InvalidNameError | InvalidPasswordError, User> {
     const email = Email.create(newUser.email);
 
@@ -70,7 +70,7 @@ export class User {
     );
   }
 
-  static toJsonFormat(userObj: User): UserInput {
+  static toJsonFormat(userObj: User): InputCreateUser {
     return {
       email: userObj.user.email.email,
       name: userObj.user.name.userName,

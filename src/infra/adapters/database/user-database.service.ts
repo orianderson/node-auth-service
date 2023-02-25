@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
-import { IDatabaseService } from '@app/ports/database';
+import { IDatabaseService } from '@app/ports/services';
 import { DatabaseClient } from '@infra/database';
 
-import { UserInput } from '@domain/interfaces';
+import { InputCreateUser } from '@domain/interfaces';
 
 @Injectable()
 export class UserDatabaseService implements IDatabaseService {
@@ -27,7 +27,7 @@ export class UserDatabaseService implements IDatabaseService {
     return true;
   }
 
-  async create(newUser: UserInput): Promise<void> {
+  async create(newUser: InputCreateUser): Promise<void> {
     await this.databaseClient.user.create({
       data: {
         ...newUser,

@@ -1,9 +1,9 @@
-import { UserInput } from '../interfaces';
+import { InputCreateUser } from '../interfaces';
 import { User } from '../entities';
 
 describe('Entity User Test', () => {
   it('should return user object', () => {
-    const newUser: UserInput = {
+    const newUser: InputCreateUser = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
       username: 'enganderson',

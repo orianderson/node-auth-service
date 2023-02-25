@@ -1,14 +1,14 @@
-import { UserInput } from '@domain/interfaces';
-import { IUserRepository } from '../interfaces';
+import { InputCreateUser } from '@domain/interfaces';
+import { IUserRepository } from '@app/ports';
 
 export class UserRepositoryMemory implements IUserRepository {
-  data: UserInput[];
+  data: InputCreateUser[];
 
   constructor() {
     this.data = [];
   }
 
-  async create(user: UserInput): Promise<void> {
+  async create(user: InputCreateUser): Promise<void> {
     this.data.push(user);
   }
 
