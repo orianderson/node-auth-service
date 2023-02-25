@@ -4,7 +4,7 @@ import { InputCreateUser } from '@domain/interfaces';
 
 describe('Usecases factories test', () => {
   it('should return user - jsonObject', async () => {
-    const { registerUser } = new UsecasesFactory().create();
+    const registerUser = new UsecasesFactory().registerUser();
 
     const str = (Math.random() + 1).toString(36).substring(7);
 
@@ -21,7 +21,7 @@ describe('Usecases factories test', () => {
   });
 
   it('should throw error - password', async () => {
-    const { registerUser } = new UsecasesFactory().create();
+    const registerUser = new UsecasesFactory().registerUser();
 
     const str = (Math.random() + 1).toString(36).substring(7);
     const newUser: InputCreateUser = {
@@ -41,7 +41,7 @@ describe('Usecases factories test', () => {
   });
 
   it('should throw error', async () => {
-    const { registerUser } = new UsecasesFactory().create();
+    const registerUser = new UsecasesFactory().registerUser();
 
     const str = (Math.random() + 1).toString(36).substring(7);
     const newUser: InputCreateUser = {

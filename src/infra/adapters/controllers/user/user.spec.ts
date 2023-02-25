@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto';
 import { BodyCreateUser } from '../dto';
 
-import { RegisterUserController } from './register-user.controller';
+import { UserControllers } from './register-user.controller';
 
 describe('User Controllers Test', () => {
   it('', async () => {
-    const controller = new RegisterUserController();
+    const controller = new UserControllers();
 
     const str = (Math.random() + 1).toString(36).substring(7);
 
