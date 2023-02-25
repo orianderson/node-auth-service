@@ -4,7 +4,12 @@ import { RegisterUserUsecases } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 
 export class UsecasesFactory {
-  static createRegisterUserUsecases(): RegisterUserUsecases {
-    return new RegisterUserUsecases(new BcryptService(), new UserRepository());
+  create() {
+    return {
+      registerUser: new RegisterUserUsecases(
+        new BcryptService(),
+        new UserRepository(),
+      ),
+    };
   }
 }

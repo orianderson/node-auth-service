@@ -4,7 +4,7 @@ import { InputCreateUser } from '@domain/interfaces';
 
 describe('Usecases factories test', () => {
   it('should return user - jsonObject', async () => {
-    const register = UsecasesFactory.createRegisterUserUsecases();
+    const { registerUser } = new UsecasesFactory().create();
 
     const str = (Math.random() + 1).toString(36).substring(7);
 
@@ -17,11 +17,11 @@ describe('Usecases factories test', () => {
       id: randomUUID(),
     };
 
-    expect((await register.execute(newUser)).id).toEqual(newUser.id);
+    expect((await registerUser.execute(newUser)).id).toEqual(newUser.id);
   });
 
   it('should throw error - password', async () => {
-    const register = UsecasesFactory.createRegisterUserUsecases();
+    const { registerUser } = new UsecasesFactory().create();
 
     const str = (Math.random() + 1).toString(36).substring(7);
     const newUser: InputCreateUser = {
@@ -35,11 +35,13 @@ describe('Usecases factories test', () => {
 
     // expect.assertions(1);
 
-    expect(async () => await register.execute(newUser)).rejects.toThrowError();
+    expect(
+      async () => await registerUser.execute(newUser),
+    ).rejects.toThrowError();
   });
 
   it('should throw error', async () => {
-    const register = UsecasesFactory.createRegisterUserUsecases();
+    const { registerUser } = new UsecasesFactory().create();
 
     const str = (Math.random() + 1).toString(36).substring(7);
     const newUser: InputCreateUser = {
@@ -51,8 +53,10 @@ describe('Usecases factories test', () => {
       id: randomUUID(),
     };
 
-    await register.execute(newUser);
+    await registerUser.execute(newUser);
 
-    expect(async () => await register.execute(newUser)).rejects.toThrowError();
+    expect(
+      async () => await registerUser.execute(newUser),
+    ).rejects.toThrowError();
   });
 });
