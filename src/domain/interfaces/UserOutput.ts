@@ -4,6 +4,8 @@ export class UserOutput {
   username: string;
   email: string;
   profile: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export class CreatedUserOutput {

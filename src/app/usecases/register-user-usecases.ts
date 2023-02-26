@@ -27,16 +27,7 @@ export class RegisterUserUsecases
         username: user.username,
       });
 
-      if (isUser) {
-        throw new ConflictException({
-          code_error: null,
-          message: 'User already exist',
-        });
-      } else {
-        user.password = await this.bcrypt.hash(user.password);
-
-        await this.userRepository.create(user);
-      }
+      await this.createUser(isUser, user);
 
       return { id: newUser.id };
     } else {
@@ -44,6 +35,19 @@ export class RegisterUserUsecases
         code_error: StatusResponse.BAD_REQUEST.statusCode.toString(),
         message: userObj.value.message,
       });
+    }
+  }
+
+  private async createUser(isUser: boolean, user: InputCreateUser) {
+    if (isUser) {
+      throw new ConflictException({
+        code_error: null,
+        message: 'User already exist',
+      });
+    } else {
+      user.password = await this.bcrypt.hash(user.password);
+
+      await this.userRepository.create(user);
     }
   }
 }

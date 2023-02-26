@@ -6,3 +6,12 @@ export class InputCreateUser {
   profile: string;
   password: string;
 }
+
+export class InputCredentials {
+  id: string;
+  email: string;
+  name: string;
+  password: string;
+  profile: string;
+  username: string;
+}
