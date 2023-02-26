@@ -1,4 +1,4 @@
-import { InputCreateUser } from '@domain/interfaces';
+import { InputCreateUser, UserData } from '@domain/interfaces';
 import { IUserRepository } from '@app/ports';
 
 export class UserRepositoryMemory implements IUserRepository {
@@ -6,6 +6,10 @@ export class UserRepositoryMemory implements IUserRepository {
 
   constructor() {
     this.data = [];
+  }
+
+  async get(id: string): Promise<UserData> {
+    throw new Error('Method not implemented.');
   }
 
   async create(user: InputCreateUser): Promise<void> {

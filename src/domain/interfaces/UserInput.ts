@@ -8,10 +8,15 @@ export class InputCreateUser {
 }
 
 export class InputCredentials {
-  id: string;
   email: string;
-  name: string;
   password: string;
-  profile: string;
-  username: string;
+}
+
+export class UserData {
+  id?: string;
+  name?: string;
+  username?: string;
+  email?: string;
+  profile?: string;
+  password?: string;
 }

@@ -1,5 +1,5 @@
 export class UserOutput {
-  id?: string;
+  id: string;
   name: string;
   username: string;
   email: string;

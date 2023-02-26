@@ -9,6 +9,6 @@ export class UsecasesFactory {
   }
 
   signIn(): SignInUsecases {
-    return new SignInUsecases(authService);
+    return new SignInUsecases(new UserRepository(), authService);
   }
 }

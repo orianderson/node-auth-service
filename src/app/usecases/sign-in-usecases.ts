@@ -1,23 +1,39 @@
 import { InputCredentials, UserOutput } from './../../domain/interfaces';
-import { IAuthService, IInputAuth } from '@app/ports';
+import { IAuthService, IInputAuth, IUserRepository } from '@app/ports';
 import { Either, left, right } from '@helpers/either';
 import { InvalidCredentialsError } from '../errors';
 
 export class SignInUsecases
   implements IInputAuth<InputCredentials, UserOutput>
 {
-  constructor(private readonly authService: IAuthService) {}
+  constructor(
+    private readonly userRepository: IUserRepository,
+    private readonly authService: IAuthService,
+  ) {}
 
   async execute(
-    password: string,
-    data: InputCredentials,
+    payload: InputCredentials,
   ): Promise<Either<InvalidCredentialsError, UserOutput>> {
-    const user = await this.authService.signInUser(password, 'secret', data);
+    const data = await this.userRepository.get(payload.email);
 
-    if (user) {
-      return right(user);
-    } else {
-      return left(new InvalidCredentialsError());
+    if (data) {
+      const user = await this.authService.signInUser(
+        payload.password,
+        'secret',
+        {
+          email: data.email,
+          id: data.id,
+          name: data.name,
+          password: data.password,
+          profile: data.profile,
+          username: data.username,
+        },
+      );
+      if (user) {
+        return right(user);
+      }
     }
+
+    return left(new InvalidCredentialsError());
   }
 }

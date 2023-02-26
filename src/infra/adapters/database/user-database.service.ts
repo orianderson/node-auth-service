@@ -4,7 +4,8 @@ import { randomUUID } from 'crypto';
 import { IDatabaseService } from '@app/ports/services';
 import { DatabaseClient } from '@infra/database';
 
-import { InputCreateUser } from '@domain/interfaces';
+import { InputCreateUser, UserData } from '@domain/interfaces';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserDatabaseService implements IDatabaseService {
@@ -36,8 +37,22 @@ export class UserDatabaseService implements IDatabaseService {
     });
   }
 
-  async get(query: any): Promise<any> {
-    throw new Error('Method not implemented.');
+  async get(query: {
+    email: string;
+    id?: string;
+    data: Prisma.UserSelect;
+  }): Promise<UserData | null> {
+    const data = query.data;
+    const user = await this.databaseClient.user.findFirst({
+      where: {
+        OR: [{ email: query?.email }, { id: query?.id }],
+      },
+      select: data,
+    });
+
+    if (user) {
+      return user;
+    } else return null;
   }
 
   async delete(id: string): Promise<void> {

@@ -5,8 +5,5 @@ export interface IInputPort<I, O = void> {
 }
 
 export interface IInputAuth<I, O = void> {
-  execute(
-    password: string,
-    data: I,
-  ): Promise<Either<InvalidCredentialsError, O>>;
+  execute(data: I): Promise<Either<InvalidCredentialsError, O>>;
 }
