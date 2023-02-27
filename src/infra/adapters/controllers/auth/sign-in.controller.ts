@@ -1,5 +1,5 @@
 import { UsecasesFactory } from './../../factory/UsecasesFactory';
-import { BodyCredentials, ResponseSignIn } from '../dto';
+import { BodyCredentials, ResponseSignIn, BodyIdentityUser } from '../dto';
 
 export class AuthControllers {
   usecases: UsecasesFactory;
@@ -12,6 +12,14 @@ export class AuthControllers {
 
     if (user.isRight()) {
       return user.value;
+    }
+  }
+
+  async isUser(payload: BodyIdentityUser): Promise<void> {
+    const user = await this.usecases.isUser().execute(payload);
+
+    if (user.isLeft()) {
+      throw new Error();
     }
   }
 }

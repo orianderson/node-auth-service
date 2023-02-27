@@ -2,6 +2,7 @@ import {
   InputCreateUser,
   CreatedUserOutput,
   UserOutput,
+  UserIdentity,
 } from '@domain/interfaces';
 
 export class BodyCreateUser implements InputCreateUser {
@@ -30,4 +31,8 @@ export class ResponseSignIn implements UserOutput {
   profile: string;
   accessToken: string;
   refreshToken: string;
+}
+
+export class BodyIdentityUser implements UserIdentity {
+  email: string;
 }
