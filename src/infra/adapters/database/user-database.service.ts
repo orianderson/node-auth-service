@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import { IDatabaseService } from '@app/ports/services';
 import { DatabaseClient } from '@infra/database';
 
-import { InputCreateUser, UserData } from '@domain/interfaces';
+import { InputCreateUser, UserData, UserUpdate } from '@domain/interfaces';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -63,7 +63,15 @@ export class UserDatabaseService implements IDatabaseService {
     });
   }
 
-  async update(query: any): Promise<any> {
-    throw new Error('Method not implemented.');
+  async update(query: UserUpdate): Promise<void> {
+    await this.databaseClient.user.update({
+      where: {
+        id: query.id,
+      },
+      data: {
+        ...query.data,
+        update_at: new Date(),
+      },
+    });
   }
 }

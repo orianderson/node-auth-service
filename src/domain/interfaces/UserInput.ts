@@ -26,3 +26,10 @@ export class UserIdentity {
   email?: string;
   username?: string;
 }
+
+export class UserUpdate {
+  id?: string;
+  email?: string;
+  username?: string;
+  data: UserData;
+}

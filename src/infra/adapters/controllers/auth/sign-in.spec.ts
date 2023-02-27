@@ -2,11 +2,12 @@ import { AuthControllers } from './sign-in.controller';
 import { BodyCredentials } from '../dto';
 
 describe('AuthControllers Test', () => {
+  const email = 'nfbzlg@email.com';
   it('should return return user', async () => {
     const controller = new AuthControllers();
 
     const payload: BodyCredentials = {
-      email: 'ipxec@email.com',
+      email: email,
       password: 'anCD12**',
     };
 
@@ -19,7 +20,7 @@ describe('AuthControllers Test', () => {
     const controller = new AuthControllers();
 
     const payload = {
-      email: 'ipxec@email.com',
+      email: email,
       password: 'anCD12*',
     };
 
@@ -32,7 +33,7 @@ describe('AuthControllers Test', () => {
     const controller = new AuthControllers();
 
     const payload = {
-      email: 'ipxec@email.com',
+      email: email,
     };
 
     const user = await controller.isUser(payload);

@@ -1,4 +1,4 @@
-import { InputCreateUser, UserData } from '@domain/interfaces';
+import { InputCreateUser, UserData, UserUpdate } from '@domain/interfaces';
 import { IUserRepository } from '@app/ports';
 
 export class UserRepositoryMemory implements IUserRepository {
@@ -30,7 +30,7 @@ export class UserRepositoryMemory implements IUserRepository {
     this.data.pop();
   }
 
-  async update(data: any): Promise<any> {
+  async update(data: UserUpdate): Promise<any> {
     console.log(data);
   }
 }

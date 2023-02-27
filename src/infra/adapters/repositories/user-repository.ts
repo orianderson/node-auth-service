@@ -1,4 +1,4 @@
-import { InputCreateUser, UserData } from '@domain/interfaces';
+import { InputCreateUser, UserData, UserUpdate } from '@domain/interfaces';
 import { IUserRepository } from '@app/ports/repositories';
 import { UserDatabaseService } from '@infra/adapters/database';
 import { DatabaseClient } from '@infra/database';
@@ -38,7 +38,7 @@ export class UserRepository implements IUserRepository {
     return userData;
   }
 
-  async update(data: any): Promise<any> {
-    throw new Error('Method not implemented.');
+  async update(data: UserUpdate): Promise<any> {
+    await this.userDatabase.update(data);
   }
 }
