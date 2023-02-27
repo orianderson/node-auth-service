@@ -37,4 +37,8 @@ export class UserRepository implements IUserRepository {
 
     return userData;
   }
+
+  async update(data: any): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
 }

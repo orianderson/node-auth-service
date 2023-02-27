@@ -29,4 +29,8 @@ export class UserRepositoryMemory implements IUserRepository {
   async delete(id: string): Promise<void> {
     this.data.pop();
   }
+
+  async update(data: any): Promise<any> {
+    console.log(data);
+  }
 }
