@@ -4,6 +4,7 @@ import {
   RegisterUserUsecases,
   SignInUsecases,
   VerifyUserUsecases,
+  ResetPasswordUsecases,
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 
@@ -18,5 +19,9 @@ export class UsecasesFactory {
 
   isUser(): VerifyUserUsecases {
     return new VerifyUserUsecases(new UserRepository());
+  }
+
+  resetPassword(): ResetPasswordUsecases {
+    return new ResetPasswordUsecases(new UserRepository(), new BcryptService());
   }
 }

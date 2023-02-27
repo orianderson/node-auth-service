@@ -3,12 +3,13 @@ import { BodyCredentials } from '../dto';
 
 describe('AuthControllers Test', () => {
   const email = 'nfbzlg@email.com';
+  const password = 'anAN0201**';
   it('should return return user', async () => {
     const controller = new AuthControllers();
 
     const payload: BodyCredentials = {
       email: email,
-      password: 'anCD12**',
+      password: password,
     };
 
     const user = await controller.signIn(payload);
