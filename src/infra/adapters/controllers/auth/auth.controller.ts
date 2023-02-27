@@ -1,4 +1,4 @@
-import { UsecasesFactory } from './../../factory/UsecasesFactory';
+import { UsecasesFactory } from '../../factory/UsecasesFactory';
 import { BodyCredentials, ResponseSignIn, BodyIdentityUser } from '../dto';
 
 export class AuthControllers {

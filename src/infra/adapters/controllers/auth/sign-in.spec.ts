@@ -1,4 +1,4 @@
-import { AuthControllers } from './sign-in.controller';
+import { AuthControllers } from './auth.controller';
 import { BodyCredentials } from '../dto';
 
 describe('AuthControllers Test', () => {

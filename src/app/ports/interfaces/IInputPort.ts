@@ -17,3 +17,7 @@ export interface IInputUserId<I, O = void> {
 export interface IInputPassword<I, O = void> {
   execute(data: I): Promise<Either<InvalidPasswordError, O>>;
 }
+
+export interface IInputCode<I, O = void> {
+  execute(data: I): Promise<O>;
+}

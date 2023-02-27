@@ -3,7 +3,7 @@ import { UsecasesFactory } from '../../factory';
 describe('ResetPassword Test', () => {
   const usecases = new UsecasesFactory();
   const id = '28be0dc5-0082-4a44-8f9e-a63dd21ac21a';
-  it('', async () => {
+  it('should to be true', async () => {
     const action = usecases.resetPassword().execute({
       id: id,
       password: 'anTY3676**',
