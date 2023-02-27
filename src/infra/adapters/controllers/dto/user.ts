@@ -1,4 +1,8 @@
 import {
+  UserData,
+  UserUpdate,
+} from './../../../../domain/interfaces/UserInput';
+import {
   InputCreateUser,
   CreatedUserOutput,
   UserOutput,
@@ -35,4 +39,13 @@ export class ResponseSignIn implements UserOutput {
 
 export class BodyIdentityUser implements UserIdentity {
   email: string;
+}
+
+export class BodyUpdate implements UserData {
+  id?: string;
+  name?: string;
+  username?: string;
+  email?: string;
+  profile?: string;
+  password?: string;
 }
