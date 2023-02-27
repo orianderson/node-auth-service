@@ -1,6 +1,10 @@
 import { BcryptService, authService } from 'bcrypt-jwt-module';
 
-import { RegisterUserUsecases, SignInUsecases } from '@app/usecases';
+import {
+  RegisterUserUsecases,
+  SignInUsecases,
+  VerifyUserUsecases,
+} from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 
 export class UsecasesFactory {
@@ -10,5 +14,9 @@ export class UsecasesFactory {
 
   signIn(): SignInUsecases {
     return new SignInUsecases(new UserRepository(), authService);
+  }
+
+  isUser(): VerifyUserUsecases {
+    return new VerifyUserUsecases(new UserRepository());
   }
 }
