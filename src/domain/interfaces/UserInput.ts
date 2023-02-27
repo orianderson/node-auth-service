@@ -20,3 +20,9 @@ export class UserData {
   profile?: string;
   password?: string;
 }
+
+export class UserIdentity {
+  id?: string;
+  email?: string;
+  username?: string;
+}
