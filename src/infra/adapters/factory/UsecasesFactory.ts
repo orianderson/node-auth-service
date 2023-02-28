@@ -7,8 +7,9 @@ import {
   ResetPasswordUsecases,
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
+import { IUsecasesFactory } from '@app/ports';
 
-export class UsecasesFactory {
+export class UsecasesFactory implements IUsecasesFactory {
   registerUser(): RegisterUserUsecases {
     return new RegisterUserUsecases(new BcryptService(), new UserRepository());
   }

@@ -1,12 +1,12 @@
 import { AuthControllers } from './auth.controller';
 import { BodyCredentials } from '../dto';
+import { UsecasesFactory } from '../../factory';
 
 describe('AuthControllers Test', () => {
   const email = 'nfbzlg@email.com';
   const password = 'anAN0201**';
+  const controller = new AuthControllers(new UsecasesFactory());
   it('should return return user', async () => {
-    const controller = new AuthControllers();
-
     const payload: BodyCredentials = {
       email: email,
       password: password,
@@ -18,8 +18,6 @@ describe('AuthControllers Test', () => {
   });
 
   it('should return undefined - user do not exist', async () => {
-    const controller = new AuthControllers();
-
     const payload = {
       email: email,
       password: 'anCD12*',
@@ -31,8 +29,6 @@ describe('AuthControllers Test', () => {
   });
 
   it('should return void', async () => {
-    const controller = new AuthControllers();
-
     const payload = {
       email: email,
     };
@@ -43,8 +39,6 @@ describe('AuthControllers Test', () => {
   });
 
   it('should throw Error - user do not exist', async () => {
-    const controller = new AuthControllers();
-
     const payload = {
       email: 'indns@email.com',
     };

@@ -1,22 +1,21 @@
 import { UsecasesFactory } from '../../factory';
+import { UpdateUserControllers } from '../user';
 
 describe('ResetPassword Test', () => {
-  const usecases = new UsecasesFactory();
+  const controller = new UpdateUserControllers(new UsecasesFactory());
   const id = '28be0dc5-0082-4a44-8f9e-a63dd21ac21a';
   it('should to be true', async () => {
-    const action = usecases.resetPassword().execute({
+    const action = await controller.updatePassword({
       id: id,
       password: 'anTY3676**',
     });
 
-    expect((await action).value).toBeTruthy();
+    expect(action).toBe(void 0);
   });
 
   it('', async () => {
-    const action = usecases.resetPassword();
-
     expect(async () =>
-      action.execute({
+      controller.updatePassword({
         id: 'abcd',
         password: 'anTY3676**',
       }),
