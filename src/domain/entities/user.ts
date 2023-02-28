@@ -7,7 +7,7 @@ import {
   InvalidNameError,
   InvalidPasswordError,
 } from '../errors';
-import { Either, left, right } from '../../helpers';
+import { Either, left, right, verifyFields } from '../../helpers';
 
 interface UserProps {
   id: string;
@@ -53,6 +53,8 @@ export class User {
       return left(new InvalidPasswordError());
     }
 
+    this.verifyFields(newUser);
+
     return right(
       new User({
         id: newUser.id,
@@ -78,5 +80,9 @@ export class User {
 
   private static generateId() {
     return randomUUID();
+  }
+
+  private static verifyFields(data: InputCreateUser) {
+    verifyFields(data, ['profile', 'username']);
   }
 }

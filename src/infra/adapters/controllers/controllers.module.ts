@@ -1,4 +1,10 @@
+import { UsecasesFactory } from './../factory/UsecasesFactory';
 import { Module } from '@nestjs/common';
 
-@Module({})
+import { UserControllers } from './user';
+
+@Module({
+  providers: [UsecasesFactory],
+  controllers: [UserControllers],
+})
 export class ControllersModule {}
