@@ -2,7 +2,7 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
 import { StatusResponse } from '@helpers/constants';
-import { BodyCreateUser, ResponseCreatedUser } from '../dto';
+import { BodyCreateUser } from '../dto';
 import { UsecasesFactory } from '../../factory';
 
 @Controller('users')

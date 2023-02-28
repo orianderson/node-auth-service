@@ -8,6 +8,7 @@ import {
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
+import { EnvironmentService } from '../../config';
 
 export class UsecasesFactory implements IUsecasesFactory {
   registerUser(): RegisterUserUsecases {
@@ -15,7 +16,11 @@ export class UsecasesFactory implements IUsecasesFactory {
   }
 
   signIn(): SignInUsecases {
-    return new SignInUsecases(new UserRepository(), authService);
+    return new SignInUsecases(
+      new UserRepository(),
+      authService,
+      new EnvironmentService(),
+    );
   }
 
   isUser(): VerifyUserUsecases {
