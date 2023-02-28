@@ -5,11 +5,20 @@ import {
   IDatabaseEnvironment,
   IJwtEnvironment,
   IMailEnvironment,
+  IRedisEnvironment,
 } from '@app/ports';
 
 export class EnvironmentService
-  implements IDatabaseEnvironment, IJwtEnvironment, IMailEnvironment
+  implements
+    IDatabaseEnvironment,
+    IJwtEnvironment,
+    IMailEnvironment,
+    IRedisEnvironment
 {
+  getRedisPassword(): string {
+    return process.env['REDIS_PASSWORD'];
+  }
+
   getEmailUser(): string {
     return process.env['EMAIL_USER'];
   }

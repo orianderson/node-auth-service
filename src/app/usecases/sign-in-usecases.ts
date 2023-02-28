@@ -1,16 +1,25 @@
 import { IJwtEnvironment } from './../ports/config/IJwtEnvironment';
 import { InputCredentials, UserOutput } from './../../domain/interfaces';
-import { IAuthService, IInputAuth, IUserRepository } from '@app/ports';
+import {
+  IAuthService,
+  IInputAuth,
+  IUserRepository,
+  ICacheService,
+  allowList,
+} from '@app/ports';
 import { Either, left, right } from '@helpers/either';
 import { InvalidCredentialsError } from '../errors';
 
 export class SignInUsecases
   implements IInputAuth<InputCredentials, UserOutput>
 {
+  private days = 5;
+  private oneDayMilliseconds = 86400000;
   constructor(
     private readonly userRepository: IUserRepository,
     private readonly authService: IAuthService,
     private readonly environment: IJwtEnvironment,
+    private readonly cacheService: ICacheService,
   ) {}
 
   async execute(
@@ -29,6 +38,10 @@ export class SignInUsecases
         username: data.username,
       });
       if (user) {
+        await this.cacheService.setKey(allowList(user.id), {
+          value: user.refreshToken,
+          expiration: Date.now() + this.days * this.oneDayMilliseconds,
+        });
         return right(user);
       }
     }

@@ -2,6 +2,7 @@ import { Either, left, right } from '@helpers/either';
 import { UserIdentity } from '@domain/interfaces';
 import { InvalidUserError } from '../errors';
 import { IInputUserId, IUserRepository } from '@app/ports';
+import { generateCode } from '@helpers/index';
 
 export class VerifyUserUsecases implements IInputUserId<UserIdentity, boolean> {
   constructor(private readonly userRepository: IUserRepository) {}
@@ -16,6 +17,8 @@ export class VerifyUserUsecases implements IInputUserId<UserIdentity, boolean> {
     if (!isUser) {
       return left(new InvalidUserError());
     } else {
+      const code = generateCode(6);
+      console.log(code);
       return right(true);
     }
   }

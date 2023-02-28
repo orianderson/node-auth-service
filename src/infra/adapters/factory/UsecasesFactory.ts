@@ -9,6 +9,7 @@ import {
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
 import { EnvironmentService } from '../../config';
+import { CacheService } from '@infra/database';
 
 export class UsecasesFactory implements IUsecasesFactory {
   registerUser(): RegisterUserUsecases {
@@ -20,6 +21,7 @@ export class UsecasesFactory implements IUsecasesFactory {
       new UserRepository(),
       authService,
       new EnvironmentService(),
+      new CacheService(),
     );
   }
 
