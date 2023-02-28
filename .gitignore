@@ -39,3 +39,4 @@ env/
 development.env
 
 backup/
+data.json

@@ -7,10 +7,11 @@ import {
 } from '@nestjs/common';
 
 import { HandleException, IError } from '@helpers/exceptions';
+import { LoggerService } from '../../config';
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
-  //   constructor(private readonly logger: LoggerService) {}
+  constructor(private readonly logger: LoggerService) {}
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
@@ -35,32 +36,32 @@ export class AllExceptionFilter implements ExceptionFilter {
       ...message,
     };
 
-    // this.logMessage(request, message, status, exception);
+    this.logMessage(request, message, status, exception);
 
     response.status(status).json(responseData);
   }
 
-  //   private logMessage(
-  //     request: any,
-  //     message: IError,
-  //     status: number,
-  //     exception: any,
-  //   ) {
-  //     if (status === 500) {
-  //       this.logger.error(
-  //         `End Request for ${request.path}`,
-  //         `method=${request.method} status=${status} code_error=${
-  //           message.code_error ? message.code_error : null
-  //         } message=${message.message ? message.message : null}`,
-  //         status >= 500 ? exception.stack : '',
-  //       );
-  //     } else {
-  //       this.logger.warn(
-  //         `End Request for ${request.path}`,
-  //         `method=${request.method} status=${status} code_error=${
-  //           message.code_error ? message.code_error : null
-  //         } message=${message.message ? message.message : null}`,
-  //       );
-  //     }
-  //   }
+  private logMessage(
+    request: any,
+    message: IError,
+    status: number,
+    exception: any,
+  ) {
+    if (status === 500) {
+      this.logger.error(
+        `Request: ${request.path}`,
+        `method=${request.method} status=${status} code_error=${
+          message.code_error ? message.code_error : null
+        } message=${message.message ? message.message : null}`,
+        status >= 500 ? exception.stack : '',
+      );
+    } else {
+      this.logger.warn(
+        `Request: ${request.path}`,
+        `method=${request.method} status=${status} code_error=${
+          message.code_error ? message.code_error : null
+        } message=${message.message ? message.message : null}`,
+      );
+    }
+  }
 }
