@@ -6,6 +6,7 @@ import {
   IJwtEnvironment,
   IMailEnvironment,
   IRedisEnvironment,
+  IDevMailEnvironment,
 } from '@app/ports';
 
 export class EnvironmentService
@@ -13,10 +14,27 @@ export class EnvironmentService
     IDatabaseEnvironment,
     IJwtEnvironment,
     IMailEnvironment,
-    IRedisEnvironment
+    IRedisEnvironment,
+    IDevMailEnvironment
 {
   getRedisPassword(): string {
     return process.env['REDIS_PASSWORD'];
+  }
+
+  getDevEmailPassword(): string {
+    return process.env['DEV_EMAIL_PASSWORD'];
+  }
+
+  getDevEmailServer(): string {
+    return process.env['DEV_EMAIL_SERVER'];
+  }
+
+  getDevEmailUser(): string {
+    return process.env['DEV_EMAIL_USER'];
+  }
+
+  getEnvironment(): string {
+    return process.env['NODE_ENV'];
   }
 
   getEmailUser(): string {

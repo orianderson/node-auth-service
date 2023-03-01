@@ -9,7 +9,7 @@ import {
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
 import { EnvironmentService } from '../../config';
-import { CacheService, MailService } from '@infra/index';
+import { CacheService, MailService, MailTransporter } from '@infra/index';
 
 export class UsecasesFactory implements IUsecasesFactory {
   registerUser(): RegisterUserUsecases {
@@ -28,7 +28,7 @@ export class UsecasesFactory implements IUsecasesFactory {
   isUser(): VerifyUserUsecases {
     return new VerifyUserUsecases(
       new UserRepository(),
-      new MailService(new EnvironmentService()),
+      new MailService(new MailTransporter()),
     );
   }
 
