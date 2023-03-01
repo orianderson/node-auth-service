@@ -2,7 +2,12 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
 import { UserUsecasesFactory } from '../../factory';
-import { BodyCredentials, BodyIdentityUser, ResponseSignIn } from '../dto';
+import {
+  BodyCredentials,
+  BodyIdentityUser,
+  ResponseSignIn,
+  ResponseUserVerified,
+} from '../dto';
 
 import { ForbiddenException, NotFoundException } from '@helpers/exceptions';
 import { StatusResponse } from '@helpers/constants';
@@ -31,7 +36,7 @@ export class AuthControllers {
   async isUser(
     @Body() payload: BodyIdentityUser,
     @Res() res: Response,
-  ): Promise<void> {
+  ): Promise<ResponseUserVerified> {
     const user = await this.usecases.isUser().execute(payload);
 
     if (user.isLeft()) {
@@ -40,6 +45,9 @@ export class AuthControllers {
 
     res.status(StatusResponse.OK.statusCode).send({
       message: 'Code successfully sended to your email',
+      accessToken: user.value,
     });
+
+    return;
   }
 }

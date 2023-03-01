@@ -16,6 +16,6 @@ import { InvalidPasswordError } from '@domain/errors';
 export abstract class IUsecasesFactory {
   abstract registerUser(): IInputPort<InputCreateUser, CreatedUserOutput>;
   abstract signIn(): IInputAuth<InputCredentials, UserOutput>;
-  abstract isUser(): IInputUserId<UserIdentity, boolean>;
+  abstract isUser(): IInputUserId<UserIdentity, string>;
   abstract resetPassword(): IInputPassword<InvalidPasswordError, boolean>;
 }

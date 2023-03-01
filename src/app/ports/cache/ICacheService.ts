@@ -11,3 +11,4 @@ export abstract class ICacheService {
 }
 
 export const allowList = (id: string) => `refresh-token: ${id}`;
+export const codeList = (id: string) => `code-list: ${id}`;

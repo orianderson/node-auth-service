@@ -1,4 +1,4 @@
-import { BcryptService, authService } from 'bcrypt-jwt-module';
+import { BcryptService, authService, JwtService } from 'bcrypt-jwt-module';
 
 import {
   RegisterUserUsecases,
@@ -29,6 +29,9 @@ export class UserUsecasesFactory implements IUsecasesFactory {
     return new VerifyUserUsecases(
       new UserRepository(),
       new MailService(new MailTransporter()),
+      new CacheService(),
+      new JwtService(),
+      new EnvironmentService(),
     );
   }
 

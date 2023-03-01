@@ -1,3 +1,3 @@
-import { IAuthService } from 'bcrypt-jwt-module';
+import { IAuthService, IJwtService } from 'bcrypt-jwt-module';
 
-export { IAuthService };
+export { IAuthService, IJwtService };

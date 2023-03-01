@@ -49,3 +49,8 @@ export class BodyUpdate implements UserData {
   profile?: string;
   password?: string;
 }
+
+export class ResponseUserVerified {
+  message: string;
+  accessToken: string;
+}
