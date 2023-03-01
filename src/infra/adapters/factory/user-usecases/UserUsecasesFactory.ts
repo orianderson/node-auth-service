@@ -5,6 +5,7 @@ import {
   SignInUsecases,
   VerifyUserUsecases,
   ResetPasswordUsecases,
+  VerifyCodeUsecases,
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
@@ -37,5 +38,9 @@ export class UserUsecasesFactory implements IUsecasesFactory {
 
   resetPassword(): ResetPasswordUsecases {
     return new ResetPasswordUsecases(new UserRepository(), new BcryptService());
+  }
+
+  verifyCode(): VerifyCodeUsecases {
+    return new VerifyCodeUsecases();
   }
 }

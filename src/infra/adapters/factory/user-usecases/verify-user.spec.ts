@@ -1,7 +1,7 @@
-import { UsecasesFactory } from './UserUsecasesFactory';
+import { UserUsecasesFactory } from './UserUsecasesFactory';
 
 describe('VerifyUserUsecases Test', () => {
-  const verifyUser = new UsecasesFactory().isUser();
+  const verifyUser = new UserUsecasesFactory().isUser();
   it('', async () => {
     const email = {
       email: 'ipxec@email.com',

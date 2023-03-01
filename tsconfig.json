@@ -32,7 +32,8 @@
     "./src/**/*.ts",
     "backup/authentication.guard.ts",
     "src/infra/adapters/controllers/user/update-password.js",
-    "src/infra/adapters/controllers/user/user.js"
+    "src/infra/adapters/controllers/user/user.js",
+    "src/infra/adapters/controllers/auth/auth.js"
   ],
   "exclude": ["**/backup/*"]
 }
