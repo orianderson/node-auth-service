@@ -1,8 +1,8 @@
 import { BodyUpdate } from '../dto/user';
-import { UsecasesFactory } from '../../factory/UsecasesFactory';
+import { UserUsecasesFactory } from '../../factory';
 
 export class UpdateUserControllers {
-  constructor(private readonly usecases: UsecasesFactory) {}
+  constructor(private readonly usecases: UserUsecasesFactory) {}
 
   async updatePassword(payload: BodyUpdate): Promise<void> {
     const check = await this.usecases.resetPassword().execute({

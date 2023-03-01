@@ -1,1 +1,1 @@
-export * from './UsecasesFactory';
+export * from './user-usecases/UserUsecasesFactory';

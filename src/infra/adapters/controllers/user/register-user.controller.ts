@@ -3,11 +3,11 @@ import { Response } from 'express';
 
 import { StatusResponse } from '@helpers/constants';
 import { BodyCreateUser } from '../dto';
-import { UsecasesFactory } from '../../factory';
+import { UserUsecasesFactory } from '../../factory';
 
 @Controller('users')
 export class UserControllers {
-  constructor(private readonly usecases: UsecasesFactory) {}
+  constructor(private readonly usecases: UserUsecasesFactory) {}
 
   @Post()
   async create(

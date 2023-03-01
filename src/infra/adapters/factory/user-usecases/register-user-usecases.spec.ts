@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { UsecasesFactory } from './UsecasesFactory';
+import { UsecasesFactory } from './UserUsecasesFactory';
 import { InputCreateUser } from '@domain/interfaces';
 
 describe('Usecases factories test', () => {

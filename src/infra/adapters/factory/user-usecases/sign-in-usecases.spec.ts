@@ -1,7 +1,7 @@
-import { UsecasesFactory } from './UsecasesFactory';
+import { UserUsecasesFactory } from './UserUsecasesFactory';
 
 describe('SignInUsecases Test', () => {
-  const signIn = new UsecasesFactory().signIn();
+  const signIn = new UserUsecasesFactory().signIn();
 
   it('should return user credentials', async () => {
     const user = await signIn.execute({

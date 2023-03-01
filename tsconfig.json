@@ -28,6 +28,11 @@
       "@ports/*": ["./src/ports/*"]
     }
   },
-  "include": ["./src/**/*.ts", "backup/authentication.guard.ts"],
+  "include": [
+    "./src/**/*.ts",
+    "backup/authentication.guard.ts",
+    "src/infra/adapters/controllers/user/update-password.js",
+    "src/infra/adapters/controllers/user/user.js"
+  ],
   "exclude": ["**/backup/*"]
 }

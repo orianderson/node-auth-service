@@ -1,4 +1,4 @@
-import { UsecasesFactory } from './UsecasesFactory';
+import { UsecasesFactory } from './UserUsecasesFactory';
 
 describe('VerifyUserUsecases Test', () => {
   const verifyUser = new UsecasesFactory().isUser();

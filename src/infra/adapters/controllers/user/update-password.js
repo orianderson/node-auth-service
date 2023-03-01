@@ -1,8 +1,8 @@
-import { UsecasesFactory } from '../../factory';
-import { UpdateUserControllers } from '../user';
+import { UserUsecasesFactory } from '../../factory';
+import { UpdateUserControllers } from '.';
 
 describe('ResetPassword Test', () => {
-  const controller = new UpdateUserControllers(new UsecasesFactory());
+  const controller = new UpdateUserControllers(new UserUsecasesFactory());
   const id = '28be0dc5-0082-4a44-8f9e-a63dd21ac21a';
   it('should to be true', async () => {
     const action = await controller.updatePassword({

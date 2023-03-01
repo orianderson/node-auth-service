@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
-import { UsecasesFactory } from '../../factory/UsecasesFactory';
+import { UserUsecasesFactory } from '../../factory';
 import { BodyCredentials, BodyIdentityUser, ResponseSignIn } from '../dto';
 
 import { ForbiddenException, NotFoundException } from '@helpers/exceptions';
@@ -9,7 +9,7 @@ import { StatusResponse } from '@helpers/constants';
 
 @Controller('auth')
 export class AuthControllers {
-  constructor(private readonly usecases: UsecasesFactory) {}
+  constructor(private readonly usecases: UserUsecasesFactory) {}
 
   @Post('login')
   async signIn(

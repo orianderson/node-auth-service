@@ -1,4 +1,4 @@
-import { UsecasesFactory } from './UsecasesFactory';
+import { UsecasesFactory } from './UserUsecasesFactory';
 describe('Reset Password Usecases Test', () => {
   const usecases = new UsecasesFactory();
   const id = '28be0dc5-0082-4a44-8f9e-a63dd21ac21a';

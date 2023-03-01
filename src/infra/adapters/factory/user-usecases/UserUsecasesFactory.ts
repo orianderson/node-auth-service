@@ -8,10 +8,10 @@ import {
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
-import { EnvironmentService } from '../../config';
+import { EnvironmentService } from '../../../config';
 import { CacheService, MailService, MailTransporter } from '@infra/index';
 
-export class UsecasesFactory implements IUsecasesFactory {
+export class UserUsecasesFactory implements IUsecasesFactory {
   registerUser(): RegisterUserUsecases {
     return new RegisterUserUsecases(new BcryptService(), new UserRepository());
   }
