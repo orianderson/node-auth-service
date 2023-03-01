@@ -1,5 +1,9 @@
 import { Either } from '@helpers/either';
-import { InvalidCredentialsError, InvalidUserError } from '@app/errors';
+import {
+  InvalidCredentialsError,
+  InvalidUserError,
+  NotFoundError,
+} from '@app/errors';
 import { InvalidPasswordError } from '@domain/errors';
 
 export interface IInputPort<I, O = void> {
@@ -19,5 +23,5 @@ export interface IInputPassword<I, O = void> {
 }
 
 export interface IInputCode<I, O = void> {
-  execute(data: I): Promise<O>;
+  execute(data: I): Promise<Either<NotFoundError, O>>;
 }
