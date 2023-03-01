@@ -1,11 +1,14 @@
 import { Either, left, right } from '@helpers/either';
 import { UserIdentity } from '@domain/interfaces';
 import { InvalidUserError } from '../errors';
-import { IInputUserId, IUserRepository } from '@app/ports';
+import { IInputUserId, IUserRepository, IMailService } from '@app/ports';
 import { generateCode } from '@helpers/index';
 
 export class VerifyUserUsecases implements IInputUserId<UserIdentity, boolean> {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(
+    private readonly userRepository: IUserRepository,
+    private readonly mailService: IMailService,
+  ) {}
 
   async execute(
     data: UserIdentity,
@@ -18,7 +21,12 @@ export class VerifyUserUsecases implements IInputUserId<UserIdentity, boolean> {
       return left(new InvalidUserError());
     } else {
       const code = generateCode(6);
-      console.log(code);
+      await this.mailService.sendMail({
+        subject: 'Código de verificação',
+        to: data.email,
+        html: code.toString(),
+      });
+
       return right(true);
     }
   }
