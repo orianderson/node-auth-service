@@ -1,13 +1,11 @@
 import {
-  UserData,
-  UserUpdate,
-} from './../../../../domain/interfaces/UserInput';
-import {
   InputCreateUser,
   CreatedUserOutput,
   UserOutput,
   UserIdentity,
+  UserData,
 } from '@domain/interfaces';
+import { InputCode } from '@app/ports';
 
 export class BodyCreateUser implements InputCreateUser {
   id?: string;
@@ -53,4 +51,8 @@ export class BodyUpdate implements UserData {
 export class ResponseUserVerified {
   message: string;
   accessToken: string;
+}
+
+export class BodyVerifyCode {
+  code: number;
 }

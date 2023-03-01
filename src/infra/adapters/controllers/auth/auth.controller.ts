@@ -7,6 +7,7 @@ import {
   BodyIdentityUser,
   ResponseSignIn,
   ResponseUserVerified,
+  BodyVerifyCode,
 } from '../dto';
 
 import { ForbiddenException, NotFoundException } from '@helpers/exceptions';
@@ -49,5 +50,23 @@ export class AuthControllers {
     });
 
     return;
+  }
+
+  @Post('verify-code')
+  async verifyCode(
+    @Body() payload: BodyVerifyCode,
+    @Res() res: Response,
+  ): Promise<void> {
+    const code = Number(payload.code);
+    const isUser = await this.usecases.verifyCode().execute({
+      code: code,
+      email: 'and.orisistem@gmail.com',
+    });
+
+    if (isUser.isLeft()) {
+      throw new ForbiddenException();
+    }
+
+    res.status(StatusResponse.NO_CONTENT.statusCode).end();
   }
 }
