@@ -41,6 +41,16 @@ export class AuthControllers {
     throw new ForbiddenException();
   }
 
+  @UseGuards(AuthGuard)
+  @Post('logout')
+  async logout(@Res() res: Response, @Request() req) {
+    const id = req.user.id;
+
+    await this.usecases.logout().execute(id);
+
+    res.status(StatusResponse.OK.statusCode).end();
+  }
+
   @Post('verify-user')
   async isUser(
     @Body() payload: BodyIdentityUser,
@@ -68,12 +78,13 @@ export class AuthControllers {
     @Request() req,
   ): Promise<void> {
     const code = Number(payload.code);
+
+    const user = req.user.id;
+
     const isUser = await this.usecases.verifyCode().execute({
       code: code,
-      email: 'and.orisistem@gmail.com',
+      email: user,
     });
-
-    console.log(req.user);
 
     if (isUser.isLeft()) {
       throw new ForbiddenException();

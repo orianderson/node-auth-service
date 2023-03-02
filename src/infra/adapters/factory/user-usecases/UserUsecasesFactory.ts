@@ -6,11 +6,13 @@ import {
   VerifyUserUsecases,
   ResetPasswordUsecases,
   VerifyCodeUsecases,
+  LogoutUsecases,
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
 import { EnvironmentService } from '../../../config';
-import { CacheService, MailService, MailTransporter } from '@infra/index';
+import { CacheService, MailService, MailTransporter } from '@infra/adapters';
+import { ManagerCache } from '@infra/database';
 
 export class UserUsecasesFactory implements IUsecasesFactory {
   registerUser(): RegisterUserUsecases {
@@ -22,7 +24,7 @@ export class UserUsecasesFactory implements IUsecasesFactory {
       new UserRepository(),
       authService,
       new EnvironmentService(),
-      new CacheService(),
+      new CacheService(new ManagerCache()),
     );
   }
 
@@ -30,7 +32,7 @@ export class UserUsecasesFactory implements IUsecasesFactory {
     return new VerifyUserUsecases(
       new UserRepository(),
       new MailService(new MailTransporter()),
-      new CacheService(),
+      new CacheService(new ManagerCache()),
       new JwtService(),
       new EnvironmentService(),
     );
@@ -41,6 +43,10 @@ export class UserUsecasesFactory implements IUsecasesFactory {
   }
 
   verifyCode(): VerifyCodeUsecases {
-    return new VerifyCodeUsecases(new CacheService());
+    return new VerifyCodeUsecases(new CacheService(new ManagerCache()));
+  }
+
+  logout(): LogoutUsecases {
+    return new LogoutUsecases(new CacheService(new ManagerCache()));
   }
 }

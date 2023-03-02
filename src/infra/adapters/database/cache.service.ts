@@ -17,7 +17,13 @@ export class CacheService implements ICacheService {
   }
 
   async isKey(key: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    const isData = await this.client.isKey(key);
+
+    if (!isData) {
+      return false;
+    }
+
+    return true;
   }
 
   async delete(key: string): Promise<void> {

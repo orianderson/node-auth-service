@@ -1,9 +1,7 @@
 read about filters
 read about interceptors
 
-# logout
 # recovery password
-# verify user
 
 # Auth User 
     - isAuthenticated

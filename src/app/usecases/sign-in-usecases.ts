@@ -1,5 +1,10 @@
+import { blockList } from './../ports/cache/ICacheService';
 import { IJwtEnvironment } from './../ports/config/IJwtEnvironment';
-import { InputCredentials, UserOutput } from './../../domain/interfaces';
+import {
+  InputCredentials,
+  UserData,
+  UserOutput,
+} from './../../domain/interfaces';
 import {
   IAuthService,
   IInputAuth,
@@ -29,23 +34,40 @@ export class SignInUsecases
 
     if (data) {
       const secret = this.environment.getJwtSecret();
-      const user = await this.authService.signInUser(payload.password, secret, {
-        email: data.email,
-        id: data.id,
-        name: data.name,
-        password: data.password,
-        profile: data.profile,
-        username: data.username,
-      });
+
+      const user = await this.getUserData(payload, secret, data);
+
       if (user) {
-        await this.cacheService.setKey(allowList(user.id), {
-          value: user.refreshToken,
-          expiration: Date.now() + this.days * this.oneDayMilliseconds,
-        });
+        await this.authenticatedUsersList(user);
+
         return right(user);
       }
     }
 
     return left(new InvalidCredentialsError());
+  }
+
+  private async authenticatedUsersList(user: UserOutput) {
+    await this.cacheService.setKey(allowList(user.id), {
+      value: user.refreshToken,
+      expiration: Date.now() + this.days * this.oneDayMilliseconds,
+    });
+
+    await this.cacheService.delete(blockList(user.id));
+  }
+
+  private async getUserData(
+    payload: InputCredentials,
+    secret: string,
+    data: UserData,
+  ) {
+    return await this.authService.signInUser(payload.password, secret, {
+      email: data.email,
+      id: data.id,
+      name: data.name,
+      password: data.password,
+      profile: data.profile,
+      username: data.username,
+    });
   }
 }

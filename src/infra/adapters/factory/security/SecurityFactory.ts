@@ -1,17 +1,27 @@
 import { JwtService } from 'bcrypt-jwt-module';
 
-import { Unauthorized } from './../../../../helpers/exceptions';
+import { CacheService } from './../../database/cache.service';
+import { ManagerCache } from '@infra/database/cache/redis.client';
 import { EnvironmentService } from './../../../config/environments';
-import { UserId } from '@app/ports/interfaces';
+
+import { Unauthorized } from './../../../../helpers/exceptions';
+import { UserId, blockList } from '@app/ports';
 
 export class SecurityFactory {
-  checkJwtToken(token: string): UserId {
+  async checkJwtToken(token: string): Promise<UserId> {
     const jwt = new JwtService();
+    const cacheService = new CacheService(new ManagerCache());
     const environment = new EnvironmentService();
     const payload = jwt.checkToken(token, environment.getJwtSecret());
 
     if (payload.isLeft()) {
       throw new Unauthorized(payload.value.message);
+    }
+
+    const isBlocked = await cacheService.isKey(blockList(payload.value.id));
+
+    if (isBlocked) {
+      throw new Unauthorized('Used is blocked');
     }
 
     return {

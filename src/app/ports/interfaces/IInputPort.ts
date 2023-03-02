@@ -25,3 +25,7 @@ export interface IInputPassword<I, O = void> {
 export interface IInputCode<I, O = void> {
   execute(data: I): Promise<Either<NotFoundError, O>>;
 }
+
+export interface ILogoutPort<I, O = void> {
+  execute(data: I): Promise<O>;
+}

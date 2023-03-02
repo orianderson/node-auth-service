@@ -5,3 +5,4 @@ export * from './factory';
 export * from './middleware';
 export * from './repositories';
 export * from './mail';
+export * from './database';
