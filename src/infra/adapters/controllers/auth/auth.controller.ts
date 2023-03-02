@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 import { UserUsecasesFactory } from '../../factory';
@@ -10,6 +17,7 @@ import {
   BodyVerifyCode,
 } from '../dto';
 
+import { AuthGuard } from '../../security';
 import { ForbiddenException, NotFoundException } from '@helpers/exceptions';
 import { StatusResponse } from '@helpers/constants';
 
@@ -52,16 +60,20 @@ export class AuthControllers {
     return;
   }
 
+  @UseGuards(AuthGuard)
   @Post('verify-code')
   async verifyCode(
     @Body() payload: BodyVerifyCode,
     @Res() res: Response,
+    @Request() req,
   ): Promise<void> {
     const code = Number(payload.code);
     const isUser = await this.usecases.verifyCode().execute({
       code: code,
       email: 'and.orisistem@gmail.com',
     });
+
+    console.log(req.user);
 
     if (isUser.isLeft()) {
       throw new ForbiddenException();
