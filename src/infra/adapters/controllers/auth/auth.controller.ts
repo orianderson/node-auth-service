@@ -48,7 +48,7 @@ export class AuthControllers {
 
     await this.usecases.logout().execute(id);
 
-    res.status(StatusResponse.OK.statusCode).end();
+    res.status(StatusResponse.NO_CONTENT.statusCode).end();
   }
 
   @Post('verify-user')
@@ -87,6 +87,27 @@ export class AuthControllers {
     });
 
     if (isUser.isLeft()) {
+      throw new ForbiddenException();
+    }
+
+    res.status(StatusResponse.OK.statusCode).send(isUser.value);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('reset-password')
+  async resetPassword(
+    @Body() payload: { password: string },
+    @Res() res: Response,
+    @Request() req,
+  ): Promise<void> {
+    const user = req.user;
+
+    const isValid = await this.usecases.resetPassword().execute({
+      email: user.id,
+      ...payload,
+    });
+
+    if (isValid.isLeft()) {
       throw new ForbiddenException();
     }
 

@@ -43,7 +43,11 @@ export class UserUsecasesFactory implements IUsecasesFactory {
   }
 
   verifyCode(): VerifyCodeUsecases {
-    return new VerifyCodeUsecases(new CacheService(new ManagerCache()));
+    return new VerifyCodeUsecases(
+      new CacheService(new ManagerCache()),
+      new JwtService(),
+      new EnvironmentService(),
+    );
   }
 
   logout(): LogoutUsecases {

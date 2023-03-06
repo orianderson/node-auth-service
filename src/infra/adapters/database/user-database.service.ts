@@ -66,7 +66,9 @@ export class UserDatabaseService implements IDatabaseService {
   async update(query: UserUpdate): Promise<void> {
     await this.databaseClient.user.update({
       where: {
-        id: query.id,
+        id: query?.id,
+        email: query?.email,
+        username: query?.username,
       },
       data: {
         ...query.data,

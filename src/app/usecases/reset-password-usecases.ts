@@ -19,7 +19,7 @@ export class ResetPasswordUsecases
     if (isStrong.isRight()) {
       const hashPassword = await this.bcrypt.hash(isStrong.value.password);
       await this.userRepository.update({
-        id: data.id,
+        email: data.email,
         data: { password: hashPassword },
       });
 
