@@ -6,6 +6,7 @@ import {
   InvalidEmailError,
   InvalidNameError,
   InvalidPasswordError,
+  InvalidFieldError,
 } from '../errors';
 import { Either, left, right, verifyFields } from '../../helpers';
 
@@ -15,7 +16,7 @@ interface UserProps {
   email: Email;
   name: Name;
   profile: string;
-  user_terms: boolean;
+  use_terms: boolean;
   use_privacy: boolean;
   password: Password;
 }
@@ -31,14 +32,20 @@ export class User {
       username: user.username,
       profile: user.profile,
       use_privacy: user.use_privacy,
-      user_terms: user.user_terms,
+      use_terms: user.use_terms,
       password: user.password,
     };
   }
 
   static create(
     newUser: InputCreateUser,
-  ): Either<InvalidEmailError | InvalidNameError | InvalidPasswordError, User> {
+  ): Either<
+    | InvalidEmailError
+    | InvalidNameError
+    | InvalidPasswordError
+    | InvalidFieldError,
+    User
+  > {
     const email = Email.create(newUser.email);
 
     if (email.isLeft()) {
@@ -57,7 +64,11 @@ export class User {
       return left(new InvalidPasswordError());
     }
 
-    this.verifyFields(newUser);
+    const { field, check } = this.verifyFields(newUser);
+
+    if (!check) {
+      return left(new InvalidFieldError(field));
+    }
 
     return right(
       new User({
@@ -68,7 +79,7 @@ export class User {
         username: newUser.username,
         profile: newUser.profile,
         use_privacy: newUser.use_privacy,
-        user_terms: newUser.user_terms,
+        use_terms: newUser.use_terms,
       }),
     );
   }
@@ -82,7 +93,7 @@ export class User {
       username: userObj.user.username,
       id: userObj.user.id,
       use_privacy: userObj.user.use_privacy,
-      user_terms: userObj.user.user_terms,
+      use_terms: userObj.user.use_terms,
     };
   }
 
@@ -91,6 +102,11 @@ export class User {
   }
 
   private static verifyFields(data: InputCreateUser) {
-    verifyFields(data, ['profile', 'username', 'userTerms', 'usePrivacy']);
+    return verifyFields(data, [
+      'profile',
+      'username',
+      'use_terms',
+      'use_privacy',
+    ]);
   }
 }

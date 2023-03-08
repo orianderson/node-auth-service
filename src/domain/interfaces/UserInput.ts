@@ -4,7 +4,7 @@ export class InputCreateUser {
   username: string;
   email: string;
   profile: string;
-  user_terms: boolean;
+  use_terms: boolean;
   use_privacy: boolean;
   password: string;
 }
