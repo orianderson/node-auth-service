@@ -1,11 +1,11 @@
 import { Either, left, right } from '@helpers/either';
-import { IInputPassword, IUserRepository, IBcryptService } from '@app/ports';
+import { IInputPort, IUserRepository, IBcryptService } from '@app/ports';
 import { UserData } from '@domain/interfaces';
 import { Password } from '@domain/objects';
 import { InvalidPasswordError } from '@domain/errors';
 
 export class ResetPasswordUsecases
-  implements IInputPassword<InvalidPasswordError, boolean>
+  implements IInputPort<InvalidPasswordError, boolean>
 {
   constructor(
     private readonly userRepository: IUserRepository,

@@ -2,7 +2,7 @@ import { Either, left, right } from '@helpers/either';
 import { UserIdentity } from '@domain/interfaces';
 import { InvalidUserError } from '../errors';
 import {
-  IInputUserId,
+  IInputPort,
   IUserRepository,
   IMailService,
   ICacheService,
@@ -12,7 +12,7 @@ import {
 } from '@app/ports';
 import { generateCode } from '@helpers/index';
 
-export class VerifyUserUsecases implements IInputUserId<UserIdentity, string> {
+export class VerifyUserUsecases implements IInputPort<UserIdentity, string> {
   private minutes = 3;
   private seconds = 60000;
   constructor(

@@ -1,7 +1,7 @@
 import { Either, left, right } from '@helpers/either';
 import {
   InputCode,
-  IInputCode,
+  IInputPort,
   ResponseUserVerified,
   IJwtEnvironment,
 } from '../ports';
@@ -10,7 +10,7 @@ import { NotFoundError } from '../errors';
 import { ICacheService, codeList, IJwtService } from '@app/ports';
 
 export class VerifyCodeUsecases
-  implements IInputCode<InputCode, ResponseUserVerified>
+  implements IInputPort<InputCode, ResponseUserVerified>
 {
   constructor(
     private readonly cacheService: ICacheService,

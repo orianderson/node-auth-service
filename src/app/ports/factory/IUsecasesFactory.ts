@@ -1,9 +1,4 @@
-import {
-  IInputPort,
-  IInputAuth,
-  IInputUserId,
-  IInputPassword,
-} from '@app/ports';
+import { IInputPort } from '@app/ports';
 import {
   InputCreateUser,
   CreatedUserOutput,
@@ -15,7 +10,7 @@ import { InvalidPasswordError } from '@domain/errors';
 
 export abstract class IUsecasesFactory {
   abstract registerUser(): IInputPort<InputCreateUser, CreatedUserOutput>;
-  abstract signIn(): IInputAuth<InputCredentials, UserOutput>;
-  abstract isUser(): IInputUserId<UserIdentity, string>;
-  abstract resetPassword(): IInputPassword<InvalidPasswordError, boolean>;
+  abstract signIn(): IInputPort<InputCredentials, UserOutput>;
+  abstract isUser(): IInputPort<UserIdentity, string>;
+  abstract resetPassword(): IInputPort<InvalidPasswordError, boolean>;
 }

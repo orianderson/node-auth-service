@@ -7,7 +7,7 @@ import {
 } from './../../domain/interfaces';
 import {
   IAuthService,
-  IInputAuth,
+  IInputPort,
   IUserRepository,
   ICacheService,
   allowList,
@@ -16,7 +16,7 @@ import { Either, left, right } from '@helpers/either';
 import { InvalidCredentialsError } from '../errors';
 
 export class SignInUsecases
-  implements IInputAuth<InputCredentials, UserOutput>
+  implements IInputPort<InputCredentials, UserOutput>
 {
   private days = 5;
   private oneDayMilliseconds = 86400000;

@@ -21,7 +21,7 @@ export class SecurityFactory {
     const isBlocked = await cacheService.isKey(blockList(payload.value.id));
 
     if (isBlocked) {
-      throw new Unauthorized('Used is blocked');
+      throw new Unauthorized('User is blocked');
     }
 
     return {

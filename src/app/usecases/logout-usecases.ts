@@ -1,6 +1,6 @@
-import { ILogoutPort, ICacheService, allowList, blockList } from '@app/ports';
+import { IInputPort, ICacheService, allowList, blockList } from '@app/ports';
 
-export class LogoutUsecases implements ILogoutPort<string, void> {
+export class LogoutUsecases implements IInputPort<string, void> {
   constructor(private readonly cacheService: ICacheService) {}
 
   async execute(data: string): Promise<void> {
