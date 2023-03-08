@@ -1,8 +1,6 @@
 read about filters
 read about interceptors
 
-# recovery password
-
 # Auth User 
     - isAuthenticated
     - isActive
