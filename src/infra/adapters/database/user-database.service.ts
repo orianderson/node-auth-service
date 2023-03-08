@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import { IDatabaseService } from '@app/ports/services';
 import { DatabaseClient } from '@infra/database';
 
-import { InputCreateUser, UserData, UserUpdate } from '@domain/interfaces';
+import { NewUser, UserData, UserUpdate } from '@domain/interfaces';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class UserDatabaseService implements IDatabaseService {
     return true;
   }
 
-  async create(newUser: InputCreateUser): Promise<void> {
+  async create(newUser: NewUser): Promise<void> {
     await this.databaseClient.user.create({
       data: {
         ...newUser,

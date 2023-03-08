@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { Email, Name, Password } from '../objects';
-import { InputCreateUser } from '../interfaces';
+import { NewUser } from '../interfaces';
 import {
   InvalidEmailError,
   InvalidNameError,
@@ -38,7 +38,7 @@ export class User {
   }
 
   static create(
-    newUser: InputCreateUser,
+    newUser: NewUser,
   ): Either<
     | InvalidEmailError
     | InvalidNameError
@@ -84,7 +84,7 @@ export class User {
     );
   }
 
-  static toJsonFormat(userObj: User): InputCreateUser {
+  static toJsonFormat(userObj: User): NewUser {
     return {
       email: userObj.user.email.email,
       name: userObj.user.name.userName,
@@ -101,7 +101,7 @@ export class User {
     return randomUUID();
   }
 
-  private static verifyFields(data: InputCreateUser) {
+  private static verifyFields(data: NewUser) {
     return verifyFields(data, [
       'profile',
       'username',

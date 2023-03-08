@@ -1,8 +1,8 @@
-import { InputCreateUser, UserData, UserUpdate } from '@domain/interfaces';
+import { NewUser, UserData, UserUpdate } from '@domain/interfaces';
 import { IUserRepository } from '@app/ports';
 
 export class UserRepositoryMemory implements IUserRepository {
-  data: InputCreateUser[];
+  data: NewUser[];
 
   constructor() {
     this.data = [];
@@ -12,7 +12,7 @@ export class UserRepositoryMemory implements IUserRepository {
     throw new Error('Method not implemented.');
   }
 
-  async create(user: InputCreateUser): Promise<void> {
+  async create(user: NewUser): Promise<void> {
     this.data.push(user);
   }
 

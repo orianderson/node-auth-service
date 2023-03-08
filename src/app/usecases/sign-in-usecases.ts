@@ -1,10 +1,6 @@
 import { blockList } from './../ports/cache/ICacheService';
 import { IJwtEnvironment } from './../ports/config/IJwtEnvironment';
-import {
-  InputCredentials,
-  UserData,
-  UserOutput,
-} from './../../domain/interfaces';
+import { Credentials, UserData, UserOutput } from './../../domain/interfaces';
 import {
   IAuthService,
   IInputPort,
@@ -15,9 +11,7 @@ import {
 import { Either, left, right } from '@helpers/either';
 import { InvalidCredentialsError } from '../errors';
 
-export class SignInUsecases
-  implements IInputPort<InputCredentials, UserOutput>
-{
+export class SignInUsecases implements IInputPort<Credentials, UserOutput> {
   private days = 5;
   private oneDayMilliseconds = 86400000;
   constructor(
@@ -28,7 +22,7 @@ export class SignInUsecases
   ) {}
 
   async execute(
-    payload: InputCredentials,
+    payload: Credentials,
   ): Promise<Either<InvalidCredentialsError, UserOutput>> {
     const data = await this.userRepository.get(payload.email);
 
@@ -57,7 +51,7 @@ export class SignInUsecases
   }
 
   private async getUserData(
-    payload: InputCredentials,
+    payload: Credentials,
     secret: string,
     data: UserData,
   ) {

@@ -8,6 +8,6 @@ export class UserOutput {
   refreshToken: string;
 }
 
-export class CreatedUserOutput {
+export class UserCreated {
   id: string;
 }

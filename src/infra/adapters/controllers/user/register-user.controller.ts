@@ -2,7 +2,7 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
 import { StatusResponse } from '@helpers/constants';
-import { BodyCreateUser } from '../dto';
+import { UserPayload } from '../dto';
 import { UserUsecasesFactory } from '../../factory';
 
 @Controller('users')
@@ -11,7 +11,7 @@ export class UserControllers {
 
   @Post()
   async create(
-    @Body() payload: BodyCreateUser,
+    @Body() payload: UserPayload,
     @Res() res: Response,
   ): Promise<void> {
     await this.usecases.registerUser().execute(payload);

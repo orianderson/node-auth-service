@@ -1,6 +1,6 @@
 import { User } from '../../domain/entities/user';
 import { IBcryptService, IInputPort, IUserRepository } from '@app/ports';
-import { InputCreateUser, CreatedUserOutput } from '../../domain/interfaces';
+import { NewUser, UserCreated } from '../../domain/interfaces';
 
 import {
   BadRequestException,
@@ -8,15 +8,13 @@ import {
   ConflictException,
 } from '../../helpers';
 
-export class RegisterUserUsecases
-  implements IInputPort<InputCreateUser, CreatedUserOutput>
-{
+export class RegisterUserUsecases implements IInputPort<NewUser, UserCreated> {
   constructor(
     private readonly bcrypt: IBcryptService,
     private readonly userRepository: IUserRepository,
   ) {}
 
-  async execute(newUser: InputCreateUser): Promise<CreatedUserOutput> {
+  async execute(newUser: NewUser): Promise<UserCreated> {
     const userObj = User.create(newUser);
 
     if (userObj.isRight()) {
@@ -38,7 +36,7 @@ export class RegisterUserUsecases
     }
   }
 
-  private async createUser(isUser: boolean, user: InputCreateUser) {
+  private async createUser(isUser: boolean, user: NewUser) {
     if (isUser) {
       throw new ConflictException({
         code_error: null,

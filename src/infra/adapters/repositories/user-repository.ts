@@ -1,4 +1,4 @@
-import { InputCreateUser, UserData, UserUpdate } from '@domain/interfaces';
+import { NewUser, UserData, UserUpdate } from '@domain/interfaces';
 import { IUserRepository } from '@app/ports/repositories';
 import { UserDatabaseService } from '@infra/adapters/database';
 import { DatabaseClient } from '@infra/database';
@@ -14,7 +14,7 @@ export class UserRepository implements IUserRepository {
     return await this.userDatabase.exist(user);
   }
 
-  async create(user: InputCreateUser): Promise<void> {
+  async create(user: NewUser): Promise<void> {
     await this.userDatabase.create(user);
   }
 

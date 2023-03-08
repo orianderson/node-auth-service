@@ -10,11 +10,11 @@ import { Response } from 'express';
 
 import { UserUsecasesFactory } from '../../factory';
 import {
-  BodyCredentials,
-  BodyIdentityUser,
-  ResponseSignIn,
+  PayloadCredentials,
+  PayloadUserEmail,
+  ResponseUser,
   ResponseUserVerified,
-  BodyVerifyCode,
+  PayloadCodeNumber,
 } from '../dto';
 
 import { AuthGuard } from '../../security';
@@ -27,9 +27,9 @@ export class AuthControllers {
 
   @Post('login')
   async signIn(
-    @Body() payload: BodyCredentials,
+    @Body() payload: PayloadCredentials,
     @Res() res: Response,
-  ): Promise<ResponseSignIn> {
+  ): Promise<ResponseUser> {
     const user = await this.usecases.signIn().execute(payload);
 
     if (user.isRight()) {
@@ -53,7 +53,7 @@ export class AuthControllers {
 
   @Post('verify-user')
   async isUser(
-    @Body() payload: BodyIdentityUser,
+    @Body() payload: PayloadUserEmail,
     @Res() res: Response,
   ): Promise<ResponseUserVerified> {
     const user = await this.usecases.isUser().execute(payload);
@@ -73,7 +73,7 @@ export class AuthControllers {
   @UseGuards(AuthGuard)
   @Post('verify-code')
   async verifyCode(
-    @Body() payload: BodyVerifyCode,
+    @Body() payload: PayloadCodeNumber,
     @Res() res: Response,
     @Request() req,
   ): Promise<void> {

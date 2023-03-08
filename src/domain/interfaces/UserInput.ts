@@ -1,15 +1,4 @@
-export class InputCreateUser {
-  id?: string;
-  name: string;
-  username: string;
-  email: string;
-  profile: string;
-  use_terms: boolean;
-  use_privacy: boolean;
-  password: string;
-}
-
-export class InputCredentials {
+export class Credentials {
   email: string;
   password: string;
 }
@@ -34,4 +23,15 @@ export class UserUpdate {
   email?: string;
   username?: string;
   data: UserData;
+}
+
+export class NewUser {
+  id?: string;
+  name: string;
+  username: string;
+  email: string;
+  profile: string;
+  use_terms: boolean;
+  use_privacy: boolean;
+  password: string;
 }
