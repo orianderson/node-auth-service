@@ -11,7 +11,7 @@ import {
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
 import { EnvironmentService } from '../../../config';
-import { CacheService, MailService, MailTransporter } from '@infra/adapters';
+import { CacheService, MailService, MailTransporter } from '@infra/index';
 import { ManagerCache } from '@infra/database';
 
 export class UserUsecasesFactory implements IUsecasesFactory {
