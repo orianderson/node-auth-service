@@ -1,4 +1,4 @@
-import { Email } from './Email';
+import { Email } from '../Email';
 
 describe('Email unit test', () => {
   it('should return valid email', () => {

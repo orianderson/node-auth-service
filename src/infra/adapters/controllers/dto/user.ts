@@ -13,6 +13,8 @@ export class BodyCreateUser implements InputCreateUser {
   username: string;
   email: string;
   profile: string;
+  user_terms: boolean;
+  use_privacy: boolean;
   password: string;
 }
 

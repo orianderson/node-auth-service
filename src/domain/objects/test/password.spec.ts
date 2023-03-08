@@ -1,4 +1,4 @@
-import { Password } from './Password';
+import { Password } from '../Password';
 
 describe('Password test unit', () => {
   it('should return true', () => {

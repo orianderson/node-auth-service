@@ -15,6 +15,8 @@ interface UserProps {
   email: Email;
   name: Name;
   profile: string;
+  user_terms: boolean;
+  use_privacy: boolean;
   password: Password;
 }
 
@@ -28,6 +30,8 @@ export class User {
       name: user.name,
       username: user.username,
       profile: user.profile,
+      use_privacy: user.use_privacy,
+      user_terms: user.user_terms,
       password: user.password,
     };
   }
@@ -63,6 +67,8 @@ export class User {
         password: password.value as Password,
         username: newUser.username,
         profile: newUser.profile,
+        use_privacy: newUser.use_privacy,
+        user_terms: newUser.user_terms,
       }),
     );
   }
@@ -75,6 +81,8 @@ export class User {
       profile: userObj.user.profile,
       username: userObj.user.username,
       id: userObj.user.id,
+      use_privacy: userObj.user.use_privacy,
+      user_terms: userObj.user.user_terms,
     };
   }
 
@@ -83,6 +91,6 @@ export class User {
   }
 
   private static verifyFields(data: InputCreateUser) {
-    verifyFields(data, ['profile', 'username']);
+    verifyFields(data, ['profile', 'username', 'userTerms', 'usePrivacy']);
   }
 }
