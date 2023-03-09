@@ -12,7 +12,7 @@ export class ManagerCache {
 
   constructor() {
     this.client = redis.createClient({
-      host: 'localhost',
+      host: config.getRedisHost(),
       port: 6379,
       no_ready_check: true,
       auth_pass: config.getRedisPassword(),

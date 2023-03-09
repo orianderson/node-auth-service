@@ -21,6 +21,10 @@ export class EnvironmentService
     return process.env['REDIS_PASSWORD'];
   }
 
+  getRedisHost(): string {
+    return process.env['REDIS_HOST'];
+  }
+
   getDevEmailPassword(): string {
     return process.env['DEV_EMAIL_PASSWORD'];
   }

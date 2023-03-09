@@ -5,3 +5,7 @@ read about interceptors
     - isAuthenticated
     - isActive
     - getId
+
+# Docker container
+
+# change database provider
