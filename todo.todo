@@ -6,6 +6,4 @@ read about interceptors
     - isActive
     - getId
 
-# Docker container
-
-# change database provider
+# confirm user register

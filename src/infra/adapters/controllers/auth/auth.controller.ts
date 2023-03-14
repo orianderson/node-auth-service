@@ -7,6 +7,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 import { UserUsecasesFactory } from '../../factory';
 import {
@@ -22,6 +23,7 @@ import { ForbiddenException, NotFoundException } from '@helpers/exceptions';
 import { StatusResponse } from '@helpers/constants';
 
 @Controller('auth')
+@ApiTags('authentication')
 export class AuthControllers {
   constructor(private readonly usecases: UserUsecasesFactory) {}
 
