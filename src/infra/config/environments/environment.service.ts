@@ -7,6 +7,7 @@ import {
   IMailEnvironment,
   IRedisEnvironment,
   IDevMailEnvironment,
+  IAppPort,
 } from '@app/ports';
 
 export class EnvironmentService
@@ -15,8 +16,13 @@ export class EnvironmentService
     IJwtEnvironment,
     IMailEnvironment,
     IRedisEnvironment,
-    IDevMailEnvironment
+    IDevMailEnvironment,
+    IAppPort
 {
+  getApiPort(): string {
+    return process.env['API_PORT'];
+  }
+
   getRedisPassword(): string {
     return process.env['REDIS_PASSWORD'];
   }

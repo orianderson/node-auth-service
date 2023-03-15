@@ -40,3 +40,4 @@ development.env
 
 backup/
 data.json
+production.env
