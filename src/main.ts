@@ -19,6 +19,8 @@ async function bootstrap() {
     .setDescription(
       'This Api can use by any system, like a microservice, to user authenticate with email and password. Also works to verify user by Jwt service.',
     )
+    .addBasicAuth()
+    .addBearerAuth()
     .setVersion('1.0')
     .addTag('authentication')
     .build();

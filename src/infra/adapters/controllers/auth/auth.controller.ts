@@ -7,7 +7,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBasicAuth, ApiBearerAuth } from '@nestjs/swagger';
 
 import { UserUsecasesFactory } from '../../factory';
 import {
@@ -28,6 +28,7 @@ export class AuthControllers {
   constructor(private readonly usecases: UserUsecasesFactory) {}
 
   @Post('login')
+  @ApiBasicAuth()
   async signIn(
     @Body() payload: PayloadCredentials,
     @Res() res: Response,
@@ -44,6 +45,7 @@ export class AuthControllers {
   }
 
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Post('logout')
   async logout(@Res() res: Response, @Request() req) {
     const id = req.user.id;
