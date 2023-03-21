@@ -28,7 +28,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^6.1.4",
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^4.11.0",
     "bcrypt-jwt-module": "^2.0.6",
     "cache-manager": "4.0.0",
     "cache-manager-redis-store": "2.0.0",
