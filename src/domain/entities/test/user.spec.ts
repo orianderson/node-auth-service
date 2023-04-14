@@ -1,9 +1,9 @@
-import { InputCreateUser } from '../../interfaces';
+import { NewUser } from '../../interfaces';
 import { User } from '../../entities';
 
 describe('Entity User Test', () => {
   it('should return user object', () => {
-    const newUser: InputCreateUser = {
+    const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
       username: 'enganderson',
@@ -21,7 +21,7 @@ describe('Entity User Test', () => {
   });
 
   it('should return InvalidFieldError - error name', () => {
-    const newUser: InputCreateUser = {
+    const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
       username: 'enganderson',

@@ -23,9 +23,7 @@
       "@app/*": ["./src/app/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@infra/*": ["./src/infra/*"],
-      "@domain/*": ["./src/domain/*"],
-      "@adapters/*": ["./src/adapters/*"],
-      "@ports/*": ["./src/ports/*"]
+      "@domain/*": ["./src/domain/*"]
     }
   },
   "include": ["./src/**/*.ts"],
