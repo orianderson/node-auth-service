@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   auth-api:
-    image: enganderson/auth-api
+    image: enganderson/server-auth
     container_name: auth-api
     restart: always
     ports:

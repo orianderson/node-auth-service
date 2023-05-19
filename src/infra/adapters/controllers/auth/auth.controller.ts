@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   Request,
   Res,
@@ -9,7 +11,7 @@ import {
 import { Response } from 'express';
 import { ApiTags, ApiBasicAuth, ApiBearerAuth } from '@nestjs/swagger';
 
-import { UserUsecasesFactory } from '../../factory';
+import { SecurityFactory, UserUsecasesFactory } from '../../factory';
 import {
   PayloadCredentials,
   PayloadUserEmail,
@@ -25,7 +27,10 @@ import { StatusResponse } from '@helpers/constants';
 @Controller('auth')
 @ApiTags('authentication')
 export class AuthControllers {
-  constructor(private readonly usecases: UserUsecasesFactory) {}
+  constructor(
+    private readonly usecases: UserUsecasesFactory,
+    private readonly security: SecurityFactory,
+  ) {}
 
   @Post('login')
   @ApiBasicAuth()
@@ -116,5 +121,17 @@ export class AuthControllers {
     }
 
     res.status(StatusResponse.NO_CONTENT.statusCode).end();
+  }
+
+  @Get(':accessToken')
+  async checkCredentials(
+    @Param() params: { accessToken: string },
+    @Res() res: Response,
+  ) {
+    const accessToken = params.accessToken;
+
+    const userId = await this.security.checkJwtToken(accessToken);
+
+    res.status(StatusResponse.OK.statusCode).send(userId);
   }
 }

@@ -7,6 +7,7 @@ import {
   ResetPasswordUsecases,
   VerifyCodeUsecases,
   LogoutUsecases,
+  CheckCredentialsUsecases,
 } from '@app/usecases';
 import { UserRepository } from '@infra/adapters/repositories';
 import { IUsecasesFactory } from '@app/ports';
@@ -52,5 +53,12 @@ export class UserUsecasesFactory implements IUsecasesFactory {
 
   logout(): LogoutUsecases {
     return new LogoutUsecases(new CacheService(new ManagerCache()));
+  }
+
+  checkCredentials(): CheckCredentialsUsecases {
+    return new CheckCredentialsUsecases(
+      new JwtService(),
+      new EnvironmentService(),
+    );
   }
 }

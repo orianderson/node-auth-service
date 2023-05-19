@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { UserUsecasesFactory } from '../user-usecases/UserUsecasesFactory';
-import { InputCreateUser } from '@domain/interfaces';
+import { NewUser } from '@domain/interfaces';
 
 describe('Usecases factories test', () => {
   it('should return user - jsonObject', async () => {
@@ -8,7 +8,7 @@ describe('Usecases factories test', () => {
 
     const str = (Math.random() + 1).toString(36).substring(7);
 
-    const newUser: InputCreateUser = {
+    const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: `${str}@email.com`,
       username: str,
@@ -26,7 +26,7 @@ describe('Usecases factories test', () => {
     const registerUser = new UserUsecasesFactory().registerUser();
 
     const str = (Math.random() + 1).toString(36).substring(7);
-    const newUser: InputCreateUser = {
+    const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: `${str}@email.com`,
       username: str,
@@ -48,7 +48,7 @@ describe('Usecases factories test', () => {
     const registerUser = new UserUsecasesFactory().registerUser();
 
     const str = (Math.random() + 1).toString(36).substring(7);
-    const newUser: InputCreateUser = {
+    const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: `${str}@email.com`,
       username: str,

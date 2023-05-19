@@ -1,4 +1,4 @@
-import { IInputPort } from '@app/ports';
+import { IInputPort, UserId } from '@app/ports';
 import {
   UserCreated,
   Credentials,
@@ -13,4 +13,5 @@ export abstract class IUsecasesFactory {
   abstract signIn(): IInputPort<Credentials, UserOutput>;
   abstract isUser(): IInputPort<UserIdentity, string>;
   abstract resetPassword(): IInputPort<InvalidPasswordError, boolean>;
+  abstract checkCredentials(): IInputPort<string, UserId>;
 }
