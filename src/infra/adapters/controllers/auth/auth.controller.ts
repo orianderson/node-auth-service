@@ -60,7 +60,7 @@ export class AuthControllers {
     res.status(StatusResponse.NO_CONTENT.statusCode).end();
   }
 
-  @Post('verify-user')
+  @Post('users')
   async isUser(
     @Body() payload: PayloadUserEmail,
     @Res() res: Response,
@@ -80,13 +80,13 @@ export class AuthControllers {
   }
 
   @UseGuards(AuthGuard)
-  @Post('verify-code')
+  @Get('users/:code')
   async verifyCode(
-    @Body() payload: PayloadCodeNumber,
+    @Param() params: { code: string },
     @Res() res: Response,
     @Request() req,
   ): Promise<void> {
-    const code = Number(payload.code);
+    const code = Number(params.code);
 
     const user = req.user.id;
 
@@ -103,7 +103,7 @@ export class AuthControllers {
   }
 
   @UseGuards(AuthGuard)
-  @Post('reset-password')
+  @Post('password')
   async resetPassword(
     @Body() payload: { password: string },
     @Res() res: Response,

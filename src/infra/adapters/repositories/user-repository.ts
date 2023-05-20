@@ -31,6 +31,7 @@ export class UserRepository implements IUserRepository {
         name: true,
         password: true,
         profile: true,
+        active: true,
       },
     });
 
