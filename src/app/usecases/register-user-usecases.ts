@@ -22,7 +22,6 @@ export class RegisterUserUsecases implements IInputPort<NewUser, UserCreated> {
 
       const isUser = await this.userRepository.isUser({
         email: user.email,
-        username: user.username,
       });
 
       await this.createUser(isUser, user);

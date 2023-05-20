@@ -12,7 +12,6 @@ import { Either, left, right, verifyFields } from '../../helpers';
 
 interface UserProps {
   id: string;
-  username: string;
   email: Email;
   name: Name;
   profile: string;
@@ -29,7 +28,6 @@ export class User {
       id: user.id ?? User.generateId(),
       email: user.email,
       name: user.name,
-      username: user.username,
       profile: user.profile,
       use_privacy: user.use_privacy,
       use_terms: user.use_terms,
@@ -76,7 +74,6 @@ export class User {
         email: email.value as Email,
         name: name.value as Name,
         password: password.value as Password,
-        username: newUser.username,
         profile: newUser.profile,
         use_privacy: newUser.use_privacy,
         use_terms: newUser.use_terms,
@@ -90,7 +87,6 @@ export class User {
       name: userObj.user.name.userName,
       password: userObj.user.password.password,
       profile: userObj.user.profile,
-      username: userObj.user.username,
       id: userObj.user.id,
       use_privacy: userObj.user.use_privacy,
       use_terms: userObj.user.use_terms,
@@ -102,11 +98,6 @@ export class User {
   }
 
   private static verifyFields(data: NewUser) {
-    return verifyFields(data, [
-      'profile',
-      'username',
-      'use_terms',
-      'use_privacy',
-    ]);
+    return verifyFields(data, ['profile', 'use_terms', 'use_privacy']);
   }
 }

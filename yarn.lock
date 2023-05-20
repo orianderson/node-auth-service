@@ -2377,10 +2377,10 @@ base64-js@^1.3.1:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
-bcrypt-jwt-module@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/bcrypt-jwt-module/-/bcrypt-jwt-module-2.0.6.tgz#af328427b3ed9508c7d2f15c1a3390ccc5e87bfe"
-  integrity sha512-yFrlg7GnPTjABCxCwb+x9u5nQ6AWdyzYmnpfCeE4J6mo0ebj2SrscuTvhAke8Paf3PKtJtZDpvKHEdbRARLDJQ==
+bcrypt-jwt-module@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/bcrypt-jwt-module/-/bcrypt-jwt-module-2.1.0.tgz#e1533cb52629c3cad30a88d3a51b7fa3c35553dc"
+  integrity sha512-gzt0GoZhVJZOtCokTUtHmqEaozqDBsp7D6bj683QCXssJ8DfRxQxh17q1jqtTjU0dPZKK2woD9PbycP3NFtIjw==
   dependencies:
     bcrypt "^5.1.0"
     jsonwebtoken "^9.0.0"

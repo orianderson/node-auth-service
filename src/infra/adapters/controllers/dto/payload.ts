@@ -13,10 +13,6 @@ export class UserPayload implements NewUser {
 
   @ApiProperty()
   @IsNotEmpty()
-  username: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
   email: string;
 
   @ApiProperty()
@@ -50,7 +46,6 @@ export class PayloadToUpdateUser implements UserData {
   @ApiProperty()
   id?: string;
   name?: string;
-  username?: string;
   email?: string;
   profile?: string;
   password?: string;

@@ -10,7 +10,7 @@ export class UserRepository implements IUserRepository {
     this.userDatabase = new UserDatabaseService(new DatabaseClient());
   }
 
-  async isUser(user: { email: string; username: string }): Promise<boolean> {
+  async isUser(user: { email: string }): Promise<boolean> {
     return await this.userDatabase.exist(user);
   }
 
@@ -31,7 +31,6 @@ export class UserRepository implements IUserRepository {
         name: true,
         password: true,
         profile: true,
-        username: true,
       },
     });
 

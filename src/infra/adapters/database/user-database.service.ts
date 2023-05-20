@@ -11,10 +11,10 @@ import { Prisma } from '@prisma/client';
 export class UserDatabaseService implements IDatabaseService {
   constructor(private readonly databaseClient: DatabaseClient) {}
 
-  async exist(user: { email: string; username: string }): Promise<boolean> {
+  async exist(user: { email: string }): Promise<boolean> {
     const isUser = await this.databaseClient.user.findFirst({
       where: {
-        OR: [{ email: user.email }, { username: user.username }],
+        email: user.email,
       },
       select: {
         id: true,
@@ -33,6 +33,7 @@ export class UserDatabaseService implements IDatabaseService {
       data: {
         ...newUser,
         id: newUser?.id ?? randomUUID(),
+        active: false,
       },
     });
   }
@@ -68,7 +69,6 @@ export class UserDatabaseService implements IDatabaseService {
       where: {
         id: query?.id,
         email: query?.email,
-        username: query?.username,
       },
       data: {
         ...query.data,

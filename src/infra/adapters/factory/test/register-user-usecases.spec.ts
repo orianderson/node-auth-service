@@ -11,7 +11,6 @@ describe('Usecases factories test', () => {
     const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: `${str}@email.com`,
-      username: str,
       password: 'anCD12**',
       profile: 'engineer',
       id: randomUUID(),
@@ -29,7 +28,6 @@ describe('Usecases factories test', () => {
     const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: `${str}@email.com`,
-      username: str,
       password: 'anCD12',
       profile: 'engineer',
       id: randomUUID(),
@@ -51,7 +49,6 @@ describe('Usecases factories test', () => {
     const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: `${str}@email.com`,
-      username: str,
       password: 'anCD12**',
       profile: 'engineer',
       id: randomUUID(),

@@ -6,7 +6,6 @@ describe('Entity User Test', () => {
     const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
-      username: 'enganderson',
       password: 'anCD12**',
       profile: 'engineer',
       use_terms: true,
@@ -24,7 +23,6 @@ describe('Entity User Test', () => {
     const newUser: NewUser = {
       name: 'Fernando Pessoa',
       email: 'fernando.pessoam@email.com',
-      username: 'enganderson',
       password: 'anCD12**',
       profile: 'engineer',
       use_terms: true,

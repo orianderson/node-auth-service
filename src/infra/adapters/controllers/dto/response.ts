@@ -7,9 +7,9 @@ export class ResponseUserId implements UserCreated {
 export class ResponseUser implements UserOutput {
   id: string;
   name: string;
-  username: string;
   email: string;
   profile: string;
+  active: boolean;
   accessToken: string;
   refreshToken: string;
 }

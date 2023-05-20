@@ -1,6 +1,6 @@
 {
   "name": "auth-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "search engineers and providers",
   "author": "Anderson Oliveira",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^6.1.4",
     "@prisma/client": "^4.10.1",
-    "bcrypt-jwt-module": "^2.0.8",
+    "bcrypt-jwt-module": "^2.1.0",
     "cache-manager": "4.0.0",
     "cache-manager-redis-store": "2.0.0",
     "class-transformer": "^0.5.1",

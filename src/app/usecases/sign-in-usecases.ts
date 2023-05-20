@@ -1,6 +1,11 @@
 import { blockList } from './../ports/cache/ICacheService';
 import { IJwtEnvironment } from './../ports/config/IJwtEnvironment';
-import { Credentials, UserData, UserOutput } from './../../domain/interfaces';
+import {
+  Credentials,
+  UserData,
+  UserOutput,
+  Payload,
+} from './../../domain/interfaces';
 import {
   IAuthService,
   IInputPort,
@@ -16,7 +21,7 @@ export class SignInUsecases implements IInputPort<Credentials, UserOutput> {
   private oneDayMilliseconds = 86400000;
   constructor(
     private readonly userRepository: IUserRepository,
-    private readonly authService: IAuthService,
+    private readonly authService: IAuthService<Payload>,
     private readonly environment: IJwtEnvironment,
     private readonly cacheService: ICacheService,
   ) {}
@@ -61,7 +66,7 @@ export class SignInUsecases implements IInputPort<Credentials, UserOutput> {
       name: data.name,
       password: data.password,
       profile: data.profile,
-      username: data.username,
+      active: data.active,
     });
   }
 }
