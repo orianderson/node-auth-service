@@ -22,6 +22,7 @@ export class CheckCredentialsUsecases implements IInputPort<string, UserId> {
 
     return right({
       id: userId.value.id,
+      role: userId.value.role,
     });
   }
 }
