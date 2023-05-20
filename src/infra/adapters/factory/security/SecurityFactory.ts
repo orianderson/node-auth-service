@@ -26,6 +26,7 @@ export class SecurityFactory {
 
     return {
       id: payload.value.id,
+      role: payload.value.role,
     };
   }
 }
