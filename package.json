@@ -27,7 +27,7 @@
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
-    "@nestjs/swagger": "^6.1.4",
+    "@nestjs/swagger": "^6.3.0",
     "@prisma/client": "^4.10.1",
     "bcrypt-jwt-module": "^2.1.0",
     "cache-manager": "4.0.0",
