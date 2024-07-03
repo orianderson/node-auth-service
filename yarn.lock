@@ -2265,11 +2265,6 @@ asap@^2.0.0:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
 
-async@3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-3.2.3.tgz#ac53dafd3f4720ee9e8a160628f18ea91df196c9"
-  integrity sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==
-
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -2501,14 +2496,13 @@ cache-manager-redis-store@2.0.0:
   dependencies:
     redis "^3.0.2"
 
-cache-manager@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-4.0.0.tgz#2eee2c2231aedca2bfb088f0fb5d92407df1fa1b"
-  integrity sha512-8HD47K/nObJwRRhPQ11QMgcbPCL9KNQRMc5ggUJUe/QLD6iW0i3UyWp8NcEeFlZSNMwaMG4gZfdn3Sn4syP+zA==
+cache-manager@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-5.0.0.tgz#5fc1a6e53d289621fb97e243317d6d4e935367ce"
+  integrity sha512-1qKdoeoJKmrf95Zvhr3NpBVAgBESt4TuZomBzn4N2gCFZvHjuUXBK1H8EDVsJdba6/grIgi6WGYb/ncJj+wjtg==
   dependencies:
-    async "3.2.3"
     lodash.clonedeep "^4.5.0"
-    lru-cache "^7.10.1"
+    lru-cache "^7.14.0"
 
 call-bind@^1.0.0:
   version "1.0.2"
@@ -4521,10 +4515,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lru-cache@^7.10.1:
-  version "7.17.0"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.17.0.tgz#00c7ba5919e5ea7c69ff94ddabbf32cb09ab805c"
-  integrity sha512-zSxlVVwOabhVyTi6E8gYv2cr6bXK+8ifYz5/uyJb9feXX6NACVDwY4p5Ut3WC3Ivo/QhpARHU3iujx2xGAYHbQ==
+lru-cache@^7.14.0:
+  version "7.18.3"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.18.3.tgz#f793896e0fd0e954a59dfdd82f0773808df6aa89"
+  integrity sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==
 
 macos-release@^2.5.0:
   version "2.5.1"
