@@ -21,13 +21,13 @@
     "test:e2e": "jest --config ./jest.config.ts"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.0",
+    "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
-    "@nestjs/swagger": "^6.1.4",
+    "@nestjs/swagger": "^11.2.6",
     "@prisma/client": "^4.10.1",
     "bcrypt-jwt-module": "^2.1.0",
     "cache-manager": "4.0.0",
